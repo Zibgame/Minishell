@@ -19,3 +19,10 @@ It includes built-ins such as `cd`, `echo`, `pwd`, `export`, `unset`, `env` and 
 ```bash
 make
 ./minishell
+```
+
+# ✨ Optional Bonus
+
+Wildcards *
+
+Logical operators && and ||
