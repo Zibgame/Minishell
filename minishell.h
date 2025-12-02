@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 08:52:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/02 09:27:00 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@
 # include <readline/history.h>
 # include "library/libft/libft.h"
 
+typedef struct s_shell
+{
+	char	**env;
+}	t_shell;
+
 char	*read_line(void);
-void	shell_loop(void);
+void	shell_loop(t_shell shell);
 void	sig_handler(int sig);
 void	init_signal(void);
-void	start_shell(void);
+void	start_shell(t_shell shell);
+void	exec_cmd(t_shell shell, char *line);
+t_shell	create_shell_struct(char **envp);
 
 #endif

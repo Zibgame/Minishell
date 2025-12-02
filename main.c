@@ -6,14 +6,19 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 08:51:51 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/02 09:27:24 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	start_shell();
+	t_shell	shell;
+
+	(void)argc;
+	(void)argv;
+	shell = create_shell_struct(envp);
+	start_shell(shell);
 	return (0);
 }

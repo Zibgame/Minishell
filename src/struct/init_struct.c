@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_line.c                                        :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:27:10 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 09:12:50 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/02 09:22:03 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*read_line(void)
+t_shell	create_shell_struct(char **envp)
 {
-	char	*line;
+	t_shell	shell;
 
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-			return (NULL);
-		if (*line)
-		{
-			add_history(line);
-			return (line);
-		}
-		free(line);
-	}
+	shell.env = envp;
+	return (shell);
 }

@@ -6,7 +6,7 @@
 #    By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/02 09:00:20 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/02 09:22:43 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS        = main.c \
               src/core/shell_loop.c \
               src/core/start_shell.c \
               src/input/read_line.c \
+              src/core/exec_cmd.c \
+              src/struct/init_struct.c \
               src/signals/signals.c
 
 OBJS        = $(SRCS:%.c=$(OBJ_DIR)/%.o)

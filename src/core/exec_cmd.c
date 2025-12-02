@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_line.c                                        :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:27:10 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 09:12:50 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/02 09:27:36 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*read_line(void)
+void	exec_cmd(t_shell shell, char *line)
 {
-	char	*line;
+	pid_t	pid;
+	char	**args;
 
-	while (1)
+	args = ft_split(line, ' ');
+	if (!args)
+		return ;
+	pid = fork();
+	if (pid == 0)
 	{
-		line = readline("minishell> ");
-		if (!line)
-			return (NULL);
-		if (*line)
-		{
-			add_history(line);
-			return (line);
-		}
-		free(line);
+		execve(args[0], args, shell.env);
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
+	waitpid(pid, NULL, 0);
+	return ;
 }
