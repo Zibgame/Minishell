@@ -6,36 +6,47 @@
 #    By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/02 08:52:30 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/02 09:00:20 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= minishell
+NAME        = minishell
 
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -I.
+SRC_DIR     = src
+OBJ_DIR     = obj
+LIBFT_DIR   = library/libft
+LIBFT       = $(LIBFT_DIR)/libft.a
 
-SRCS	= main.c \
-		  src/core/shell_loop.c \
-		  src/input/read_line.c \
-			src/core/start_shell.c \
-			src/signals/signals.c
+SRCS        = main.c \
+              src/core/shell_loop.c \
+              src/core/start_shell.c \
+              src/input/read_line.c \
+              src/signals/signals.c
 
-OBJS	= $(SRCS:.c=.o)
+OBJS        = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-all: $(NAME)
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
+all: $(LIBFT) $(NAME)
 
-%.o: %.c minishell.h
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

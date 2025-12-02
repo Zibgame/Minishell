@@ -24,6 +24,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "library/libft/libft.h"
 
 char	*read_line(void);
 void	shell_loop(void);
