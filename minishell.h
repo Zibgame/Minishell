@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 08:32:16 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/02 08:52:12 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@
 
 char	*read_line(void);
 void	shell_loop(void);
+void	sig_handler(int sig);
+void	init_signal(void);
+void	start_shell(void);
 
 #endif

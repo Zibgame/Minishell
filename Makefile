@@ -6,7 +6,7 @@
 #    By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/02 08:31:30 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/02 08:52:30 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CFLAGS	= -Wall -Wextra -Werror -I.
 
 SRCS	= main.c \
 		  src/core/shell_loop.c \
-		  src/input/read_line.c
+		  src/input/read_line.c \
+			src/core/start_shell.c \
+			src/signals/signals.c
 
 OBJS	= $(SRCS:.c=.o)
 
