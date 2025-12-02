@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 09:27:00 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/02 10:58:59 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	init_signal(void);
 void	start_shell(t_shell shell);
 void	exec_cmd(t_shell shell, char *line);
 t_shell	create_shell_struct(char **envp);
+char	*get_cmd(char *cmd, char **env);
 
 #endif

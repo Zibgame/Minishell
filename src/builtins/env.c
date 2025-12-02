@@ -1,39 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 11:01:03 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/02 09:43:20 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_cmd(t_shell shell, char *line)
-{
-	pid_t	pid;
-	char	**args;
-	char	*bin;
-
-	args = ft_split(line, ' ');
-	if (!args)
-		return ;
-	bin = get_cmd(args[0], shell.env);
-	if (!bin)
-	{
-		printf("command not found: %s\n", args[0]);
-		exit(EXIT_FAILURE);
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		execve(bin, args, shell.env);
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, NULL, 0);
-	return ;
-}

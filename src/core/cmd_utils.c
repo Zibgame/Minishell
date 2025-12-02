@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 11:01:03 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/02 09:33:20 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/02 10:57:16 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_cmd(t_shell shell, char *line)
+char	*get_cmd(char *cmd, char **env)
 {
-	pid_t	pid;
-	char	**args;
-	char	*bin;
+	char	**paths;
+	char	*tmp;
+	int		i;
 
-	args = ft_split(line, ' ');
-	if (!args)
-		return ;
-	bin = get_cmd(args[0], shell.env);
-	if (!bin)
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
+		i++;
+	if (!env[i])
+		return (NULL);
+	paths = ft_split(env[i] + 5, ':');
+	i = 0;
+	while (paths[i])
 	{
-		printf("command not found: %s\n", args[0]);
-		exit(EXIT_FAILURE);
+		tmp = ft_strjoin(paths[i], "/");
+		tmp = ft_strjoin(tmp, cmd);
+		if (access(tmp, X_OK) == 0)
+			return (tmp);
+		i++;
 	}
-	pid = fork();
-	if (pid == 0)
-	{
-		execve(bin, args, shell.env);
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, NULL, 0);
-	return ;
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 #    By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/12 21:18:42 by zcadinot          #+#    #+#              #
-#    Updated: 2025/10/20 09:09:44 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/02 09:38:20 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC =	ft_atoi.c \
 		ft_strrchr.c \
 		ft_strtrim.c \
 		ft_substr.c \
+		free_split.c \
 		ft_tolower.c \
 		ft_toupper.c
 

@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 11:01:03 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/02 09:36:57 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/02 09:38:35 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	exec_cmd(t_shell shell, char *line)
+void	free_split(char **tab)
 {
-	pid_t	pid;
-	char	**args;
-	char	*bin;
+	int	i;
 
-	args = ft_split(line, ' ');
-	if (!args)
+	if (!tab)
 		return ;
-	bin = get_cmd(args[0], shell.env);
-	if (!bin)
+	i = 0;
+	while (tab[i])
 	{
-		printf("command not found: %s\n", args[0]);
-		exit(EXIT_FAILURE);
+		free(tab[i]);
+		i++;
 	}
-	pid = fork();
-	if (pid == 0)
-	{
-		execve(bin, args, shell.env);
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, NULL, 0);
-	return ;
+	free(tab);
 }
