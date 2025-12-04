@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+         #
+#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/02 09:34:53 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/04 16:31:09 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = minishell
+NAME        = minishell_V2
 
 SRC_DIR     = src
 OBJ_DIR     = obj
