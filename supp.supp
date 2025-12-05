@@ -1,34 +1,24 @@
 {
-    glfw_suppress
+    ignore_libreadline
     Memcheck:Leak
     ...
-    fun:glfwInit
+    obj:/libreadline.so.
 }
-
 {
-    dl_open_suppress
+    readline_leak
     Memcheck:Leak
     ...
-    fun:_dl_open
+    fun:readline
 }
-
 {
-    dbus_register_suppress
+    readline_add_history
     Memcheck:Leak
     ...
-    fun:_dbus*
+    fun:add_history
 }
-
 {
-    dbus_register_suppress
+    usrbin
     Memcheck:Leak
     ...
-    fun:dbus*
-}
-
-{
-    xrmparsefinfo_suppress
-    Memcheck:Leak
-    ...
-    fun:_XrmInitParseInfo
+    obj:/usr/bin/*
 }
