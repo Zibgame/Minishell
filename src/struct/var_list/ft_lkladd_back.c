@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lkladd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 12:49:04 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstadd_back(t_var_list **lst, t_var_list *new)
+{
+	t_var_list	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		last = ft_lstlast(*lst);
+		last->next = new;
+	}
+}
+
+// int main(void)
+// {
+//     t_var_list *a = ft_lstnew("hello");
+//     t_var_list *b = ft_lstnew("world");
+//     ft_lstadd_back(&a, b);
+//     printf("%s\n", (char *)a->next->content);
+//     return (0);
+// }
