@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 10:02:52 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/10/19 01:39:26 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:52:34 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../includes/minishell.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lklsize(t_var_list *lst)
 {
 	int	count;
 
@@ -24,12 +24,3 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (count);
 }
-
-// int main(void)
-// {
-//     t_list *a = ft_lstnew("one");
-//     ft_lstadd_back(&a, ft_lstnew("two"));
-//     ft_lstadd_back(&a, ft_lstnew("three"));
-//     printf("%d\n", ft_lstsize(a));
-//     return (0);
-// }

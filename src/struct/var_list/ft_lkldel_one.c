@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lkldel_one.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 12:03:23 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/10/19 01:39:48 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:51:27 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../includes/minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lkldelone(t_var_list *lst)
 {
-	if (!lst || !del)
+	if (!lst)
 		return ;
-	del(lst->content);
+	free(lst->name);
+	free(lst->value);
 	free(lst);
 }
-
-// void del(void *p) { free(p); }
-// int main(void)
-// {
-//     char *s = strdup("delete");
-//     t_list *a = ft_lstnew(s);
-//     ft_lstdelone(a, del);
-//     return (0);
-// }
