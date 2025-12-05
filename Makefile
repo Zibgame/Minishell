@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
+#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/04 16:31:25 by dadoune          ###   ########.fr        #
+#    Updated: 2025/12/05 09:42:44 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME        = minishell
 
 SRC_DIR     = src
 OBJ_DIR     = obj
+INCLD_DIR	= includes
 LIBFT_DIR   = library/libft
+
 LIBFT       = $(LIBFT_DIR)/libft.a
 
 SRCS        = main.c \
