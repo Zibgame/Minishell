@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+         #
+#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/12 21:18:42 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/02 09:38:20 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/05 10:46:14 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC =	ft_atoi.c \
 		ft_tolower.c \
 		ft_toupper.c
 
-BONUS_SRC =	ft_lstadd_back_bonus.c \
+LST_FILES =	ft_lstadd_back_bonus.c \
 			ft_lstadd_front_bonus.c \
 			ft_lstclear_bonus.c \
 			ft_lstdelone_bonus.c \
@@ -62,22 +62,18 @@ BONUS_SRC =	ft_lstadd_back_bonus.c \
 			ft_lstnew_bonus.c \
 			ft_lstsize_bonus.c
 
-OBJ = $(SRC:.c=.o)
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
+OBJ = $(SRC:.c=.o) $(LST_FILES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 
-bonus: $(OBJ) $(BONUS_OBJ)
-	$(AR) $(NAME) $(OBJ) $(BONUS_OBJ)
-
 %.o: %.c libft.h
 	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
-	$(RM) $(OBJ) $(BONUS_OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
