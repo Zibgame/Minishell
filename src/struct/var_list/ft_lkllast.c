@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lklclear.c                                      :+:      :+:    :+:   */
+/*   ft_lkllast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 14:24:50 by aeherve          ###   ########.fr       */
+/*   Created: 2025/12/05 14:19:17 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/05 14:22:57 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	ft_lklclear(t_var_list **lst)
+t_var_list	*ft_lkllast(t_var_list *lst)
 {
-	t_var_list	*temp;
-
 	if (!lst)
-		return ;
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		free((*lst)->name);
-		free((*lst)->value);
-		free(*lst);
-		*lst = temp;
-	}
-	*lst = NULL;
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
-
-// void del(void *p) { free(p); }
-// int main(void)
-// {
-//     t_var_list *a = ft_lstnew(strdup("one"));
-//     ft_lstadd_back(&a, ft_lstnew(strdup("two")));
-//     ft_lstclear(&a, del);
-//     return (0);
-// }

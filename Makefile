@@ -6,32 +6,40 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/05 10:46:19 by aeherve          ###   ########.fr        #
+#    Updated: 2025/12/05 14:23:28 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = minishell
 
-SRC_DIR     = src
-OBJ_DIR     = obj
+SRC_DIR		= src
+OBJ_DIR		= obj
 INCLD_DIR	= includes
-LIBFT_DIR   = library/libft
+LIBFT_DIR	= library/libft
 
-LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT			= $(LIBFT_DIR)/libft.a
 
-SRCS        = main.c \
-              src/core/shell_loop.c \
-              src/core/start_shell.c \
-              src/input/read_line.c \
-              src/core/exec_cmd.c \
-              src/core/cmd_utils.c \
-              src/struct/init_struct.c \
-              src/signals/signals.c
+SRCS		= main.c \
+			src/core/shell_loop.c \
+			src/core/start_shell.c \
+			src/input/read_line.c \
+			src/core/exec_cmd.c \
+			src/core/cmd_utils.c \
+			src/struct/init_struct.c \
+			src/signals/signals.c
 
-OBJS        = $(SRCS:%.c=$(OBJ_DIR)/%.o)
+LKL_FILES	= src/struct/var_list/ft_lkladd_front.c \
+			src/struct/var_list/ft_lkladd_back.c \
+			src/struct/var_list/ft_lklclear.c \
+			src/struct/var_list/ft_lkllast.c \
+			src/struct/var_list/ft_lkldel_one.c \
+			src/struct/var_list/ft_lklnew.c \
+			src/struct/var_list/ft_lklsize.c
 
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o)
+
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 
 all: $(LIBFT) $(NAME)
 

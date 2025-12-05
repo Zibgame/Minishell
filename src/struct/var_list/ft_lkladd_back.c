@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lkladd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 13:32:50 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:34:12 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../includes/minishell.h"
 
 void	ft_lkladd_back(t_var_list **lst, t_var_list *new)
 {
@@ -22,16 +22,7 @@ void	ft_lkladd_back(t_var_list **lst, t_var_list *new)
 		*lst = new;
 	else
 	{
-		last = ft_lstlast(*lst);
+		last = ft_lkllast(*lst);
 		last->next = new;
 	}
 }
-
-// int main(void)
-// {
-//     t_var_list *a = ft_lstnew("hello");
-//     t_var_list *b = ft_lstnew("world");
-//     ft_lstadd_back(&a, b);
-//     printf("%s\n", (char *)a->next->content);
-//     return (0);
-// }
