@@ -1,83 +1,55 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/12 21:18:42 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/05 10:46:14 by aeherve          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+CC = cc -Wall -Wextra -Werror
+AR = ar rcs
 
-NAME	= libft.a
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
-AR		= ar rcs
-RM		= rm -f
+FT_PRINTF_FILES = ft_printf/ft_printf.c
 
-SRC =	ft_atoi.c \
-		ft_bzero.c \
-		ft_calloc.c \
-		ft_isalnum.c \
-		ft_isalpha.c \
-		ft_isascii.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_itoa.c \
-		ft_memchr.c \
-		ft_memcmp.c \
-		ft_memcpy.c \
-		ft_memmove.c \
-		ft_memset.c \
-		ft_putchar_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c \
-		ft_putstr_fd.c \
-		ft_split.c \
-		ft_strchr.c \
-		ft_strdup.c \
-		ft_striteri.c \
-		ft_strjoin.c \
-		ft_strlcat.c \
-		ft_strlcpy.c \
-		ft_strlen.c \
-		ft_strmapi.c \
-		ft_strncmp.c \
-		ft_strnstr.c \
-		ft_strrchr.c \
-		ft_strtrim.c \
-		ft_substr.c \
-		free_split.c \
-		ft_tolower.c \
-		ft_toupper.c
+GET_NEXT_LINE = get_next_line/get_next_line.c
 
-LST_FILES =	ft_lstadd_back_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstmap_bonus.c \
-			ft_lstnew_bonus.c \
-			ft_lstsize_bonus.c
+FT_IS_FILES = ft_is/ft_isalnum.c ft_is/ft_isapha.c ft_is/ft_isascii.c ft_is/ft_isdigit.c ft_is/ft_isprint.c
 
-OBJ = $(SRC:.c=.o) $(LST_FILES:.c=.o)
+FT_PUT_FILES = ft_put/put/ft_putnbr_hex.c ft_put/put/ft_putnbr_hexl.c ft_put/put/ft_putnbr_unsigned.c \
+			ft_put/put/ft_putnbr.c ft_put/put/ft_putptr.c ft_put/put/ft_putstr.c \
+			ft_put/putfd/ft_putchar_fd.c ft_put/putfd/ft_putendl_fd.c ft_put/putfd/ft_putnbr_fd.c \
+			ft_put/putfd/ft_putstr_fd.c
+
+LIST_FILES = lst/ft_lstnew.c lst/ft_lstadd_front.c lst/ft_lstsize.c \
+			lst/ft_lstlast.c lst/ft_lstadd_back.c lst/ft_lstdelone.c \
+			 lst/ft_lstclear.c lst/ft_lstiter.c lst/ft_lstmap.c
+
+MEMUSE_FILES = memuse/ft_bzero.c memuse/ft_calloc.c memuse/ft_memchr.c \
+			memuse/ft_memcmp.c memuse/ft_memcpy.c memuse/ft_memmove.c \
+			memuse/ft_memset.c
+
+STRMANIP_FILES =  strmanip/ft_strdup.c strmanip/ft_striteri.c \
+			strmanip/ft_strjoin.c strmanip/ft_strlcat.c strmanip/ft_strlcpy.c \
+			strmanip/ft_strmapi.c strmanip/ft_tolower.c strmanip/ft_toupper.c
+
+STRUSE_FILES = struse/ft_strchr.c struse/ft_strlen.c struse/ft_strncmp.c \
+			struse/ft_strnstr.c struse/ft_strrchr.c struse/ft_strtrim.c \
+			struse/ft_substr.c
+
+OTHER_FILES =  other/ft_atoi.c  other/ft_split.c other/ft_itoa.c
+
+OBJECTS = $(FT_PRINTF_FILES:.c=.o) $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) $(LIST_FILES:.c=.o) \
+		$(MEMUSE_FILES:.c=.o) $(STRMANIP_FILES:.c=.o) $(STRUSE_FILES:.c=.o) $(OTHER_FILES:.c=.o) \
+		$(GET_NEXT_LINE:.c=.o)
+
+NAME = libft.a
 
 all: $(NAME)
+	
+%.o: %.c
+	$(CC) -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
-
-%.o: %.c libft.h
-	$(CC) $(CFLAGS) -I. -c $< -o $@
+$(NAME): $(OBJECTS)
+	$(AR) $(NAME) $(OBJECTS)
 
 clean:
-	$(RM) $(OBJ)
+	rm -rf $(OBJECTS)
 
-fclean: clean
-	$(RM) $(NAME)
+fclean: clean 
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: clean re fclean all
