@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:02:41 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:35:23 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ t_var_list	*ft_lklnew(char *name, char *value);
 char		*get_value(t_shell *shell, char *name);
 
 t_shell	create_shell_struct(char **envp);
+
+char	*get_cmd_path(t_shell *shell, char *cmd);
 
 #endif

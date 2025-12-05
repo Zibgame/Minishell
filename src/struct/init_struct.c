@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:16:24 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:38:26 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,33 @@ t_var_list	*convert_env_variables(char **envp)
 	int			i;
 	char		**tmp;
 	t_var_list	*env;
-	
-	i = 0;
-	if (envp[0])
+
+	i = -1;
+	env = NULL;
+	while (envp[++i])
 	{
-		
-		while(envp[++i])
-		{
-			tmp = ft_split(envp[i], '=');
-			if (!tmp)
-			{
-				//mettre message d'erreur
-				exit (EXIT_FAILURE);
-			}
-			ft_lkladd_back(&env, ft_lklnew(tmp[0], tmp[1]));
-			free_array(tmp);
-			
-		}
+		tmp = ft_split(envp[i], '=');
+		if (!tmp)
+			exit(EXIT_FAILURE);
+		ft_lkladd_back(&env,
+			ft_lklnew(ft_strdup(tmp[0]), ft_strdup(tmp[1])));
+		free_array(tmp);
 	}
-	else
-		return (NULL);
 	return (env);
 }
 
 char	*get_value(t_shell *shell, char *name)
 {
 	t_var_list	*tmp;
-	
-	if (shell)
+
+	if (!shell || !name)
+		return (NULL);
+	tmp = shell->envp;
+	while (tmp)
 	{
-		tmp = shell->envp;
-		while (tmp)
-		{
-			if (tmp->name == name)
-				return (tmp->value);
-			tmp = tmp->next;
-		}
+		if (ft_strncmp(tmp->name, name, ft_strlen(name) + 1) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
