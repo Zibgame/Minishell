@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:58:53 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 16:21:35 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	shell_loop(t_shell *shell)
 		line = read_line();
 		if (!line)
 			break ;
-		exec_cmd(shell, line);
+		if (is_builtins(line))
+			exec_builtins(line, shell);
+		else
+			exec_cmd(shell, line);
 		free(line);
 	}
 }

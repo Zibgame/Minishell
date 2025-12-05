@@ -6,17 +6,17 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:58:15 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 16:04:44 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void		display_vars(t_var_list *vars)
+void	display_vars(t_var_list *vars)
 {
 	while (vars)
 	{
-		printf("$s=$s\n", vars->name, vars->value);
+		printf("%s=%s\n", vars->name, vars->value);
 		vars = vars->next;
 	}
 }
@@ -61,12 +61,12 @@ t_shell	*create_shell_struct(char **envp)
 {
 	t_shell	*shell;
 
+	shell = malloc(sizeof(t_shell));
+	if (!shell)
+		exit(EXIT_FAILURE);
 	shell->envp_tmp = envp;
 	shell->envp = convert_env_variables(envp);
 	if (!shell->envp)
-	{
-		//mettre message d'erreur
 		exit(EXIT_FAILURE);
-	}
 	return (shell);
 }
