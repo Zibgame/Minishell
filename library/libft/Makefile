@@ -28,7 +28,7 @@ STRUSE_FILES = struse/ft_strchr.c struse/ft_strlen.c struse/ft_strncmp.c \
 			struse/ft_strnstr.c struse/ft_strrchr.c struse/ft_strtrim.c \
 			struse/ft_substr.c
 
-OTHER_FILES =  other/ft_atoi.c  other/ft_split.c other/ft_itoa.c
+OTHER_FILES =  other/ft_atoi.c  other/ft_split.c other/ft_itoa.c other/free_array.c 
 
 OBJECTS = $(FT_PRINTF_FILES:.c=.o) $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) $(LIST_FILES:.c=.o) \
 		$(MEMUSE_FILES:.c=.o) $(STRMANIP_FILES:.c=.o) $(STRUSE_FILES:.c=.o) $(OTHER_FILES:.c=.o) \

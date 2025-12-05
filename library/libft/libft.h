@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:31:29 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/05 13:08:07 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:15:44 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 
 char	**ft_split(char const *s, char c);
 
+void	free_array(char	**arr);
 void	ft_bzero(void *t, size_t n);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);

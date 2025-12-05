@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:06:38 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:16:24 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_var_list	*convert_env_variables(char **envp)
 				exit (EXIT_FAILURE);
 			}
 			ft_lkladd_back(&env, ft_lklnew(tmp[0], tmp[1]));
+			free_array(tmp);
 			
 		}
 	}
