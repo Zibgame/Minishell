@@ -6,11 +6,20 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:38:26 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 15:58:15 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void		display_vars(t_var_list *vars)
+{
+	while (vars)
+	{
+		printf("$s=$s\n", vars->name, vars->value);
+		vars = vars->next;
+	}
+}
 
 t_var_list	*convert_env_variables(char **envp)
 {
@@ -48,13 +57,13 @@ char	*get_value(t_shell *shell, char *name)
 	return (NULL);
 }
 
-t_shell	create_shell_struct(char **envp)
+t_shell	*create_shell_struct(char **envp)
 {
-	t_shell	shell;
+	t_shell	*shell;
 
-	shell.envp_tmp = envp;
-	shell.envp = convert_env_variables(envp);
-	if (!shell.envp)
+	shell->envp_tmp = envp;
+	shell->envp = convert_env_variables(envp);
+	if (!shell->envp)
 	{
 		//mettre message d'erreur
 		exit(EXIT_FAILURE);
