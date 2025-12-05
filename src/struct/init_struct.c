@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 14:53:28 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 15:06:38 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,19 @@ t_var_list	*convert_env_variables(char **envp)
 
 char	*get_value(t_shell *shell, char *name)
 {
-	(void)shell;
-	(void)name;
-	return ("");
+	t_var_list	*tmp;
+	
+	if (shell)
+	{
+		tmp = shell->envp;
+		while (tmp)
+		{
+			if (tmp->name == name)
+				return (tmp->value);
+			tmp = tmp->next;
+		}
+	}
+	return (NULL);
 }
 
 t_shell	create_shell_struct(char **envp)
@@ -55,6 +65,7 @@ t_shell	create_shell_struct(char **envp)
 	if (!shell.envp)
 	{
 		//mettre message d'erreur
+		exit(EXIT_FAILURE);
 	}
 	return (shell);
 }

@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/05 14:23:28 by aeherve          ###   ########.fr        #
+#    Updated: 2025/12/05 15:07:17 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,10 @@ SRCS		= main.c \
 			src/input/read_line.c \
 			src/core/exec_cmd.c \
 			src/core/cmd_utils.c \
-			src/struct/init_struct.c \
 			src/signals/signals.c
 
-LKL_FILES	= src/struct/var_list/ft_lkladd_front.c \
+LKL_FILES	= src/struct/init_struct.c \
+			src/struct/var_list/ft_lkladd_front.c \
 			src/struct/var_list/ft_lkladd_back.c \
 			src/struct/var_list/ft_lklclear.c \
 			src/struct/var_list/ft_lkllast.c \
