@@ -1,0 +1,34 @@
+{
+    glfw_suppress
+    Memcheck:Leak
+    ...
+    fun:glfwInit
+}
+
+{
+    dl_open_suppress
+    Memcheck:Leak
+    ...
+    fun:_dl_open
+}
+
+{
+    dbus_register_suppress
+    Memcheck:Leak
+    ...
+    fun:_dbus*
+}
+
+{
+    dbus_register_suppress
+    Memcheck:Leak
+    ...
+    fun:dbus*
+}
+
+{
+    xrmparsefinfo_suppress
+    Memcheck:Leak
+    ...
+    fun:_XrmInitParseInfo
+}
