@@ -6,20 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 16:04:44 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:28:54 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	display_vars(t_var_list *vars)
-{
-	while (vars)
-	{
-		printf("%s=%s\n", vars->name, vars->value);
-		vars = vars->next;
-	}
-}
 
 t_var_list	*convert_env_variables(char **envp)
 {
