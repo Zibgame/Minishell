@@ -6,13 +6,13 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 12:49:13 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:03:54 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_var_list **lst, void (*del)(void *))
+void	ft_lklclear(t_var_list **lst)
 {
 	t_var_list	*temp;
 
@@ -21,7 +21,8 @@ void	ft_lstclear(t_var_list **lst, void (*del)(void *))
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		del((*lst)->content);
+		free((*lst)->name);
+		free((*lst)->values);
 		free(*lst);
 		*lst = temp;
 	}
