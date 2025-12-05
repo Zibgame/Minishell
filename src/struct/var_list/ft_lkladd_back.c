@@ -6,13 +6,13 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 12:49:04 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:32:50 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_var_list **lst, t_var_list *new)
+void	ft_lkladd_back(t_var_list **lst, t_var_list *new)
 {
 	t_var_list	*last;
 
