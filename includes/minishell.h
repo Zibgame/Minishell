@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 10:08:29 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 10:29:00 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "structs.h"
 # include "librairies.h"
-# include "library/libft/libft.h"
 
 void	init_signal(void);
 void	sig_handler(int sig);

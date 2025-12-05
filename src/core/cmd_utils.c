@@ -6,11 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:33:20 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 09:44:22 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 10:30:43 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*get_cmd(char *cmd, char **env)
 {

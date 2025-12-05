@@ -6,9 +6,9 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 09:44:20 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/05 10:30:53 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
