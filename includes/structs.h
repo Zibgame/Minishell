@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_loop.c                                       :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 09:44:27 by aeherve          ###   ########.fr       */
+/*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/05 09:39:02 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	shell_loop(t_shell shell)
+typedef struct s_shell
 {
-	char	*line;
-
-	while (1)
-	{
-		line = read_line();
-		if (!line)
-			break ;
-		exec_cmd(shell, line);
-		free(line);
-	}
-}
+	char	**env;
+}	t_shell;
+ 

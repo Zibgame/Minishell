@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 10:58:59 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:38:55 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "structs.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -25,11 +26,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "library/libft/libft.h"
-
-typedef struct s_shell
-{
-	char	**env;
-}	t_shell;
 
 char	*read_line(void);
 void	shell_loop(t_shell shell);

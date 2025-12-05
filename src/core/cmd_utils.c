@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:33:20 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/02 10:57:16 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:44:22 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*get_cmd(char *cmd, char **env)
 {

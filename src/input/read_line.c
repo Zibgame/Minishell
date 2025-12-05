@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:27:10 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 09:05:52 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:44:38 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*read_line(void)
 {
