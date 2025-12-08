@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:37:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:42:21 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	clear(void)
 {
-	ft_printf("\033[2J\033[H");
+	ft_printf("\e[1;1H\e[2J");
 	return ;
 }
