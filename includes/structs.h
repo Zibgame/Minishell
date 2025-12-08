@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 11:07:58 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:28:49 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@
 # include <stdbool.h>
 # include "library/libft/libft.h"
 
+enum e_types
+{
+	BUILTINS,
+};
+
 typedef struct s_cmd
 {
-	char	*name;
-	char	**args;
-	bool	is_builtin;
+	int				type;
+	char			*name;
+	char			**args;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_var_list

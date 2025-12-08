@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:53:22 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:42:13 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ void		ft_lkldelone(t_var_list *lst);
 int			ft_lklsize(t_var_list *lst);
 t_var_list	*ft_lkllast(t_var_list *lst);
 t_var_list	*ft_lklnew(char *name, char *value);
+
+void		ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void		ft_cmdadd_front(t_cmd **lst, t_cmd *new);
+void		ft_cmdclear(t_cmd **lst);
+void		ft_cmddelone(t_cmd *lst);
+int			ft_cmdsize(t_cmd *lst);
+t_cmd		*ft_cmdlast(t_cmd *lst);
+t_cmd		*ft_cmdnew(char *name, char **args);
 
 void		display_vars(t_var_list *vars);
 char		*get_value(t_shell *shell, char *name);
