@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 15:21:12 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 16:09:21 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_shell(t_shell *shell)
 char	*join_and_free(char *s1, char *s2)
 {
 	char	*new_line;
-	
+
 	new_line = ft_strjoin(s1, s2);
 	if (s1)
 	{
