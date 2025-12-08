@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_cmdsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 13:09:26 by aeherve          ###   ########.fr       */
+/*   Created: 2025/10/16 10:02:52 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 13:20:09 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_cmdsize(t_cmd *lst)
 {
-	t_shell	*shell;
+	int	count;
 
-	(void)argc;
-	(void)argv;
-	shell = create_shell_struct(envp);
-	if (!shell)
-		return (1);
-	printf(HEADER);
-	start_shell(shell);
-	
-	return (0);
+	count = 0;
+	while (lst)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
 }

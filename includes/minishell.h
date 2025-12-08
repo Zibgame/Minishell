@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 12:46:02 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 13:16:28 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 
 # include "structs.h"
 # include "librairies.h"
+
+# define HEADER \
+"              @@@@@@@   @@@@@@@@@@@@@@ \n" \
+"            @@@@@@@     @@@@@  @@@@@@@ \n" \
+"          @@@@@@@.      @@@    @@@@@@@ \n" \
+"        +@@@@@@.        @.     @@@@@@@ \n" \
+"      .@@@@@@*                @@@@@@@  \n" \
+"     @@@@@@@                #@@@@@@.   \n" \
+"   @@@@@@@                :@@@@@@=     \n" \
+" @@@@@@@.                @@@@@@'       \n" \
+"@@@@@@@@@@@@@@@@@@@@@   @@@@@@@     .@ \n" \
+"@@@@@@@@@@@@@@@@@@@@@   @@@@@@@    @@@ \n" \
+"@@@@@@@@@@@@@@@@@@@@@   @@@@@@@  @@@@@ \n" \
+"              @@@@@@@   @@@@@@@@@@@@@@ \n" \
+"              @@@@@@@                  \n" \
+"              @@@@@@@                  \n" \
+"              @@@@@@@                  \n"
 
 void		init_signal(void);
 void		sig_handler(int sig);
@@ -53,5 +70,7 @@ int	env(t_cmd *cmd, t_shell *shell);
 int	pwd(t_cmd *cmd, t_shell *shell);
 t_cmd	create_command(char *line);
 int	finish(t_cmd *cmd, t_shell *shell);
+
+void	free_shell(t_shell *shell);
 
 #endif

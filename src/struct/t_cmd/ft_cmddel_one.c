@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmdadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_cmddel_one.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 20:16:52 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/08 12:39:10 by aeherve          ###   ########.fr       */
+/*   Created: 2025/10/16 12:03:23 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 13:21:31 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	ft_cmdadd_front(t_cmd **lst, t_cmd *new)
+void	ft_cmddelone(t_cmd *lst)
 {
-	if (new != NULL)
-	{
-		if (lst != NULL)
-		{
-			(*lst)->prev = new;
-			new->next = *lst;
-			*lst = new;
-		}
-		else
-			lst = &new;
-	}
+	if (!lst)
+		return ;
+	free(lst->name);
+	free_array(lst->args);
+	free(lst);
 }

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 12:28:49 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 13:00:42 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_var_list
 	struct s_var_list	*previous;
 	struct s_var_list	*next;
 }	t_var_list;
+
+
 
 typedef struct s_shell
 {

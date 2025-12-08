@@ -61,6 +61,7 @@ int	finish(t_cmd *cmd, t_shell *shell)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			cmd->args[1]);
+		free_shell(shell);
 		exit(2);
 	}
 	if (cmd->args[1] && cmd->args[2])
@@ -68,6 +69,7 @@ int	finish(t_cmd *cmd, t_shell *shell)
 		printf("minishell: exit: too many arguments\n");
 		return (1);
 	}
+	free_shell(shell);
 	if (cmd->args[1])
 	{
 		code = ft_atoi(cmd->args[1]);

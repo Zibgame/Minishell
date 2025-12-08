@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmdclear.c                                      :+:      :+:    :+:   */
+/*   ft_cmdadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 12:40:04 by aeherve          ###   ########.fr       */
+/*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 13:20:21 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	ft_cmdclear(t_cmd **lst)
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 {
-	t_cmd	*temp;
+	t_cmd	*last;
 
-	if (!lst)
+	if (!lst || !new)
 		return ;
-	while (*lst)
+	if (!*lst)
+		*lst = new;
+	else
 	{
-		temp = (*lst)->next;
-		free((*lst)->name);
-		free_array((*lst)->args);
-		free(*lst);
-		*lst = temp;
+		last = ft_cmdlast(*lst);
+		last->next = new;
 	}
-	*lst = NULL;
 }
-
-// void del(void *p) { free(p); }
-// int main(void)
-// {
-//     t_cmd *a = ft_lstnew(strdup("one"));
-//     ft_lstadd_back(&a, ft_lstnew(strdup("two")));
-//     ft_lstclear(&a, del);
-//     return (0);
-// }
