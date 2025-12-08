@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:42:21 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:03:37 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	clear(void)
 {
-	ft_printf("\e[1;1H\e[2J");
+	printf("\e[1;1H\e[2J");
 	return ;
 }

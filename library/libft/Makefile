@@ -33,10 +33,10 @@ OTHER_FILES = other/ft_atoi.c other/ft_split.c other/ft_itoa.c other/free_array.
 
 GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
-OBJECTS = $(FT_PRINTF_FILES:.c=.o) $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) \
+OBJECTS =  $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) \
           $(LIST_FILES:.c=.o) $(MEMUSE_FILES:.c=.o) $(STRMANIP_FILES:.c=.o) \
           $(STRUSE_FILES:.c=.o) $(OTHER_FILES:.c=.o) $(GNL_FILES:.c=.o)
-
+# $(FT_PRINTF_FILES:.c=.o)
 NAME = libft.a
 
 all: $(NAME)
