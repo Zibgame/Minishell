@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 10:58:58 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:00:45 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ t_command	create_command(char *line)
 	command.name = args[0];
 	command.is_builtin = is_builtin(command.command);
 	command.args = args;
+	return (command);
 }
