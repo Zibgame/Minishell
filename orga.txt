@@ -1,0 +1,164 @@
+✅ 1. Fix immédiats (bugs à corriger maintenant)
+a) Memory leaks
+
+Tu n’as jamais free les cmd.args créés dans create_command.
+Tu dois free args + la struct command après chaque utilisation.
+
+👉 Dans shell_loop, après :
+
+cmd = create_command(line);
+
+
+il faut ajouter :
+
+free_array(cmd.args);
+
+
+Sinon tu vas avoir une fuite à chaque commande.
+
+b) exec_cmd : leaks + comportement incohérent
+
+Tu fais :
+
+args = ft_split(line, ' ');
+...
+return ;
+
+
+→ si la commande n’existe pas tu return sans free.
+
+→ leak massif
+→ pas de message pour les builtins sans arguments
+
+💡 Astuce : utilise cmd.args (déjà split), pas ft_split(line, ' ') une deuxième fois.
+
+c) signaux incorrects
+
+Ton handler pour SIGINT fait :
+
+write(1, "\nminishell> ", 12);
+
+
+→ readline BYPASSE ce comportement
+→ le prompt devient cassé (^Cminishell>)
+
+Il faut utiliser rl_replace_line, rl_on_new_line, rl_redisplay.
+
+Je te donne la version propre juste après ⬇️
+
+✅ 2. Ce que tu dois coder maintenant
+
+Voici l’ordre logique pour la suite de minishell.
+
+🔥 Étape 1 : Fixer les signaux correctement
+
+Mets ça dans sig_handler.c (respecte la norme) :
+
+#include "../../includes/minishell.h"
+
+void    sigint_handler(int sig)
+{
+    if (sig == SIGINT)
+    {
+        write(1, "\n", 1);
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
+    }
+}
+
+
+Et dans init_signal() :
+
+signal(SIGINT, sigint_handler);
+signal(SIGQUIT, SIG_IGN);
+
+
+💬 Explication :
+Ça remet proprement la ligne de readline après un CTRL+C.
+
+🔥 Étape 2 : Refactor exec_cmd pour utiliser t_cmd
+
+Il faut arrêter de faire 2 splits.
+Voici une version propre :
+
+void    exec_cmd(t_shell *shell, t_cmd *cmd)
+{
+    pid_t   pid;
+    char    *path;
+
+    path = get_cmd_path(shell, cmd->name);
+    if (!path)
+    {
+        printf("minishell: %s: command not found\n", cmd->name);
+        return ;
+    }
+    pid = fork();
+    if (pid == 0)
+    {
+        execve(path, cmd->args, shell->envp_tmp);
+        perror("execve");
+        exit(127);
+    }
+    waitpid(pid, NULL, 0);
+    free(path);
+}
+
+🔥 Étape 3 : Mettre en place un parser minimal
+
+Ton minishell ne gère pas :
+
+quotes ""
+
+quotes '
+
+redirections < > << >>
+
+pipelines |
+
+expansion $VAR
+
+C’est la prochaine étape.
+
+👉 Commence simple : gérer les quotes
+Crée une fonction split_with_quotes() qui découpe correctement.
+
+Tu pourras ensuite ajouter :
+
+lexer → parser → executor
+
+🔥 Étape 4 : Builtins manquants
+
+Tu n’as pas encore codé :
+
+echo (avec -n)
+
+cd
+
+export
+
+unset
+
+Avant d’aller plus loin, écris echo -n, c’est rapide.
+
+🎯 Plan de travail 42-friendly
+
+Voici le plan exact que les binômes suivent :
+
+✔️ env list, get_value, PATH
+
+✔️ execve + fork
+
+✔️ builtins basics (env, pwd, exit)
+
+🧩 refactor exec_cmd + signal + free
+
+🔥 echo / cd / export / unset
+
+🌪️ lexer avec quotes
+
+🧱 parser
+
+🔗 pipes / redirections
+
+♻️ heredoc avec signaux
