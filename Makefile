@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/08 15:40:29 by aeherve          ###   ########.fr        #
+#    Updated: 2025/12/08 16:07:15 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ CMD_FILES	= src/struct/t_cmd/ft_cmdadd_front.c \
 			src/struct/t_cmd/ft_cmdlast.c \
 			src/struct/t_cmd/ft_cmddel_one.c \
 			src/struct/t_cmd/ft_cmdnew.c \
+			src/struct/t_cmd/extract_next_cmd.c \
 			src/struct/t_cmd/ft_cmdsize.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o)
