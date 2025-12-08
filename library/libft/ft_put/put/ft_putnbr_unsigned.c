@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 20:08:48 by dadoune           #+#    #+#             */
-/*   Updated: 2025/11/26 20:23:20 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/08 17:12:33 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	ft_putnbr_unsigned(unsigned int n)
 		return (1);
 	}
 	else
-		return (ft_putnbr(n / 10) + ft_putnbr(n % 10));
+		return (ft_putnbr_unsigned(n / 10) + ft_putnbr_unsigned(n % 10));
 }

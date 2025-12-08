@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:55:57 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 19:40:57 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ int	env(t_cmd *cmd, t_shell *shell)
 		return (127);
 	}
 	new = extract_next_cmd(cmd);
-	if (!new.args)
+	if (!new.args || !new.name)
+	{
+		if (new.args)
+			free_array(new.args);
+		else if (new.name)
+			free(new.name);
 		return (1);
+	}
 	return (exec_builtins(new, shell));
 }

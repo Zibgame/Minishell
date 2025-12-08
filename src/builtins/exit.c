@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 15:42:45 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 19:19:05 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	finish(t_cmd *cmd, t_shell *shell)
 {
 	long long	code;
 
+	shell->actual_command = cmd;
 	printf("exit\n");
 	if (cmd->args[1] && (!is_numeric(cmd->args[1]) \
 				|| !is_long_long(cmd->args[1] + (cmd->args[1][0] == '+' \

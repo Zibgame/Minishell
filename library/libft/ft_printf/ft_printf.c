@@ -12,28 +12,28 @@
 
 #include "../libft.h"
 
-static int	ft_check_flags(const char *str, int fd, va_list p_args, int *index)
+static int	ft_check_flags(const char *s, int fd, va_list p_args, int *index)
 {
 	char	c;
 
-	if (str[++(*index)])
+	if (s[++(*index)])
 	{
-		if (str[*index] == 'c')
+		if (s[*index] == 'c')
 		{
 			c = va_arg(p_args, int);
 			write(1, &c, 1);
 		}
-		else if (str[*index] == 's')
+		else if (s[*index] == 's')
 			return (ft_putstr_fd(va_arg(p_args, char *), fd));
-		else if (str[*index] == 'p')
-			return (ft_putptr(va_arg(p_args, void *)));
-		else if (str[*index] == 'd' || str[*index] == 'i')
+		else if (s[*index] == 'p')
+			return (ft_putptr_fd(va_arg(p_args, void *), fd));
+		else if (s[*index] == 'd' || s[*index] == 'i')
 			return (ft_putnbr_fd(va_arg(p_args, int), fd));
-		else if (str[*index] == 'u')
-			return (ft_putnbr_unsigned(va_arg(p_args, unsigned int)));
-		else if (str[*index] == 'x' || str[*index] == 'X')
-			return (ft_putnbr_hex(va_arg(p_args, int), (str[*index] == 'X')));
-		else if (str[*index] == '%')
+		else if (s[*index] == 'u')
+			return (ft_putnbr_unsigned_fd(va_arg(p_args, unsigned int), fd));
+		else if (s[*index] == 'x' || s[*index] == 'X')
+			return (ft_puthex_fd(va_arg(p_args, int), (s[*index] == 'X'), fd));
+		else if (s[*index] == '%')
 			write(1, "%", 1);
 		return (1);
 	}

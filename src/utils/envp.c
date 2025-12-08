@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 16:56:41 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 19:04:05 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	convert_envp(t_shell *shell, int total_size, t_var_list	*tmp)
 			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->name);
 		if (tmp->value)
 		{
-			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i],
-				ft_strdup("="));
+			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], "=");
 			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->value);
 		}
 		tmp = tmp->next;
@@ -48,5 +47,5 @@ void	recreate_envp(t_shell *shell)
 	total_size = ft_lklsize(tmp);
 	shell->envp_tmp = ft_calloc(sizeof(char *) * total_size + 1, 1);
 	convert_envp(shell, total_size, tmp);
-	shell->envp_tmp[total_size] = NULL; 
+	shell->envp_tmp[total_size - 1] = NULL; 
 }

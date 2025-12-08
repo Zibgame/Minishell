@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 10:24:06 by aeherve           #+#    #+#             */
-/*   Updated: 2025/11/26 20:23:37 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/08 18:15:45 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	ft_putendl_fd(char *s, int fd)
 {
-	ft_putstr_fd(s, fd);
-	write(fd, "\n", 1);
+	int	i;
+
+	i = ft_putstr_fd(s, fd);
+	i += write(fd, "\n", 1);
+	return (i);
 }

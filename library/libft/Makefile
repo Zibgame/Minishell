@@ -8,9 +8,12 @@ FT_IS_FILES = ft_is/ft_isalnum.c ft_is/ft_isapha.c ft_is/ft_isascii.c \
 
 FT_PUT_FILES = ft_put/put/ft_putnbr_hex.c ft_put/put/ft_putnbr_hexl.c \
                ft_put/put/ft_putnbr_unsigned.c ft_put/put/ft_putnbr.c \
-               ft_put/put/ft_putptr.c ft_put/put/ft_putstr.c \
-               ft_put/putfd/ft_putchar_fd.c ft_put/putfd/ft_putendl_fd.c \
-               ft_put/putfd/ft_putnbr_fd.c ft_put/putfd/ft_putstr_fd.c
+               ft_put/put/ft_putptr.c ft_put/put/ft_putstr.c 
+
+FT_PUT_FD_FILES = ft_put/putfd/ft_putchar_fd.c ft_put/putfd/ft_putendl_fd.c \
+               ft_put/putfd/ft_putnbr_hex_fd.c ft_put/putfd/ft_putnbr_hexl_fd.c \
+               ft_put/putfd/ft_putnbr_unsigned_fd.c ft_put/putfd/ft_putnbr_fd.c \
+               ft_put/putfd/ft_putptr_fd.c ft_put/putfd/ft_putstr_fd.c
 
 LIST_FILES = lst/ft_lstnew.c lst/ft_lstadd_front.c lst/ft_lstsize.c \
              lst/ft_lstlast.c lst/ft_lstadd_back.c lst/ft_lstdelone.c \
@@ -33,10 +36,11 @@ OTHER_FILES = other/ft_atoi.c other/ft_split.c other/ft_itoa.c other/free_array.
 
 GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
-OBJECTS =  $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) \
-          $(LIST_FILES:.c=.o) $(MEMUSE_FILES:.c=.o) $(STRMANIP_FILES:.c=.o) \
-          $(STRUSE_FILES:.c=.o) $(OTHER_FILES:.c=.o) $(GNL_FILES:.c=.o)
-# $(FT_PRINTF_FILES:.c=.o)
+OBJECTS = $(FT_PRINTF_FILES:.c=.o) $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) \
+          $(FT_PUT_FD_FILES:.c=.o) $(LIST_FILES:.c=.o) $(MEMUSE_FILES:.c=.o) \
+		  $(STRMANIP_FILES:.c=.o) $(STRUSE_FILES:.c=.o) $(OTHER_FILES:.c=.o) \
+		  $(GNL_FILES:.c=.o)
+
 NAME = libft.a
 
 all: $(NAME)

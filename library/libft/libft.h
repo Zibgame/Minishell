@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:31:29 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 17:03:19 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 18:13:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ char	**ft_split(char const *s, char c);
 
 void	free_array(char	**arr);
 void	ft_bzero(void *t, size_t n);
-int		ft_putnbr_fd(int n, int fd);
-void	ft_putchar_fd(char c, int fd);
-int		ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char *s, int fd);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
@@ -82,15 +78,23 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-// ft_printf functions
+// put functions
 int		ft_putnbr(int n);
 int		ft_putstr(char *s);
 int		ft_putptr(void *ptr);
+int		ft_putnbr_fd(int n, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putendl_fd(char *s, int fd);
+int		ft_putptr_fd(void *ptr, int fd);
 int		ft_putnbr_unsigned(unsigned int n);
 int		ft_putnbr_hex(unsigned int n, int maj);
 int		ft_putnbr_hexl(unsigned long n, int maj);
+int		ft_putnbr_unsigned_fd(unsigned int n, int fd);
+int		ft_puthex_fd(unsigned int n, int maj, int fd);
+int		ft_putnbr_hexl_fd(unsigned long n, int maj, int fd);
 
-int		ft_printf(const char *str, ...);
+int		ft_printf(const char *str, int fd, ...);
 
 // get_next_line functions
 char	*get_next_line(int fd);
