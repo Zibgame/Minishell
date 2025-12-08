@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:42:03 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:43:45 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	env(t_cmd *cmd, t_shell *shell)
 
 	(void)cmd;
 	vars = shell->envp;
+	if (!vars)
+		return (1);
 	if (cmd->args[1])
 	{
 		printf("env: ");
