@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 20:53:01 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/08 20:58:41 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	free_shell(t_shell *shell)
 {
-	// int	i;
-
 	if (shell)
 	{
 		if (shell->actual_command)

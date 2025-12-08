@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 20:52:10 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/08 21:28:08 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	finish(t_cmd *cmd, t_shell *shell)
 	printf("exit\n");
 	if (cmd->args[1] && (!is_numeric(cmd->args[1]) \
 			|| !is_long_long(cmd->args[1] + (cmd->args[1][0] == '+' \
-			||cmd->args[1][0] == '-'))))
+			|| cmd->args[1][0] == '-'))))
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			cmd->args[1]);
@@ -74,3 +74,4 @@ int	finish(t_cmd *cmd, t_shell *shell)
 	free_shell(shell);
 	exit((unsigned char)code);
 }
+
