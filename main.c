@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 14:55:54 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 15:31:20 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (1);
 	start_shell(shell);
-	
 	return (0);
 }
