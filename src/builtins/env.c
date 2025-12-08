@@ -6,18 +6,25 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:12:02 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:42:03 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env(t_cmd *cmd, t_shell *shell)
+int	env(t_cmd *cmd, t_shell *shell)
 {
 	t_var_list	*vars;
 
 	(void)cmd;
 	vars = shell->envp;
+	if (cmd->args[1])
+	{
+		printf("env: ");
+		printf("'%s': ", cmd->args[1]);
+		printf("No such file or directory\n");
+		return (127);
+	}
 	while (vars)
 	{
 		if (vars->value)
@@ -26,4 +33,5 @@ void	env(t_cmd *cmd, t_shell *shell)
 		}
 		vars = vars->next;
 	}
+	return (0);
 }
