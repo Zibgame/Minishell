@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cat.c                                              :+:      :+:    :+:   */
+/*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 14:51:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 15:16:05 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 15:23:57 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ static int	print_file(int fd)
 	char	*line;
 
 	line = get_next_line(fd);
+	printf("\n");
 	while (line)
 	{
 		printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 	}
+	printf("\n");
 	return (0);
 }
 
-int	cat(char *path)
+int	print_header(char *path)
 {
 	int	fd;
 

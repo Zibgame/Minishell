@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 14:57:03 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 15:23:18 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell);
 int	env(t_cmd *cmd, t_shell *shell);
 int	pwd(t_cmd *cmd, t_shell *shell);
 t_cmd	create_command(char *line);
-int	cat(char *path);
+int	print_header(char *path);
 
 int	finish(t_cmd *cmd, t_shell *shell);
 
