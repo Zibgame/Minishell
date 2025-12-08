@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:07:00 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:38:08 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ void		free_shell(t_shell *shell);
 char		*join_and_free(char *s1, char *s2);
 void		recreate_envp(t_shell *shell);
 int			print_header(char *path);
+
+/* == OTHERS == */
+void		clear(void);
 
 #endif
