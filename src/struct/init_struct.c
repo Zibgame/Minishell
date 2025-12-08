@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 16:28:54 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 10:58:58 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,15 @@ t_shell	*create_shell_struct(char **envp)
 	if (!shell->envp)
 		exit(EXIT_FAILURE);
 	return (shell);
+}
+
+t_command	create_command(char *line)
+{
+	t_command	command;
+	char		**args;
+
+	args = ft_split(line);
+	command.name = args[0];
+	command.is_builtin = is_builtin(command.command);
+	command.args = args;
 }
