@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 15:12:30 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 15:30:57 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 15:45:41 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	free_array(char	**arr)
 	{
 		i = 0;
 		while (arr[i])
+			i++;
+		while (i > 0)
 		{
 			free(arr[i]);
-			i++;
+			i--;
 		}
 		free(arr);
 	}
