@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:00:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:51:36 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:43:00 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	pwd(t_cmd *cmd, t_shell *shell)
 	{
 		printf("pwd: error retrieving current directory\n");
 		return (1);
+	}
+	if (cmd->args[1])
+	{
+		printf("pwd: ignoring non-option arguments\n");
 	}
 	printf("%s\n", path);
 	return (0);
