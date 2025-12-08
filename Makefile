@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/08 12:23:27 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/08 13:31:29 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS		= main.c \
 			src/builtins/exit.c \
 			src/builtins/pwd.c \
 			src/core/cmd_utils.c \
-			src/signals/signals.c
+			src/signals/signals.c \
+			src/utils/frees.c
 
 LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lkladd_front.c \
@@ -41,7 +42,15 @@ LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lklnew.c \
 			src/struct/var_list/ft_lklsize.c
 
-OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o)
+CMD_FILES	= src/struct/t_cmd/ft_cmdadd_front.c \
+			src/struct/t_cmd/ft_cmdadd_back.c \
+			src/struct/t_cmd/ft_cmdclear.c \
+			src/struct/t_cmd/ft_cmdlast.c \
+			src/struct/t_cmd/ft_cmddel_one.c \
+			src/struct/t_cmd/ft_cmdnew.c \
+			src/struct/t_cmd/ft_cmdsize.c
+
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
