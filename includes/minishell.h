@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:06:22 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:31:45 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ char		*get_value(t_shell *shell, char *name);
 t_shell		*create_shell_struct(char **envp);
 
 char	*get_cmd_path(t_shell *shell, char *cmd);
-int	is_builtins(char *line);
-int	exec_builtins(char *line, t_shell *shell);
-void	env(t_cmd cmd);
+int	is_builtins(char *name);
+int	exec_builtins(t_cmd cmd, t_shell *shell);
+void	env(t_cmd *cmd, t_shell *shell);
 t_cmd	create_command(char *line);
 
 #endif

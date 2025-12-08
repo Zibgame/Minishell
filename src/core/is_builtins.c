@@ -6,29 +6,29 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 16:20:36 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:32:45 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_builtins(char *line)
+int	is_builtins(char *name)
 {
-	if (!line)
+	if (!name)
 		return (0);
-	if (ft_strncmp(line, "echo", 5) == 0)
+	if (!ft_strncmp(name, "echo", 4))
 		return (1);
-	if (ft_strncmp(line, "cd", 3) == 0)
+	if (!ft_strncmp(name, "cd", 2))
 		return (1);
-	if (ft_strncmp(line, "pwd", 4) == 0)
+	if (!ft_strncmp(name, "pwd", 3))
 		return (1);
-	if (ft_strncmp(line, "export", 7) == 0)
+	if (!ft_strncmp(name, "export", 6))
 		return (1);
-	if (ft_strncmp(line, "unset", 6) == 0)
+	if (!ft_strncmp(name, "unset", 5))
 		return (1);
-	if (ft_strncmp(line, "env", 4) == 0)
+	if (!ft_strncmp(name, "env", 3))
 		return (1);
-	if (ft_strncmp(line, "exit", 5) == 0)
+	if (!ft_strncmp(name, "exit", 4))
 		return (1);
 	return (0);
 }

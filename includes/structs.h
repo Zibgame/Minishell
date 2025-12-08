@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 11:05:33 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:07:58 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_var_list
 
 typedef struct s_shell
 {
-	t_command	*actual_command;
+	t_cmd		*actual_command;
 	char		**envp_tmp;
 	t_var_list	*envp;
 }	t_shell;
