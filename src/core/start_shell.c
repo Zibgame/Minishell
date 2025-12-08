@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:49:19 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 15:03:48 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 15:16:19 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	start_shell(t_shell *shell)
 {
 	(void)shell;
+	printf("\n");
 	cat("src/utils/header.txt");
-	//init_signal();
-	//shell_loop(shell);
+	printf("\n");
+	init_signal();
+	shell_loop(shell);
 }

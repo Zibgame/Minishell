@@ -3,105 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/30 10:12:58 by aeherve           #+#    #+#             */
-/*   Updated: 2025/11/27 15:30:59 by aeherve          ###   ########.fr       */
+/*   Created: 2025/10/19 01:58:41 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/11/18 11:41:52 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "get_next_line.h"
 
-static char	*ft_get_line(char *left_str)
+char	*ft_extract_line(char *str)
 {
-	int		i;
-	char	*str;
+	long	i;
+	char	*res;
 
-	i = 0;
-	if (!left_str[i])
+	if (!str || str[0] == '\0')
 		return (NULL);
-	while (left_str[i] && left_str[i] != '\n')
-		i++;
-	str = (char *)malloc(sizeof(char) * (i + 2));
-	if (!str)
+	res = malloc((cft_strlen(str) + 2) * sizeof(char));
+	if (!res)
 		return (NULL);
 	i = 0;
-	while (left_str[i] && left_str[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
-		str[i] = left_str[i];
+		res[i] = str[i];
 		i++;
 	}
-	if (left_str[i] == '\n')
-	{
-		str[i] = left_str[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	if (str[i] == '\n')
+		res[i++] = '\n';
+	res[i] = '\0';
+	return (res);
 }
 
-static char	*new_str(char *s)
+char	*ft_read_fd(int fd, char *stash)
 {
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	while (s[i] && s[i] != '\n')
-		i++;
-	if (!s[i])
-	{
-		free(s);
-		return (NULL);
-	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s) - i + 1));
-	if (!str)
-		return (NULL);
-	i++;
-	j = 0;
-	while (s[i])
-		str[j++] = s[i++];
-	str[j] = '\0';
-	free(s);
-	return (str);
-}
-
-static char	*read_line(int fd, char *left_str)
-{
+	ssize_t	byte_read;
 	char	*buffer;
-	int		readed;
 
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	readed = 1;
-	while (!ft_strchr(left_str, '\n') && readed != 0)
+	byte_read = 1;
+	while (!cft_strchr(stash, '\n') && byte_read > 0)
 	{
-		readed = read(fd, buffer, BUFFER_SIZE);
-		if (readed == -1)
-		{
-			free(buffer);
-			free(left_str);
-			return (NULL);
-		}
-		buffer[readed] = '\0';
-		left_str = ft_strjoin(left_str, buffer);
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read < 0)
+			return (free(buffer), free(stash), NULL);
+		buffer[byte_read] = '\0';
+		stash = cft_strjoin(stash, buffer);
+		if (!stash)
+			return (free(buffer), NULL);
 	}
 	free(buffer);
-	return (left_str);
+	return (stash);
+}
+
+char	*ft_clean_stash(char *stash)
+{
+	char	*new;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (!stash[i])
+		return (free(stash), NULL);
+	new = malloc(cft_strlen(stash) - i + 1);
+	if (!new)
+		return (free(stash), NULL);
+	i++;
+	j = 0;
+	while (stash[i])
+		new[j++] = stash[i++];
+	new[j] = '\0';
+	free(stash);
+	return (new);
 }
 
 char	*get_next_line(int fd)
 {
+	static char	*stash;
 	char		*line;
-	static char	*remaining;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	remaining = read_line(fd, remaining);
-	if (!remaining)
+	stash = ft_read_fd(fd, stash);
+	if (!stash)
 		return (NULL);
-	line = ft_get_line(remaining);
-	remaining = new_str(remaining);
+	line = ft_extract_line(stash);
+	stash = ft_clean_stash(stash);
 	return (line);
 }
