@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-static int	ft_check_flags(const char *str, va_list p_args, int *index)
+static int	ft_check_flags(const char *str, int fd, va_list p_args, int *index)
 {
 	char	c;
 
@@ -24,11 +24,11 @@ static int	ft_check_flags(const char *str, va_list p_args, int *index)
 			write(1, &c, 1);
 		}
 		else if (str[*index] == 's')
-			return (ft_putstr(va_arg(p_args, char *)));
+			return (ft_putstr_fd(va_arg(p_args, char *), fd));
 		else if (str[*index] == 'p')
 			return (ft_putptr(va_arg(p_args, void *)));
 		else if (str[*index] == 'd' || str[*index] == 'i')
-			return (ft_putnbr(va_arg(p_args, int)));
+			return (ft_putnbr_fd(va_arg(p_args, int), fd));
 		else if (str[*index] == 'u')
 			return (ft_putnbr_unsigned(va_arg(p_args, unsigned int)));
 		else if (str[*index] == 'x' || str[*index] == 'X')
@@ -41,7 +41,7 @@ static int	ft_check_flags(const char *str, va_list p_args, int *index)
 	return (0);
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf_fd(const char *str, int fd, ...)
 {
 	int		i;
 	int		p_len;
@@ -51,12 +51,12 @@ int	ft_printf(const char *str, ...)
 		return (0);
 	i = 0;
 	p_len = 0;
-	va_start(p_args, str);
+	va_start(p_args, fd);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			p_len += ft_check_flags(str, p_args, &i);
+			p_len += ft_check_flags(str, fd, p_args, &i);
 			i++;
 		}
 		else
@@ -69,8 +69,3 @@ int	ft_printf(const char *str, ...)
 	va_end(p_args);
 	return (p_len);
 }
-
-// int	main(void)
-// {
-// 	ft_printf("je t%ec %ce %s ce pointeur est %p",'e', "montre", NULL, 'l');
-// }
