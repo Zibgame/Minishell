@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:28:24 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:35:11 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell)
 	if (!ft_strncmp(cmd.name, "unset", 5))
 		return (1);
 	if (!ft_strncmp(cmd.name, "env", 3))
-		return (1);
+		env(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "exit", 4))
 		return (1);
 	return (0);
