@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:58:47 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:44:56 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void		ft_cmddelone(t_cmd *lst);
 int			ft_cmdsize(t_cmd *lst);
 t_cmd		*ft_cmdlast(t_cmd *lst);
 t_cmd		*ft_cmdnew(char *name, char **args);
-t_cmd		create_command(char *line);
 t_cmd		extract_next_cmd(t_cmd *cmd);
 
 /* == EXECUTION == */

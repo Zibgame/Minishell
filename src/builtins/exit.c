@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 20:39:36 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:52:10 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	finish(t_cmd *cmd, t_shell *shell)
 {
 	long long	code;
 
+	code = 0;
 	shell->actual_command = cmd;
 	printf("exit\n");
 	if (cmd->args[1] && (!is_numeric(cmd->args[1]) \
@@ -61,19 +62,15 @@ int	finish(t_cmd *cmd, t_shell *shell)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			cmd->args[1]);
-		free_shell(shell);
-		exit(2);
+		code = 2;
 	}
-	if (cmd->args[1] && cmd->args[2])
+	else if (cmd->args[1] && cmd->args[2])
 	{
 		printf("minishell: exit: too many arguments\n");
 		return (1);
 	}
-	free_shell(shell);
 	if (cmd->args[1])
-	{
 		code = ft_atoi(cmd->args[1]);
-		exit((unsigned char)code);
-	}
-	exit(0);
+	free_shell(shell);
+	exit((unsigned char)code);
 }
