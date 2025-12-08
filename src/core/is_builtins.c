@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:32:45 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:07:57 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	is_builtins(char *name)
 	if (!ft_strncmp(name, "env", 3))
 		return (1);
 	if (!ft_strncmp(name, "exit", 4))
+		return (1);
+	if (!ft_strncmp(name, "clear", 5))
 		return (1);
 	return (0);
 }

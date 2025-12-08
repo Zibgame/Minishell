@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 17:03:37 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 17:09:07 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	clear(void)
 {
 	printf("\e[1;1H\e[2J");
+	print_header("src/utils/header.txt");
 	return ;
 }

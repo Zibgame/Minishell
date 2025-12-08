@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 12:27:38 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:08:04 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell)
 		env(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "exit", 4))
 		finish(&cmd, shell);
+	if (!ft_strncmp(cmd.name, "clear", 5))
+		clear();
 	return (0);
 }
