@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 11:35:11 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:53:45 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell)
 	if (!ft_strncmp(cmd.name, "cd", 2))
 		return (1);
 	if (!ft_strncmp(cmd.name, "pwd", 3))
-		return (1);
+		pwd(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "export", 6))
 		return (1);
 	if (!ft_strncmp(cmd.name, "unset", 5))
