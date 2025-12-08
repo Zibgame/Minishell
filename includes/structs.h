@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 10:55:57 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:05:33 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <stdbool.h>
 # include "library/libft/libft.h"
 
-typedef struct s_command
+typedef struct s_cmd
 {
 	char	*name;
 	char	**args;
 	bool	is_builtin;
-}	t_command;
+}	t_cmd;
 
 typedef struct s_var_list
 {
