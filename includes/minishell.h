@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 16:38:08 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:52:09 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "structs.h"
 # include "librairies.h"
+
+# define PS1 " MiniShell> " 
 
 /* == SIGNALS == */
 void		init_signal(void);
