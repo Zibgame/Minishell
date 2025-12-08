@@ -1,4 +1,4 @@
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -g
 AR = ar rcs
 
 FT_PRINTF_FILES = ft_printf/ft_printf.c

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:35:25 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 14:18:04 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 15:01:02 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str && str[i])
 		i++;
 	return (i);
