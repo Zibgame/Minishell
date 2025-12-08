@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 13:09:43 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/08 14:15:25 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@ t_var_list	*convert_env_variables(char **envp)
 	return (env);
 }
 
+static void	recreate_envp(t_shell *shell)
+{
+	int			i;
+	int			line_size;
+	int			total_size;
+	t_var_list	*tmp;
+
+	tmp = shell->envp;
+	total_size = ft_lklsize(tmp);
+	shell->envp_tmp = malloc(sizeof(char *) * total_size);
+	i = 0;
+	while (i < total_size)
+	{
+		line_size = strlen(shell->envp->name) + strlen(shell->envp->value) + 2;
+		shell->envp_tmp[i] = malloc(line_size * sizeof(char));
+		ft_strjoin(shell->envp_tmp[i], tmp->name);
+		if (tmp->value)
+		{
+			ft_strjoin(shell->envp_tmp[i], "=");
+			ft_strjoin(shell->envp_tmp[i], tmp->value);
+		}
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 char	*get_value(t_shell *shell, char *name)
 {
 	t_var_list	*tmp;
@@ -55,8 +81,9 @@ t_shell	*create_shell_struct(char **envp)
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 		exit(EXIT_FAILURE);
-	shell->envp_tmp = envp;
 	shell->envp = convert_env_variables(envp);
+	recreate_envp(shell);
+	shell->actual_command = NULL;
 	if (!shell->envp)
 		exit(EXIT_FAILURE);
 	return (shell);
