@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 11:36:25 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 11:40:57 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	recreate_envp(t_shell *shell)
 
 void	set_value(char *value)
 {
-	
+	(void)value;
+	return ;
 }

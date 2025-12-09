@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 11:39:06 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 11:40:17 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum e_types
 
 enum e_file_type
 {
-	FILE,
+	FFILE,
 	EOFILE,
 	HEREDOC	
 };
