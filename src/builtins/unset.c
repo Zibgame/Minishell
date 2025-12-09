@@ -6,11 +6,27 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 15:58:53 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:22:23 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	is_valid_identifier(char *s)
+{
+	int	i;
+
+	if (!s || !(ft_isalpha(s[0]) || s[0] == '_'))
+		return (0);
+	i = 1;
+	while (s[i])
+	{
+		if (!(ft_isalnum(s[i]) || s[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	unset(t_cmd *cmd, t_shell *shell)
 {
@@ -20,6 +36,11 @@ int	unset(t_cmd *cmd, t_shell *shell)
 	if (!cmd->args || !cmd->args[1])
 		return (0);
 	target = cmd->args[1];
+	if (!is_valid_identifier(target))
+	{
+		printf("unset: %s: invalid parameter name\n", target);
+		return (1);
+	}
 	curr = shell->envp;
 	while (curr)
 	{
