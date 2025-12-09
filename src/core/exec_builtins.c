@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:15:32 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:23:20 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell)
 	if (!ft_strncmp(cmd.name, "pwd", 3))
 		pwd(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "export", 6))
-		return (1);
+		export(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "unset", 5))
 		return (1);
 	if (!ft_strncmp(cmd.name, "env", 3))
