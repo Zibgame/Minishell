@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:23:20 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 15:51:16 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exec_builtins(t_cmd cmd, t_shell *shell)
 	if (!ft_strncmp(cmd.name, "export", 6))
 		export(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "unset", 5))
-		return (1);
+		unset(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "env", 3))
 		env(&cmd, shell);
 	if (!ft_strncmp(cmd.name, "exit", 4))

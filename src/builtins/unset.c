@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/09 10:51:52 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 15:08:53 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 15:58:53 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*get_pwd(void)
+int	unset(t_cmd *cmd, t_shell *shell)
 {
-	char	buf[2048];
+	t_var_list	*curr;
+	char		*target;
 
-	if (!getcwd(buf, 2048))
-		return (NULL);
-	return (ft_strdup(buf));
-}
-
-int	cd(t_cmd *cmd, t_shell *shell)
-{
-	char	*path;
-
-	(void)shell;
-	if (!cmd->args[1])
-		return (1);
-	path = cmd->args[1];
-	if (!path)
-		return (1);
-	if (chdir(path) == -1)
+	if (!cmd->args || !cmd->args[1])
+		return (0);
+	target = cmd->args[1];
+	curr = shell->envp;
+	while (curr)
 	{
-		printf("cd: no such file or directory: %s\n", path);
-		return (1);
+		if (!ft_strncmp(curr->name, target, ft_strlen(curr->name) + 1))
+		{
+			ft_lklremove(&shell->envp, curr);
+			free_array(shell->envp_tmp);
+			recreate_envp(shell);
+			return (0);
+		}
+		curr = curr->next;
 	}
-	set_value(&shell, "PWD", get_pwd());
-	return (0);
+	return (1);
 }
