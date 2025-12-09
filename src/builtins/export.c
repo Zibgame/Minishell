@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtins.c                                      :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 12:03:32 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 13:04:38 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_builtins(char *name)
+int	export(t_cmd *cmd, t_shell *shell)
 {
-	if (!name)
-		return (0);
-	if (!ft_strncmp(name, "echo", 4))
-		return (1);
-	if (!ft_strncmp(name, "cd", 2))
-		return (1);
-	if (!ft_strncmp(name, "pwd", 3))
-		return (1);
-	if (!ft_strncmp(name, "export", 6))
-		return (1);
-	if (!ft_strncmp(name, "unset", 5))
-		return (1);
-	if (!ft_strncmp(name, "env", 3))
-		return (1);
-	if (!ft_strncmp(name, "exit", 4))
-		return (1);
-	if (!ft_strncmp(name, "clear", 5))
-		return (1);
 	return (0);
 }
