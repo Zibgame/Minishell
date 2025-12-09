@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 10:39:06 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 11:53:34 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
+static int	is_status_var(char *s)
+{
+	return (s && s[0] == '$' && s[1] == '?' && s[2] == '\0');
+}
+
 int	echo(t_cmd *cmd, t_shell *shell)
 {
 	int	i;
@@ -39,7 +44,10 @@ int	echo(t_cmd *cmd, t_shell *shell)
 	}
 	while (cmd->args[i])
 	{
-		ft_putstr_fd(cmd->args[i],1);
+    if (is_status_var(cmd->args[i]))
+        print_status(shell);
+    else
+        ft_putstr_fd(cmd->args[i], 1);
 		if (cmd->args[i + 1])
 			write(1, " ", 1);
 		i++;

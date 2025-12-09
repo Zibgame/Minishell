@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 21:27:25 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:24:01 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		ft_cmdadd_back(t_cmd **lst, t_cmd *new);
 void		ft_cmdadd_front(t_cmd **lst, t_cmd *new);
 void		ft_cmdclear(t_cmd **lst);
 void		ft_cmddelone(t_cmd *lst);
+void		ft_lkl_modify(t_var_list **lst, char *value);
 int			ft_cmdsize(t_cmd *lst);
 t_cmd		*ft_cmdlast(t_cmd *lst);
 t_cmd		*ft_cmdnew(char *name, char **args);
@@ -74,8 +75,11 @@ char		*join_and_free(char *s1, char *s2);
 void		recreate_envp(t_shell *shell);
 int			print_header(char *path);
 int			echo(t_cmd *cmd, t_shell *shell);
+int			cd(t_cmd *cmd, t_shell *shell);
+void		print_status(t_shell *shell);
+int			export(t_cmd *cmd, t_shell *shell);
 
 /* == OTHERS == */
 void		clear(void);
-
+void		set_value(t_shell **shell, char *to_change, char *value);
 #endif

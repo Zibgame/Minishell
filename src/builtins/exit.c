@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 21:28:08 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/09 11:57:02 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ int	finish(t_cmd *cmd, t_shell *shell)
 	else if (cmd->args[1] && cmd->args[2])
 	{
 		printf("minishell: exit: too many arguments\n");
+		shell->last_return = code;
 		return (1);
 	}
 	if (cmd->args[1])
 		code = ft_atoi(cmd->args[1]);
 	free_shell(shell);
+	shell->last_return = code;
 	exit((unsigned char)code);
 }
-

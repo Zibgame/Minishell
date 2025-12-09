@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 20:33:32 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:42:43 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,24 @@ void	recreate_envp(t_shell *shell)
 	shell->envp_tmp = ft_calloc(size + 1, sizeof(char *));
 	convert_envp(shell, size, tmp);
 	shell->envp_tmp[size] = NULL;
+}
+
+// char *value must be malloced
+void	set_value(t_shell **shell, char *to_change, char *value)
+{
+	t_var_list	*tmp;
+
+	tmp = (*shell)->envp;
+	while (tmp && ft_strncmp(tmp->name, to_change, ft_strlen(to_change)))
+		tmp = tmp->next;
+	if (tmp)
+		ft_lkl_modify(&tmp, value);
+	else
+	{
+		tmp = ft_lkllast((*shell)->envp);
+		ft_lkladd_back(&tmp, ft_lklnew(to_change, value));
+	}
+	free_array((*shell)->envp_tmp);
+	recreate_envp(*shell);
+	return ;
 }

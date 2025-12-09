@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:47:28 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/09 11:44:35 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 11:54:29 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	print_status(t_shell *shell)
 {
-	t_shell	*shell;
-
-	(void)argc;
-	(void)argv;
-	shell = create_shell_struct(envp);
-	if (!shell)
-		return (1);
-	start_shell(shell);
-	return (0);
+	ft_putnbr_fd(shell->last_return, 1);
 }

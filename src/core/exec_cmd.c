@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:59:13 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:21:27 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	exec_cmd(t_shell *shell, char *line)
 		exit(EXIT_FAILURE);
 	}
 	waitpid(pid, NULL, 0);
+	shell->last_return = WEXITSTATUS(pid);
 	free(path);
 }
