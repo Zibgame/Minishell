@@ -6,45 +6,45 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 21:13:42 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 10:39:06 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int  is_valid_n(char *s)
+static int	is_valid_n(char *s)
 {
-    int i;
+	int	i;
 
-    if (!s || s[0] != '-' || s[1] != 'n')
-        return (0);
-    i = 2;
-    while (s[i] == 'n')
-        i++;
-    return (s[i] == '\0');
+	if (!s || s[0] != '-' || s[1] != 'n')
+		return (0);
+	i = 2;
+	while (s[i] == 'n')
+		i++;
+	return (s[i] == '\0');
 }
 
-int echo(t_cmd *cmd, t_shell *shell)
+int	echo(t_cmd *cmd, t_shell *shell)
 {
-    int i;
-    int nl;
+	int	i;
+	int	nl;
 
-    (void)shell;
-    i = 1;
-    nl = 1;
-    while (cmd->args[i] && is_valid_n(cmd->args[i]))
-    {
-        nl = 0;
-        i++;
-    }
-    while (cmd->args[i])
-    {
-        printf("arg[%d] = '%s'\n", j, cmd->args[j]);
-        if (cmd->args[i + 1])
-            write(1, " ", 1);
-        i++;
-    }
-    if (nl)
-        write(1, "\n", 1);
-    return (0);
+	(void)shell;
+	i = 1;
+	nl = 1;
+	while (cmd->args[i] && is_valid_n(cmd->args[i]))
+	{
+		nl = 0;
+		i++;
+	}
+	while (cmd->args[i])
+	{
+		ft_putstr_fd(cmd->args[i],1);
+		if (cmd->args[i + 1])
+			write(1, " ", 1);
+		i++;
+	}
+	if (nl)
+		write(1, "\n", 1);
+	return (0);
 }
