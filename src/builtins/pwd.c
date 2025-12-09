@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:00:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 10:46:55 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 11:57:24 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	pwd(t_cmd *cmd, t_shell *shell)
 	if (!path)
 	{
 		printf("pwd: error retrieving current directory\n");
+		shell->last_return = 1;
 		return (1);
 	}
 	if (cmd->args[1])
@@ -30,5 +31,6 @@ int	pwd(t_cmd *cmd, t_shell *shell)
 		printf("pwd: ignoring non-option arguments\n");
 	}
 	printf("%s\n", path);
+	shell->last_return = 0;
 	return (0);
 }

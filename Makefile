@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/09 11:48:10 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/09 11:48:41 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		= main.c \
 			src/input/read_line.c \
 			src/core/exec_cmd.c \
 			src/core/is_builtins.c \
+			src/core/status.c \
 			src/core/exec_builtins.c \
 			src/utils/header.c \
 			src/core/cmd_utils.c \
