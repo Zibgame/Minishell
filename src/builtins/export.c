@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:43:50 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 14:21:31 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static int	is_valid_assignment(char *s)
 		if (s[i] == '=')
 		{
 			has_equal = 1;
-			if (s[i + 1] == '\0')
-				return (0);
 			return (1);
 		}
 		i++;

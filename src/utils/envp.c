@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 13:36:42 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 14:25:00 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	convert_envp(t_shell *shell, int size, t_var_list *tmp)
 		shell->envp_tmp[i] = ft_calloc(line_size, 1);
 		if (tmp->name)
 			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->name);
+		shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], "=");
 		if (tmp->value)
-		{
-			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], "=");
 			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->value);
-		}
 		tmp = tmp->next;
 		i++;
 	}
