@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 14:16:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:37:42 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	print_variable(char *args, t_shell *shell)
 {
 	if (get_value(shell ,&args[1]))
 		return (printf("%s",get_value(shell, &args[1])));
-	if (!ft_strncmp(args, "$?", 2))
+	if (!ft_strncmp(args, "$?", 3))
     return (print_status(shell));
 	return (0);
 }
