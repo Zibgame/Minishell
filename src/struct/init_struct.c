@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 20:44:22 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/09 11:42:11 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_shell	*create_shell_struct(char **envp)
 	shell->envp = convert_env_variables(envp);
 	recreate_envp(shell);
 	shell->actual_command = NULL;
+	shell->last_return = 0;
 	if (!shell->envp)
 		exit(EXIT_FAILURE);
 	return (shell);

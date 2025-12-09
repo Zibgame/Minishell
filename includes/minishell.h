@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 11:38:59 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 11:46:32 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void		recreate_envp(t_shell *shell);
 int			print_header(char *path);
 int			echo(t_cmd *cmd, t_shell *shell);
 int			cd(t_cmd *cmd, t_shell *shell);
+void		print_status(t_shell *shell);
+
 
 
 /* == OTHERS == */

@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/09 10:59:15 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/09 11:48:10 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,17 @@ SRCS		= main.c \
 			src/core/exec_cmd.c \
 			src/core/is_builtins.c \
 			src/core/exec_builtins.c \
-			src/builtins/env.c \
-			src/builtins/echo.c \
-			src/builtins/cd.c \
-			src/builtins/exit.c \
-			src/builtins/pwd.c \
 			src/utils/header.c \
 			src/core/cmd_utils.c \
 			src/signals/signals.c \
 			src/utils/frees.c \
 			src/utils/envp.c
+
+BUILTINS = src/builtins/env.c \
+			src/builtins/echo.c \
+			src/builtins/cd.c \
+			src/builtins/exit.c \
+			src/builtins/pwd.c 
 
 LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lkladd_front.c \
@@ -57,7 +58,7 @@ CMD_FILES	= src/struct/t_cmd/ft_cmdadd_front.c \
 
 OTHER_FILES	= src/utils/action.c
 
-OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o)
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -I. -I$(LIBFT_DIR)

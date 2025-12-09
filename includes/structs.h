@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 11:40:17 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 11:44:43 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_shell
 	t_cmd		*actual_command;
 	char		**envp_tmp;
 	t_var_list	*envp;
+	int				last_return;
 }	t_shell;
 
 #endif
