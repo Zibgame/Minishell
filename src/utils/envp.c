@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 11:40:57 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:15:00 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,17 @@ void	recreate_envp(t_shell *shell)
 	shell->envp_tmp[size] = NULL;
 }
 
-void	set_value(char *value)
+// char *value must be malloced
+void	set_value(t_shell **shell, char *to_change, char *value)
 {
-	(void)value;
+	t_var_list	*tmp;
+	
+	tmp = (*shell)->envp;
+	while (tmp && ft_strncmp(tmp->name, to_change, ft_strlen(to_change)))
+		tmp = tmp->next;
+	printf("%p", tmp);
+	ft_lkl_modify(&tmp, value);
+	free_array((*shell)->envp_tmp);
+	recreate_envp(*shell);
 	return ;
 }

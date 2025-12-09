@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/09 11:48:41 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/09 13:04:05 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ BUILTINS = src/builtins/env.c \
 			src/builtins/pwd.c 
 
 LKL_FILES	= src/struct/init_struct.c \
+			src/struct/var_list/ft_lklmodify_value.c \
 			src/struct/var_list/ft_lkladd_front.c \
 			src/struct/var_list/ft_lkladd_back.c \
 			src/struct/var_list/ft_lklclear.c \
