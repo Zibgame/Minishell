@@ -6,7 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/12/09 14:25:00 by zcadinot         ###   ########.fr       */
+=======
+/*   Updated: 2025/12/09 13:42:43 by aeherve          ###   ########.fr       */
+>>>>>>> ff0a383a6d677f166cbc5465f1b23b6ae1145034
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +56,7 @@ void	recreate_envp(t_shell *shell)
 void	set_value(t_shell **shell, char *to_change, char *value)
 {
 	t_var_list	*tmp;
-	
+
 	tmp = (*shell)->envp;
 	while (tmp && ft_strncmp(tmp->name, to_change, ft_strlen(to_change)))
 		tmp = tmp->next;
