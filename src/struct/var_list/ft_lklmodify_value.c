@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_lklmodify_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:44:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 11:30:29 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/09 11:23:17 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/09 11:29:24 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void	sig_handler(int sig)
+void	ft_lkl_modify(t_var_list **lst, char *value)
 {
-	if (sig == SIGINT)
+	if (lst && *lst)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		write(1, "\n", 1);
-		rl_redisplay();
+		free((*lst)->value);
+		(*lst)->value = value;
 	}
-}
-
-void	init_signal(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = sig_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa, NULL);
 }

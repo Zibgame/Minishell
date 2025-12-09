@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 20:33:32 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 11:36:25 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,9 @@ void	recreate_envp(t_shell *shell)
 	shell->envp_tmp = ft_calloc(size + 1, sizeof(char *));
 	convert_envp(shell, size, tmp);
 	shell->envp_tmp[size] = NULL;
+}
+
+void	set_value(char *value)
+{
+	
 }
