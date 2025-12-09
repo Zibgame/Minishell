@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 14:34:12 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:31:36 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_lkladd_back(t_var_list **lst, t_var_list *new)
 	else
 	{
 		last = ft_lkllast(*lst);
+		new->previous = last;
 		last->next = new;
 	}
 }

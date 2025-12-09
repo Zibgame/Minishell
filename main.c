@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:00:47 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:26:55 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	shell = create_shell_struct(envp);
 	if (!shell)
 		return (1);
+	set_value(&shell, "to_change", "char *value");
 	start_shell(shell);
 	return (0);
 }
