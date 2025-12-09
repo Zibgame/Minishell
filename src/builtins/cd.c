@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:51:52 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 11:15:06 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 20:21:22 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 int	cd(t_cmd *cmd, t_shell *shell)
 {
-	char	*path;
+	// char	*path;
 
 	(void)shell;
-	if (!cmd->args[1])
-		return (1);
-	path = cmd->args[1];
-	if (!path)
-		return (1);
-	if (chdir(path) == -1)
-	{
-		printf("cd: no such file or directory: %s\n", path);
-		return (1);
-	}
+	(void)cmd;
+	// if (!cmd->args[1])
+	// 	return (1);
+	// path = cmd->args[1];
+	// if (!path)
+	// 	return (1);
+	// if (chdir(path) == -1)
+	// {
+	// 	printf("cd: no such file or directory: %s\n", path);
+	// 	return (1);
+	// }
 	return (0);
 }

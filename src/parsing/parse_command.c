@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 17:52:47 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 20:51:01 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,29 @@ int	command_type(t_cmd	*cmd)
 	status = is_redirect(cmd); 
 	if (status)
 		return (PARSEERROR * (status == 2) + REDIRECTION * (status == 1));
-	
+	status = is_pipe(cmd);
+	if (status)
+		return (status);
+	return (ARGUMENT);
 }
 
 void	add_commands(t_cmd	**cmd, char **elems)
 {
 	int		i;
 	int		old_size;
-	t_cmd	*tmp;
 
-	i = -1;
-	old_size = 1;
-	while (elems[++i])
+	if (elems)
 	{
-		ft_cmdadd_back(cmd, ft_cmdnew(elems[i], 0));
-		ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
-		if (!(ft_cmdsize(*cmd) > old_size))
-			return ;
+		i = -1;
 		old_size = ft_cmdsize(*cmd);
+		while (elems[++i])
+		{
+			ft_cmdadd_back(cmd, ft_cmdnew(elems[i], 0));
+			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+			if (!(ft_cmdsize(*cmd) > old_size))
+				return ;
+			old_size = ft_cmdsize(*cmd);
+		}
 	}
 }
 
@@ -51,7 +56,8 @@ t_cmd	*parse_command(char *line)
 	splitted_command = ft_split(line, ' ');
 	if (!splitted_command)
 		return (NULL);
-	cmd = ft_cmdnew(splitted_command[0], command_type(cmd));
+	cmd = ft_cmdnew(splitted_command[0], 0);
+	cmd->type = command_type(cmd);
 	if (cmd)
 		add_commands(&cmd, &splitted_command[1]);
 	return (cmd);

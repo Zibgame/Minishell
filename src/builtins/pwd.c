@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:00:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 11:57:24 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 20:23:16 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	pwd(t_cmd *cmd, t_shell *shell)
 		shell->last_return = 1;
 		return (1);
 	}
-	if (cmd->args[1])
+	if (buff[0])//(cmd->args[1])
 	{
 		printf("pwd: ignoring non-option arguments\n");
 	}

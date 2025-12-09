@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 17:44:50 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 20:04:26 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ enum e_types
 	OPTION,
 	REDIRECTION,
 	PIPE,
-	EXPANSION,
 	ARGUMENT,
+	EXPANSION,
 	OPERATOR,
 	FILETOOPEN
 };

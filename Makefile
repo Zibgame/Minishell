@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
+#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/09 13:24:41 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/09 20:26:26 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,9 @@ SRCS		= main.c \
 			src/signals/signals.c \
 			src/utils/frees.c \
 			src/utils/envp.c
+
+PARSING_FILES = src/parsing/parse_command.c \
+				src/parsing/redirect_split.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \
@@ -61,7 +64,7 @@ CMD_FILES	= src/struct/t_cmd/ft_cmdadd_front.c \
 
 OTHER_FILES	= src/utils/action.c
 
-OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o)
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) $(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o) $(PARSING_FILES:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -I. -I$(LIBFT_DIR)

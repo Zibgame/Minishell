@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmdclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 13:20:55 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 20:23:51 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_cmdclear(t_cmd **lst)
 	{
 		temp = (*lst)->next;
 		free((*lst)->name);
-		free_array((*lst)->args);
 		free(*lst);
 		*lst = temp;
 	}

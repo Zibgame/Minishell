@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 17:55:21 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 21:08:07 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,23 @@ int	is_builtins(char *name)
 
 int	is_redirect(t_cmd *cmd)
 {
-	int		i;
+	int		code;
 	char	**new_args;
 
+	new_args = NULL;
+	code = 0;
 	if (ft_strchr(cmd->name, '<') || ft_strchr(cmd->name, '>'))
 	{
 		if (redirect_split(cmd, new_args))
-			return (2);
+			code = 2;
 		else
+		{
 			add_commands(&cmd, new_args);
-		return (1);
+			code = 1;
+		}
+		printf("%p", new_args);
+		free_array(new_args);
+		return (code);
 	}
 	return (0);
 }
@@ -58,25 +65,24 @@ int	is_pipe(t_cmd *cmd)
 	int		i;
 	char	**new_args;
 	
+	new_args = NULL;
 	if (ft_strchr(cmd->name, '|') && ft_strchr(cmd->name, '|') == ft_strrchr(cmd->name, '|'))
 	{
 		new_args = NULL;
 		if (ft_strlen(cmd->name) > 1)
 			new_args = ft_split(cmd->name, '|');
-		if (new_args)
-		{
-			i = 0;
-			while (new_args[i])
-			{
-				ft_cmdadd_back(cmd, ft_cmdnew(new_args[i], 0));
-				ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
-				ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup("|"), 0));
-				ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
-				i++;
-			}
-		}
-		return (1);
+		return (PIPE);
 	}
 	if (ft_strchr(cmd->name, '|'))
 		return (OPERATOR);
+	i = 0;
+	while (new_args && new_args[i])
+	{
+		ft_cmdadd_back(&cmd, ft_cmdnew(new_args[i], 0));
+		ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
+		ft_cmdadd_back(&cmd, ft_cmdnew(ft_strdup("|"), 0));
+		ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
+		i++;
+	}
+	return (0);
 }

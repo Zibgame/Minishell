@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:51:28 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 17:10:07 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 21:08:48 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	m_split(t_cmd *cmd, char **to_fill, int size)
 	to_fill = ft_calloc(size * sizeof(char *), 1);
 	while (cmd->name[i])
 	{
-		if (state != ft_isalnum(cmd->name))
+		if (state != ft_isalnum(cmd->name[i]))
 		{
 			to_fill[words] = ft_strndup(&cmd->name[i - len], len);
 			len = 0;

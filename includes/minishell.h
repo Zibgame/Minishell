@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 16:56:00 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 21:06:20 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);
 void		add_commands(t_cmd	**cmd, char **elems);
 int			is_redirect(t_cmd *cmd);
+int			is_pipe(t_cmd *cmd);
 
 #endif
