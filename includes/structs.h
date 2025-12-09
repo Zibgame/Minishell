@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 15:29:54 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 11:15:31 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@
 enum e_types
 {
 	BUILTINS,
+	ARGUMENT,
+	OPTION,
+	REDIRECTION,
+	PIPE,
+	EXPANSION
+};
+
+enum e_file_type
+{
+	FILE,
+	EOFILE,
+	HEREDOC	
 };
 
 typedef struct s_cmd
