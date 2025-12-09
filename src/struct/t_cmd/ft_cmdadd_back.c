@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 13:20:21 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:55:35 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 	else
 	{
 		last = ft_cmdlast(*lst);
+		new->prev = last;
 		last->next = new;
 	}
 }

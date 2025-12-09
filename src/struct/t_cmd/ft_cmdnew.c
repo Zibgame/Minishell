@@ -6,13 +6,13 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:31 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/08 13:21:17 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:51:56 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_cmd	*ft_cmdnew(char *name, char **args)
+t_cmd	*ft_cmdnew(char *name, int type)
 {
 	t_cmd	*elem;
 
@@ -20,7 +20,7 @@ t_cmd	*ft_cmdnew(char *name, char **args)
 	if (!elem)
 		return (NULL);
 	elem->name = name;
-	elem->args = args;
+	elem->type = type;
 	elem->next = NULL;
 	elem->prev = NULL;
 	return (elem);

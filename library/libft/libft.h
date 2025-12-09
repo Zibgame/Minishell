@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:31:29 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 18:13:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:34:24 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s);
+char	*ft_strndup(const char *s, int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:42:27 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 15:00:15 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,9 @@ t_shell	*create_shell_struct(char **envp)
 		exit(EXIT_FAILURE);
 	shell->envp = convert_env_variables(envp);
 	recreate_envp(shell);
-	shell->actual_command = NULL;
+	shell->cmd = NULL;
 	shell->last_return = 0;
 	if (!shell->envp)
 		exit(EXIT_FAILURE);
 	return (shell);
-}
-
-t_cmd	create_command(char *line)
-{
-	t_cmd	command;
-	char	**args;
-
-	args = ft_split(line, ' ');
-	command.name = args[0];
-	command.type = is_builtins(command.name);
-	command.args = args;
-	return (command);
 }

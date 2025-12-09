@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:43:50 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:43:08 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	export(t_cmd *cmd, t_shell *shell)
 {
 	char	**env_var;
 
-	if (cmd->args[1] && is_valid_assignment(cmd->args[1]))
+	if (cmd->name && is_valid_assignment(cmd->name))
 	{
-		env_var = ft_split(cmd->args[1], '=');
+		env_var = ft_split(cmd->name, '=');
 		set_value(&shell, env_var[0], env_var[1]);
 		return (0);
 	}

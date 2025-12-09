@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/08 20:58:41 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/09 14:47:32 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	free_shell(t_shell *shell)
 {
 	if (shell)
 	{
-		if (shell->actual_command)
-			free_array(shell->actual_command->args);
+		if (shell->cmd)
+			free_array(shell->cmd->args);
 		if (shell->envp)
 			ft_lklclear(&shell->envp);
 		if (shell->envp_tmp)

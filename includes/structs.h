@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 14:06:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/09 17:44:50 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 
 enum e_types
 {
+	PARSEERROR = -1,
 	BUILTINS,
-	ARGUMENT,
 	OPTION,
 	REDIRECTION,
 	PIPE,
-	EXPANSION
+	EXPANSION,
+	ARGUMENT,
+	OPERATOR,
+	FILETOOPEN
 };
 
 enum e_file_type
@@ -35,9 +38,10 @@ enum e_file_type
 
 typedef struct s_cmd
 {
+	int				fd;
 	int				type;
+	int				file_type;
 	char			*name;
-	char			**args;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -52,10 +56,10 @@ typedef struct s_var_list
 
 typedef struct s_shell
 {
-	t_cmd		*actual_command;
+	t_cmd		*cmd;
 	char		**envp_tmp;
 	t_var_list	*envp;
-	int				last_return;
+	int			last_return;
 }	t_shell;
 
 #endif
