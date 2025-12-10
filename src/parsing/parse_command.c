@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 17:24:30 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 19:40:50 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	command_type(t_cmd	*cmd)
 	status = is_pipe(cmd);
 	if (status)
 		return (status);
-	else if (status == TOREMOVE)
-		return (TOREMOVE);
+	else if (status == TOREMOVE || status == OPERATOR)
+		return (status);
 	return (ARGUMENT);
 }
 

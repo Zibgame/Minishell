@@ -32,7 +32,8 @@ STRUSE_FILES = struse/ft_strchr.c struse/ft_strlen.c struse/ft_strncmp.c \
                struse/ft_strnstr.c struse/ft_strrchr.c struse/ft_strtrim.c \
                struse/ft_substr.c
 
-OTHER_FILES = other/ft_atoi.c other/ft_split.c other/ft_itoa.c other/free_array.c
+OTHER_FILES = other/ft_atoi.c other/ft_split.c other/ft_itoa.c other/free_array.c \
+			  other/ft_array_len.c
 
 GNL_FILES = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 

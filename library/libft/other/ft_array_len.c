@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_array.c                                       :+:      :+:    :+:   */
+/*   ft_array_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 15:12:30 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 19:21:22 by dadoune          ###   ########.fr       */
+/*   Created: 2025/12/10 19:21:10 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/10 19:22:28 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-/*
-big big free
-*/
-void	free_array(char	**arr)
+size_t	array_len(char	**arr)
 {
 	int	i;
 
-	if (arr)
-	{
-		i = 0;
-		while (arr[i])
+	i = 0;
+	if(arr)
+		while(arr[i])
 			i++;
-		while (i >= 0)
-		{
-			free(arr[i]);
-			i--;
-		}
-		free(arr);
-	}
+	return (i);
 }

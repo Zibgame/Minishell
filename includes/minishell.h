@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 17:18:11 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 19:17:50 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);
 void		add_commands(t_cmd	**cmd, char **elems);
 int			is_redirect(t_cmd *cmd);
+char		**ft_split_charset(char const *s, char *c);
 int			is_pipe(t_cmd *cmd);
 
 /* == DEBUG == */

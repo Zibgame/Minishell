@@ -6,13 +6,11 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 17:31:45 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 20:00:23 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
 
 int	is_builtins(char *name)
 {
@@ -62,45 +60,52 @@ int	is_redirect(t_cmd *cmd)
 	return (0);
 }
 
-void	add_pipe_sep_args(t_cmd **cmd, char **new_args)
+int	has_multi_pipes(char *str)
 {
 	int	i;
+	int	j;
 	
+	if (!str)
+		return (0);
 	i = 0;
-	while (new_args && new_args[i])
+	j = 0;
+	while (str[i])
 	{
-		ft_cmdadd_back(cmd, ft_cmdnew(new_args[i], 0));
-		ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+		if (str[i] == '|')
+			j++;
+		else
+			j = 0;
+
+		if (j > 2)
+			return (PARSEERROR);
 		i++;
-		if (!new_args[i])
-			return ;
-		ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup("|"), 0));
-		ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
 	}
+	if (j == i && j == 2)
+		return (OPERATOR);
+	return (0);
 }
 
 int	is_pipe(t_cmd *cmd)
 {
 	char	**new_args;
 	
-	new_args = NULL;
 	if (ft_strchr(cmd->name, '|'))
 	{
-		if (ft_strchr(cmd->name, '|') == ft_strrchr(cmd->name, '|'))
+		if (ft_strlen(cmd->name) > 1)
 		{
+			if (has_multi_pipes(cmd->name) != 0)
+				return (has_multi_pipes(cmd->name));
 			new_args = NULL;
-			if (ft_strlen(cmd->name) > 1)
-				new_args = ft_split(cmd->name, '|');
-			else
-				return (PIPE);
+			new_args = ft_split_charset(cmd->name, "|");
+			if (!new_args)
+				return (0);
+			int i=0;
+			while (new_args[i])
+				printf("|%s|\n", new_args[i++]);
+			add_commands(&cmd, new_args);
+			free_array(new_args);
+			return (TOREMOVE);
 		}
-	}
-	else if (ft_strchr(cmd->name, '|'))
-		return (OPERATOR);
-	if (new_args)
-	{
-		add_pipe_sep_args(&cmd, new_args);
-		return (TOREMOVE);
 	}
 	return (0);
 }
