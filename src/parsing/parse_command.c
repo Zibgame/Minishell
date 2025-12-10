@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 21:00:15 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 21:02:08 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void	remove_waste(t_cmd *cmd)
 }
 
 t_cmd	*parse_command(char *line)
-{
-	
+{	
 	char	**splitted_command;
 	t_cmd	*cmd;
 	
