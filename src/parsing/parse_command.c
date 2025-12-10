@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 20:45:05 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 21:00:15 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ void	add_commands(t_cmd	**cmd, char **elems)
 	}
 }
 
+void	remove_waste(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	
+	while (cmd && cmd->next)
+	{
+		if (cmd->next->type == TOREMOVE)
+		{
+			tmp = cmd->next;
+			cmd->next = cmd->next->next;
+			cmd->next->prev = cmd;
+			ft_cmddelone(tmp);
+		}
+		cmd = cmd->next;
+	}
+}
+
 t_cmd	*parse_command(char *line)
 {
 	
@@ -63,5 +80,6 @@ t_cmd	*parse_command(char *line)
 	if (cmd)
 		add_commands(&cmd, &splitted_command[1]);
 	free_array(splitted_command);
+	remove_waste(cmd);
 	return (cmd);
 }
