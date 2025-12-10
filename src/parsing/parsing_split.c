@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:32:07 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/10 19:45:47 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 20:14:05 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static size_t	count_words(const char *str, char *seps)
 		count++;
 		old_state = state;
 	}
-	count++;
+	if (state != !ft_strchr(seps, str[i - 2]))
+		count++;
 	return (count);
 }
 

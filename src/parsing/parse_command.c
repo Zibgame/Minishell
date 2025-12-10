@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 19:40:50 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 20:45:05 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ int	command_type(t_cmd	*cmd)
 {
 	int	status;
 	
+	if (!ft_strncmp(cmd->name, "-", 2))
+		return (PARSEERROR);
 	if (is_builtins(cmd->name))
-		return (is_builtins(cmd->name) - 1);
+		return (is_builtins(cmd->name));
 	status = is_redirect(cmd); 
 	if (status)
-		return (PARSEERROR * (status == 2) + REDIRECTION * (status == 1));
+		return (status);
 	status = is_pipe(cmd);
 	if (status)
-		return (status);
-	else if (status == TOREMOVE || status == OPERATOR)
 		return (status);
 	return (ARGUMENT);
 }
