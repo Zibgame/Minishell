@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 20:51:01 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 17:08:36 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	add_commands(t_cmd	**cmd, char **elems)
 		old_size = ft_cmdsize(*cmd);
 		while (elems[++i])
 		{
-			ft_cmdadd_back(cmd, ft_cmdnew(elems[i], 0));
+			ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup(elems[i]), 0));
 			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
 			if (!(ft_cmdsize(*cmd) > old_size))
 				return ;
@@ -56,9 +56,10 @@ t_cmd	*parse_command(char *line)
 	splitted_command = ft_split(line, ' ');
 	if (!splitted_command)
 		return (NULL);
-	cmd = ft_cmdnew(splitted_command[0], 0);
+	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);
 	cmd->type = command_type(cmd);
 	if (cmd)
 		add_commands(&cmd, &splitted_command[1]);
+	free_array(splitted_command);
 	return (cmd);
 }

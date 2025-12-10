@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 20:46:13 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 17:05:47 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		bufr = join_and_free(bufr, argv[i++]);
 		if (argv[i])
-			bufr = join_and_free(bufr, " ");	
+			bufr = join_and_free(bufr, " ");
 	}
 	shell->cmd = parse_command(bufr);
+	free(bufr);
 	display_list(shell->cmd);
 	free_shell(shell);
 	return (0);
