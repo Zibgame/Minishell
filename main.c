@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 17:05:47 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 21:06:20 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,40 @@ void	display_list(t_cmd	*cmd)
 	}
 }
 
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	int		i;
+// 	char	*bufr;
+// 	t_shell	*shell;
+
+// 	(void)argc;
+// 	shell = create_shell_struct(envp);
+// 	if (!shell)
+// 		return (1);
+// 	bufr = ft_calloc(500, 1);
+// 	i = 0;
+// 	while (argv[i])
+// 	{
+// 		bufr = join_and_free(bufr, argv[i++]);
+// 		if (argv[i])
+// 			bufr = join_and_free(bufr, " ");
+// 	}
+// 	shell->cmd = parse_command(bufr);
+// 	free(bufr);
+// 	display_list(shell->cmd);
+// 	free_shell(shell);
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
-	int		i;
-	char	*bufr;
 	t_shell	*shell;
 
 	(void)argc;
+	(void)argv;
 	shell = create_shell_struct(envp);
 	if (!shell)
 		return (1);
-	bufr = ft_calloc(500, 1);
-	i = 0;
-	while (argv[i])
-	{
-		bufr = join_and_free(bufr, argv[i++]);
-		if (argv[i])
-			bufr = join_and_free(bufr, " ");
-	}
-	shell->cmd = parse_command(bufr);
-	free(bufr);
-	display_list(shell->cmd);
-	free_shell(shell);
+	start_shell(shell);
 	return (0);
 }
