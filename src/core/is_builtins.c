@@ -6,11 +6,13 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 21:08:07 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 17:24:23 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
 
 int	is_builtins(char *name)
 {
@@ -60,9 +62,25 @@ int	is_redirect(t_cmd *cmd)
 	return (0);
 }
 
+void	add_pipe_sep_args(t_cmd **cmd, char **new_args)
+{
+	int	i;
+	
+	i = 0;
+	while (new_args && new_args[i])
+	{
+		ft_cmdadd_back(cmd, ft_cmdnew(new_args[i], 0));
+		ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+		i++;
+		if (!new_args[i])
+			return ;
+		ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup("|"), 0));
+		ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+	}
+}
+
 int	is_pipe(t_cmd *cmd)
 {
-	int		i;
 	char	**new_args;
 	
 	new_args = NULL;
@@ -71,18 +89,15 @@ int	is_pipe(t_cmd *cmd)
 		new_args = NULL;
 		if (ft_strlen(cmd->name) > 1)
 			new_args = ft_split(cmd->name, '|');
-		return (PIPE);
+		else
+			return (PIPE);
 	}
-	if (ft_strchr(cmd->name, '|'))
+	else if (ft_strchr(cmd->name, '|'))
 		return (OPERATOR);
-	i = 0;
-	while (new_args && new_args[i])
+	if (new_args)
 	{
-		ft_cmdadd_back(&cmd, ft_cmdnew(new_args[i], 0));
-		ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
-		ft_cmdadd_back(&cmd, ft_cmdnew(ft_strdup("|"), 0));
-		ft_cmdlast(cmd)->type = command_type(ft_cmdlast(cmd));
-		i++;
+		add_pipe_sep_args(&cmd, new_args);
+		return (TOREMOVE);
 	}
 	return (0);
 }

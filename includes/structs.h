@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 20:04:26 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/10 17:22:59 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 enum e_types
 {
+	TOREMOVE = -2,
 	PARSEERROR = -1,
 	BUILTINS,
 	OPTION,
