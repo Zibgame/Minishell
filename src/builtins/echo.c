@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 21:15:59 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/11 12:57:17 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,25 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
-static int	is_status_var(char *s)
-{
-	return (s && s[0] == '$' && s[1] == '?' && s[2] == '\0');
-}
-
 int	echo(t_shell *shell)
 {
 	int		nl;
-	t_cmd	*tmp;
 
 	nl = 1;
-	tmp = shell->cmd;
-	while (tmp->type == 1 && is_valid_n(tmp->name))
+	while (shell->cmd->type == 1 && is_valid_n(shell->cmd->name))
 	{
 		nl = 0;
-		tmp = tmp->next;
+		shell->cmd = shell->cmd->next;
 	}
-	while (shell->cmd->type)
+	while (shell->cmd && shell->cmd->type == 4)
 	{
-	if (is_status_var(shell->cmd->args[i]))
-		print_status(shell);
-	else
-		ft_putstr_fd(shell->cmd->args[i], 1);
-		if (shell->cmd->args[i + 1])
-			write(1, " ", 1);
-		i++;
+		if (ft_strncmp(shell->cmd->name, "$?", 3))
+			print_status(shell);
+		else
+			printf("%s", shell->cmd->name);
+		if (shell->cmd->next && shell->cmd->next->type == 4)
+			printf(" ");
+		shell->cmd = shell->cmd->next;
 	}
 	if (nl)
 		write(1, "\n", 1);

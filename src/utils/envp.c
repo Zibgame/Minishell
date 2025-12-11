@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 13:42:43 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/11 13:07:02 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	recreate_envp(t_shell *shell)
 
 	tmp = shell->envp;
 	size = ft_lklsize(tmp);
+	if (shell->envp_tmp)
+		free_array(shell->envp_tmp);
 	shell->envp_tmp = ft_calloc(size + 1, sizeof(char *));
 	convert_envp(shell, size, tmp);
 	shell->envp_tmp[size] = NULL;
