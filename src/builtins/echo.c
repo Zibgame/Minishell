@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 21:15:59 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:55:22 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,33 @@ static int	is_status_var(char *s)
 	return (s && s[0] == '$' && s[1] == '?' && s[2] == '\0');
 }
 
+static void	display_argument(t_shell *shell)
+{
+	if (is_status_var(shell->cmd->name))
+		print_status(shell);
+	else
+	{
+		ft_putstr_fd(shell->cmd->name, 1);
+		if (shell->cmd->next && \
+			(shell->cmd->next->type == OPTION || shell->cmd->next->type == ARGUMENT))
+			write(1, " ", 1);
+		clean_command_free(shell);
+	}
+}
+
 int	echo(t_shell *shell)
 {
 	int		nl;
-	t_cmd	*tmp;
 
 	nl = 1;
-	tmp = shell->cmd;
-	while (tmp->type == 1 && is_valid_n(tmp->name))
+	clean_command_free(shell);
+	while (shell->cmd && shell->cmd->type == 1 && is_valid_n(shell->cmd->name))
 	{
 		nl = 0;
-		tmp = tmp->next;
+		clean_command_free(shell);
 	}
-	while (shell->cmd->type)
-	{
-	if (is_status_var(shell->cmd->args[i]))
-		print_status(shell);
-	else
-		ft_putstr_fd(shell->cmd->args[i], 1);
-		if (shell->cmd->args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
+	while (shell->cmd && shell->cmd->type)
+		display_argument(shell);
 	if (nl)
 		write(1, "\n", 1);
 	return (0);

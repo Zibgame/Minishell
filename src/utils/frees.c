@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 20:18:51 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:41:53 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,25 @@ char	*join_and_free(char *s1, char *s2)
 		s1 = NULL;
 	}
 	return (new_line);
+}
+
+/*
+clear actual node if exists and go to the next one if exists
+*/
+void	clean_command_free(t_shell *shell)
+{
+	if (shell && shell->cmd)
+	{
+		if (shell->cmd->next)
+		{
+			shell->cmd = shell->cmd->next;
+			ft_cmddelone(shell->cmd->prev);
+			shell->cmd->prev = NULL;
+		}
+		else
+		{
+			ft_cmddelone(shell->cmd);
+			shell->cmd = NULL;
+		}
+	}
 }

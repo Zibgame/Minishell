@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 21:02:08 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:26:56 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	command_type(t_cmd	*cmd)
 {
 	int	status;
 	
-	if (!ft_strncmp(cmd->name, "-", 2))
+		if (!ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
-	if (is_builtins(cmd->name))
+	if (is_builtins(cmd->name) != -1)
 		return (is_builtins(cmd->name));
 	status = is_redirect(cmd); 
 	if (status)

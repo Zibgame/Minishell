@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 19:17:50 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:22:55 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,29 @@ t_cmd		*ft_cmdlast(t_cmd *lst);
 t_cmd		*ft_cmdnew(char *name, int type);
 t_cmd		extract_next_cmd(t_cmd *cmd);
 int			command_type(t_cmd	*cmd);
+void		clean_command_free(t_shell *shell);
 
 /* == EXECUTION == */
 char		*get_cmd_path(t_shell *shell, char *cmd);
-int			finish(t_cmd *cmd, t_shell *shell);
+int			finish(t_shell *shell);
 
 /* == BUILTINS == */
 int			is_builtins(char *name);
-int			exec_builtins(t_cmd cmd, t_shell *shell);
-int			env(t_cmd *cmd, t_shell *shell);
-int			pwd(t_cmd *cmd, t_shell *shell);
+int			exec_builtins(t_shell *shell);
+int			env(t_shell *shell);
 
 char		*get_cmd_path(t_shell *shell, char *cmd);
 int			is_builtins(char *name);
-int			exec_builtins(t_cmd cmd, t_shell *shell);
-int			env(t_cmd *cmd, t_shell *shell);
-int			pwd(t_cmd *cmd, t_shell *shell);
-int			finish(t_cmd *cmd, t_shell *shell);
+int			pwd(t_shell *shell);
 
 void		free_shell(t_shell *shell);
 char		*join_and_free(char *s1, char *s2);
 void		recreate_envp(t_shell *shell);
 int			print_header(char *path);
-int			echo(t_cmd *cmd, t_shell *shell);
-int			cd(t_cmd *cmd, t_shell *shell);
+int			echo(t_shell *shell);
+int			cd(t_shell *shell);
 void		print_status(t_shell *shell);
-int			export(t_cmd *cmd, t_shell *shell);
+int			export(t_shell *shell);
 
 /* == OTHERS == */
 void		clear(void);

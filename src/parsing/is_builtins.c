@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/10 20:46:41 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:26:25 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_builtins(char *name)
 {
 	if (!name)
-		return (0);
+		return (-1);
 	if (!ft_strncmp(name, "echo", 5))
 		return (BUILTINS);
 	if (!ft_strncmp(name, "cd", 3))
@@ -34,7 +34,7 @@ int	is_builtins(char *name)
 		return (BUILTINS);
 	if (!ft_strncmp(name, "-", 1))
 		return ((OPTION));
-	return (0);
+	return (-1);
 }
 
 int	has_multi_redir(char *str)

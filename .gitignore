@@ -11,3 +11,6 @@ obj
 
 # compiled program
 minishell
+
+# compiled tests
+a.out

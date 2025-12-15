@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 20:19:47 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:24:33 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 // 	return (0);
 // }
 
-int	env(t_cmd *cmd, t_shell *shell)
+int	env(t_shell *shell)
 {
 	// t_cmd	new;
 	
-	(void)cmd;
 	(void)shell;
 	// if (!cmd->args[1])
 	// {
@@ -45,6 +44,5 @@ int	env(t_cmd *cmd, t_shell *shell)
 	// 	shell->last_return = 1;
 	// 	return (1);
 	// }
-	// shell->last_return = exec_builtins(new, shell);
 	return (0);//(exec_builtins(new, shell));
 }
