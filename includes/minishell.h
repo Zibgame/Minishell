@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:26:16 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:46:36 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_cmd		*ft_cmdnew(char *name, int type);
 t_cmd		extract_next_cmd(t_cmd *cmd);
 int			command_type(t_cmd	*cmd);
 void		clean_command_free(t_shell *shell);
+char		**build_argv(t_cmd *cmd);
 
 /* == EXECUTION == */
 char		*get_cmd_path(t_shell *shell, char *cmd);
@@ -95,5 +96,6 @@ void		display_list(t_cmd	*cmd);
 
 /* == Pipex ==*/
 void	exec_pipeline(t_shell *shell);
+int	has_pipe(t_cmd *cmd);
 
 #endif

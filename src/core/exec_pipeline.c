@@ -6,11 +6,37 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:31:34 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:51:22 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
+{
+	char	*path;
+	char	**argv;
+
+	if (in_fd != STDIN_FILENO)
+		dup2(in_fd, STDIN_FILENO);
+	if (out_fd != STDOUT_FILENO)
+		dup2(out_fd, STDOUT_FILENO);
+
+	if (cmd->type == BUILTINS)
+	{
+		exec_builtins(shell);
+		exit(shell->last_return);
+	}
+	path = get_cmd_path(shell, cmd->name);
+	if (!path)
+	{
+		ft_putstr_fd("command not found\n", 2);
+		exit(127);
+	}
+	argv = build_argv(cmd);
+	execve(path, argv, shell->envp_tmp);
+	exit(1);
+}
 
 void	exec_pipeline(t_shell *shell)
 {
@@ -24,18 +50,12 @@ void	exec_pipeline(t_shell *shell)
 	while (cmd)
 	{
 		if (cmd->next && cmd->next->type == PIPE)
-		{
-			if (pipe(pipefd) == -1)
-				return ;
-		}
+			pipe(pipefd);
 		else
-		{
-			pipefd[0] = STDIN_FILENO;
 			pipefd[1] = STDOUT_FILENO;
-		}
 		pid = fork();
 		if (pid == 0)
-			//exec le child
+			exec_child(shell, cmd, in_fd, pipefd[1]);
 		if (in_fd != STDIN_FILENO)
 			close(in_fd);
 		if (pipefd[1] != STDOUT_FILENO)

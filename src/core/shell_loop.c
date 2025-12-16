@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:09:07 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:45:28 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	shell_loop(t_shell *shell)
 		display_list(shell->cmd);
 		if (shell->cmd)
 		{
-			if (shell->cmd->type == BUILTINS)
+			if (has_pipe(shell->cmd))
+				exec_pipeline(shell);
+			else if (shell->cmd->type == BUILTINS)
 				exec_builtins(shell);
 			else
 				exec_cmd(shell, line);
