@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:40:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:56:44 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 12:12:54 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	count_args(t_cmd *cmd)
 
 	count = 1;
 	cmd = cmd->next;
-	while (cmd && cmd->type == ARGUMENT)
+	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
 	{
 		count++;
 		cmd = cmd->next;
