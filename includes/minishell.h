@@ -80,6 +80,7 @@ int			export(t_shell *shell);
 /* == OTHERS == */
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
+int 		ft_connect(void);	
 
 t_cmd		*parse_command(char *line);
 int			has_parse_error(t_cmd *cmd);
