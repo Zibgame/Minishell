@@ -6,27 +6,27 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:32:37 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 12:37:11 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_valid_identifier(char *s)
-{
-	int	i;
+// static int	is_valid_identifier(char *s)
+// {
+// 	int	i;
 
-	if (!s || !(ft_isalpha(s[0]) || s[0] == '_'))
-		return (0);
-	i = 1;
-	while (s[i])
-	{
-		if (!(ft_isalnum(s[i]) || s[i] == '_'))
-			return (0);
-		i++;
-	}
-	return (1);
-}
+// 	if (!s || !(ft_isalpha(s[0]) || s[0] == '_'))
+// 		return (0);
+// 	i = 1;
+// 	while (s[i])
+// 	{
+// 		if (!(ft_isalnum(s[i]) || s[i] == '_'))
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
 int	unset(t_cmd *cmd, t_shell *shell)
 {
@@ -54,5 +54,5 @@ int	unset(t_cmd *cmd, t_shell *shell)
 	// 	}
 	// 	curr = curr->next;
 	// }
-	// return (1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:33:55 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 12:36:51 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,9 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
-static int	print_variable(char *args, t_shell *shell)
-{
-	if (get_value(shell ,&args[1]))
-		return (printf("%s",get_value(shell, &args[1])));
-	if (!ft_strncmp(args, "$?", 3))
-    	return (print_status(shell));
-	return (0);
-}
-
 static void	display_argument(t_shell *shell)
 {
-	if (is_status_var(shell->cmd->name))
+	if (ft_strncmp(shell->cmd->name, "$?", 3))
 		print_status(shell);
 	else
 	{
