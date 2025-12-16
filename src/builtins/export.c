@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:17:17 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:25:59 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,39 @@
 
 static int	valid_char(char c)
 {
-	if (('A' <= c && c <= 'Z') || \
-		('a' <= c && c <= 'z') || \
-		('0' <= c && c <= '9'))
+	if (('A' <= c && c <= 'Z')
+		|| ('a' <= c && c <= 'z')
+		|| ('0' <= c && c <= '9')
+		|| c == '_')
 		return (1);
 	return (0);
 }
 
 static int	valid_first_char(char c)
 {
-	if (('!' <= c && c <= '@') || \
-	('[' <= c && c <= '^') || ('{' <= c && c <= '~'))
-		return (0);
-	return (1);
+	if (('A' <= c && c <= 'Z')
+		|| ('a' <= c && c <= 'z')
+		|| c == '_')
+		return (1);
+	return (0);
 }
 
 static char	is_valid_assignment(char *s)
 {
 	int	i;
 
-	i = 0;
-	if (!s)
+	if (!s || !valid_first_char(s[0]))
 		return (0);
-	if (!valid_first_char(s[i++]))
-		return (0);
+	i = 1;
 	while (s[i])
 	{
-		if (!valid_char(s[i]))
-			return (0);
 		if (s[i] == '=')
 			return (1);
+		if (!valid_char(s[i]))
+			return (0);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	export(t_shell *shell)
