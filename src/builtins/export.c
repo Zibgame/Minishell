@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:57 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:17:17 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	valid_char(char c)
 
 static int	valid_first_char(char c)
 {
-	if (c == '=' || ('!' <= c && c <= '@') || \
+	if (('!' <= c && c <= '@') || \
 	('[' <= c && c <= '^') || ('{' <= c && c <= '~'))
 		return (0);
 	return (1);
