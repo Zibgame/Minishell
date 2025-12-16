@@ -6,7 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/12/16 13:52:00 by aeherve          ###   ########.fr       */
+=======
+/*   Updated: 2025/12/16 13:52:50 by zcadinot         ###   ########.fr       */
+>>>>>>> 4b7a2b31aafdc9cfd94c143e54f5857632a09e8a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +99,7 @@ int			is_pipe(t_cmd *cmd);
 void		display_list(t_cmd	*cmd);
 
 /* == Pipex ==*/
-void	exec_pipeline(t_shell *shell);
-int		has_pipe(t_cmd *cmd);
+void		exec_pipeline(t_shell *shell);
+int			has_pipe(t_cmd *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 19:21:10 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/10 19:22:28 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:53:26 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ size_t	array_len(char	**arr)
 	int	i;
 
 	i = 0;
-	if(arr)
-		while(arr[i])
+	if (arr)
+		while (arr[i])
 			i++;
 	return (i);
 }

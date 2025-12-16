@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:36:34 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:55:20 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	exec_pipeline(t_shell *shell)
 
 	cmd = shell->cmd;
 	in_fd = STDIN_FILENO;
+	free_();
 	while (cmd)
 	{
 		if (cmd->next && cmd->next->type == PIPE)
