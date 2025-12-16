@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/15 19:55:22 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 12:04:23 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	echo(t_shell *shell)
 		nl = 0;
 		clean_command_free(shell);
 	}
-	while (shell->cmd && shell->cmd->type)
+	while (shell->cmd && shell->cmd->type == ARGUMENT)
 		display_argument(shell);
 	if (nl)
 		write(1, "\n", 1);
