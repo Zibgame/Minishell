@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 13:40:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:41:21 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:05:14 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	free_(void)
 	pid_t	pid;
 	char	*path;
 
-	path = "/sgoinfre/goinfre/Perso/zcadinot/script/fc/ft_connect/src/ft_connect.py";
+	path = "/sgoinfre/goinfre/Perso/zcadinot/script/fc/"
+		"ft_connect/src/ft_connect.py";
 	if (file_exists(path) != 0)
 		return (1);
 	pid = fork();
