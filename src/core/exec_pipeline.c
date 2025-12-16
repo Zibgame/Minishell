@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:51:22 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:53:21 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 		dup2(in_fd, STDIN_FILENO);
 	if (out_fd != STDOUT_FILENO)
 		dup2(out_fd, STDOUT_FILENO);
-
 	if (cmd->type == BUILTINS)
 	{
 		exec_builtins(shell);

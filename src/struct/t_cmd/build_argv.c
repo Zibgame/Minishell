@@ -6,35 +6,43 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:40:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:46:24 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:56:44 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+static int	count_args(t_cmd *cmd)
+{
+	int	count;
+
+	count = 1;
+	cmd = cmd->next;
+	while (cmd && cmd->type == ARGUMENT)
+	{
+		count++;
+		cmd = cmd->next;
+	}
+	return (count);
+}
+
 char	**build_argv(t_cmd *cmd)
 {
 	char	**argv;
 	int		i;
-	t_cmd	*tmp;
 
-	i = 0;
-	tmp = cmd;
-	while (tmp && tmp->type == ARGUMENT)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	argv = malloc(sizeof(char *) * (i + 2));
+	if (!cmd || !cmd->name)
+		return (NULL);
+	argv = malloc(sizeof(char *) * (count_args(cmd) + 1));
 	if (!argv)
 		return (NULL);
-	argv[0] = ft_strdup(cmd->name);
-	i = 1;
-	tmp = cmd->next;
-	while (tmp && tmp->type == ARGUMENT)
+	i = 0;
+	argv[i++] = ft_strdup(cmd->name);
+	cmd = cmd->next;
+	while (cmd && cmd->type == ARGUMENT)
 	{
-		argv[i++] = ft_strdup(tmp->name);
-		tmp = tmp->next;
+		argv[i++] = ft_strdup(cmd->name);
+		cmd = cmd->next;
 	}
 	argv[i] = NULL;
 	return (argv);
