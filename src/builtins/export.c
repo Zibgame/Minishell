@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:31:42 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 12:46:06 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	is_valid_assignment(char *s)
 			return (1);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	export(t_shell *shell)

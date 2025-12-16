@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:36:51 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 12:49:10 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ static int	is_valid_n(char *s)
 
 static void	display_argument(t_shell *shell)
 {
-	if (ft_strncmp(shell->cmd->name, "$?", 3))
+	if (!ft_strncmp(shell->cmd->name, "$?", 3))
+	{
+		clean_command_free(shell);
 		print_status(shell);
+	}
 	else
 	{
 		ft_putstr_fd(shell->cmd->name, 1);
@@ -49,7 +52,8 @@ int	echo(t_shell *shell)
 		nl = 0;
 		clean_command_free(shell);
 	}
-	while (shell->cmd && shell->cmd->type == ARGUMENT)
+	while (shell->cmd && (shell->cmd->type == ARGUMENT || shell->cmd->type \
+		== OPTION))
 		display_argument(shell);
 	if (nl)
 		printf("\n");

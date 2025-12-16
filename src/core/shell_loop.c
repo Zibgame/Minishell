@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:09:58 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 12:42:51 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		shell->cmd = parse_command(line);
-		display_list(shell->cmd);
+		// display_list(shell->cmd);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))
