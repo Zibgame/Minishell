@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:51:28 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 13:53:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:20:37 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int	comb_redir_oper_pipes(char *token)
 	count = 1;
 	while (token[++i])
 	{
-		printf("Old_type: %d\nNew_type: %d\nCount: %d\n", type, \
-			(0 + (token[i] == '|') * PIPE + (token[i] == '<' || \
-				token[i] == '>') * REDIRECTION), count);
 		if (type && type != (0 + (token[i] == '|') * PIPE + \
 			(token[i] == '<' || token[i] == '>') * REDIRECTION))
 			return (-1);

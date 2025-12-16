@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:16:02 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:27:43 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,11 @@ static int	search_and_unset(t_shell *shell)
 	while (shell->cmd && shell->cmd->type == ARGUMENT)
 	{
 		if (!is_valid_identifier(shell->cmd->name))
-		{
-			printf("unset: %s: invalid parameter name\n", shell->cmd->name);
 			return (1);
-		}
-		if (!ft_strncmp(shell->cmd->name, shell->envp->name, ft_strlen(shell->cmd->name) + 1))
+		printf("COMMAND:%s actual var:%s\n", shell->cmd->name, tmp->name);
+		if (!ft_strncmp(shell->cmd->name, tmp->name, ft_strlen(shell->cmd->name) + 1))
 		{
+			printf("ici");
 			ft_lkldelone(tmp);
 			free_array(shell->envp_tmp);
 			recreate_envp(shell);
@@ -49,6 +48,11 @@ static int	search_and_unset(t_shell *shell)
 			tmp = shell->envp;
 		}
 		tmp = tmp->next;
+		if (!tmp)
+		{
+			tmp = shell->envp;
+			clean_command_free(shell);
+		}
 	}
 	return (0);
 }
@@ -64,6 +68,7 @@ int	unset(t_shell *shell)
 	}
 	if (search_and_unset(shell))
 	{
+		printf("unset: %s: invalid parameter name\n", shell->cmd->name);
 		shell->last_return = 1;
 		return (1);
 	}
