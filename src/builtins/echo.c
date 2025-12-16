@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:25 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 15:36:25 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	display_argument(t_shell *shell)
 		ft_putstr_fd(shell->cmd->name, 1);
 		if (shell->cmd->next && \
 			(shell->cmd->next->type == OPTION || \
+			shell->cmd->next->type == ARGUMENT || \
 			shell->cmd->next->type == ARGUMENT))
 			write(1, " ", 1);
 		clean_command_free(shell);
@@ -54,7 +55,7 @@ int	echo(t_shell *shell)
 		clean_command_free(shell);
 	}
 	while (shell->cmd && (shell->cmd->type == ARGUMENT || shell->cmd->type \
-		== OPTION))
+		== OPTION || shell->cmd->type == PARSEERROR))
 		display_argument(shell);
 	if (nl)
 		printf("\n");
