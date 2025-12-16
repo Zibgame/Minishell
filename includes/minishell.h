@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:18:54 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 14:30:33 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int			env(t_shell *shell);
 char		*get_cmd_path(t_shell *shell, char *cmd);
 int			is_builtins(char *name);
 int			pwd(t_shell *shell);
+int			unset(t_shell *shell);
 
 void		free_shell(t_shell *shell);
 char		*join_and_free(char *s1, char *s2);
