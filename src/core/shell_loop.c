@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 03:04:39 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 11:09:07 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		shell->cmd = parse_command(line);
-		// display_list(shell->cmd);
+		display_list(shell->cmd);
 		if (shell->cmd)
 		{
 			if (shell->cmd->type == BUILTINS)
