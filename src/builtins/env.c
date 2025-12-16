@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:31:47 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:54:51 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	print_env(t_shell *shell)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (shell->envp_tmp[i])
 		printf("%s\n", shell->envp_tmp[i++]);
@@ -30,7 +30,7 @@ int	env(t_shell *shell)
 	else if (shell->cmd->type != PARSEERROR)
 	{
 		if (!ft_strncmp(shell->cmd->name, "pwd", 4))
-			return(pwd(shell));
+			return (pwd(shell));
 		else if (!ft_strncmp(shell->cmd->name, "env", 4))
 			return (env(shell));
 		printf("env: '%s': No such file or directory\n", shell->cmd->name);
