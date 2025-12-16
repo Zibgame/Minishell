@@ -3,33 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 15:00:15 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 02:34:43 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_var_list	*convert_env_variables(char **envp)
+void	convert_env_variables(t_shell *shell, char **envp)
 {
 	int			i;
 	char		**tmp;
-	t_var_list	*env;
 
 	i = -1;
-	env = NULL;
+	shell->envp = NULL;
 	while (envp[++i])
 	{
 		tmp = ft_split(envp[i], '=');
 		if (!tmp)
 			exit(EXIT_FAILURE);
-		ft_lkladd_back(&env,
-			ft_lklnew(ft_strdup(tmp[0]), ft_strdup(tmp[1])));
-		free_array(tmp);
+		if (!get_value(shell, tmp[0]))
+		{
+			ft_lkladd_back(&shell->envp,
+				ft_lklnew(ft_strdup(tmp[0]), ft_strdup(tmp[1])));
+			free_array(tmp);
+		}
 	}
-	return (env);
 }
 
 char	*get_value(t_shell *shell, char *name)
@@ -55,7 +56,7 @@ t_shell	*create_shell_struct(char **envp)
 	shell = malloc(sizeof(t_shell));
 	if (!shell)
 		exit(EXIT_FAILURE);
-	shell->envp = convert_env_variables(envp);
+	convert_env_variables(shell, envp);
 	recreate_envp(shell);
 	shell->cmd = NULL;
 	shell->last_return = 0;

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/15 19:26:25 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 02:54:01 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	is_redirect(t_cmd *cmd)
 		{
 			if (has_multi_redir(cmd->name) != 0)
 				return (has_multi_redir(cmd->name));
+			if (comb_redir_oper_pipes(cmd->name) != 0)
+				return (comb_redir_oper_pipes(cmd->name));
 			new_args = NULL;
 			new_args = ft_split_charset(cmd->name, "<>");
 			if (!new_args)
@@ -125,6 +127,8 @@ int	is_pipe(t_cmd *cmd)
 		{
 			if (has_multi_pipes(cmd->name) != 0)
 				return (has_multi_pipes(cmd->name));
+			if (comb_redir_oper_pipes(cmd->name) != 0)
+				return (comb_redir_oper_pipes(cmd->name));
 			new_args = NULL;
 			new_args = ft_split_charset(cmd->name, "|");
 			if (!new_args)

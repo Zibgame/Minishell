@@ -6,43 +6,38 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/15 20:24:33 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 02:38:51 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static int	print_env(t_shell *shell)
-// {
-// 	int i;
+static int	print_env(t_shell *shell)
+{
+	int i;
 	
-// 	i = 0;
-// 	while (shell->envp_tmp[i])
-// 		printf("%s\n", shell->envp_tmp[i++]);
-// 	return (0);
-// }
+	i = 0;
+	while (shell->envp_tmp[i])
+		printf("%s\n", shell->envp_tmp[i++]);
+	return (0);
+}
 
 int	env(t_shell *shell)
 {
-	// t_cmd	new;
-	
-	(void)shell;
-	// if (!cmd->args[1])
-	// {
-	// 	shell->last_return = print_env(shell);
-	// 	return (print_env(shell));
-	// }
-	// if (!is_builtins(cmd->args[1]))
-	// {
-	// 	printf("env: '%s': No such file or directory\n", cmd->args[1]);
-	// 	shell->last_return = 127;
-	// 	return (127);
-	// }
-	// new = extract_next_cmd(cmd);
-	// if (!new.args || !new.name)
-	// {
-	// 	shell->last_return = 1;
-	// 	return (1);
-	// }
-	return (0);//(exec_builtins(new, shell));
+	clean_command_free(shell);
+	if (!shell->cmd)
+		shell->last_return = print_env(shell);
+	else if (shell->cmd->type != PARSEERROR)
+	{
+		if (!ft_strncmp(shell->cmd->name, "pwd", 4))
+			return(pwd(shell));
+		else if (!ft_strncmp(shell->cmd->name, "env", 4))
+			return (env(shell));
+		printf("env: '%s': No such file or directory\n", shell->cmd->name);
+		clean_command_free(shell);
+		shell->last_return = 127;
+		return (127);
+	}
+	shell->last_return = 0;
+	return (0);
 }

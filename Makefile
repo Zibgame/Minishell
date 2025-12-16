@@ -6,7 +6,7 @@
 #    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/10 19:25:11 by dadoune          ###   ########.fr        #
+#    Updated: 2025/12/16 02:45:05 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS		= main.c \
 PARSING_FILES = src/parsing/parse_command.c \
 				src/parsing/redirect_split.c \
 				src/parsing/is_builtins.c \
-				src/parsing/parsing_split.c
+				src/parsing/parsing_split.c \
+				src/parsing/parse_error.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \

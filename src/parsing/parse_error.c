@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:44:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 02:30:54 by dadoune          ###   ########.fr       */
+/*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/16 03:00:11 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	sig_handler(int sig)
+char	*token_error(char *token)
 {
-	if (sig == SIGINT)
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		write(1, "\n", 1);
-		rl_redisplay();
-	}
+	(void)token;
+	return (NULL);
 }
 
-void	init_signal(void)
+int	has_parse_error(t_cmd *cmd)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = sig_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa, NULL);
+	// t_cmd	*tmp;
+	(void)cmd;
+	// tmp = cmd;
+	// while (tmp)
+	// {
+	// 	if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
+	// 	{
+	// 		printf("bash: syntax error near unexpected token `%s'\n",
+	// 			tmp->name);
+	// 		return (1);
+	// 	}
+	// 	tmp = tmp->next;
+	// }
+	return (0);
 }

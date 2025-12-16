@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/15 20:22:55 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 02:49:44 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
 
 t_cmd		*parse_command(char *line);
+int			has_parse_error(t_cmd *cmd);
+int			comb_redir_oper_pipes(char *token);
 int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);
 void		add_commands(t_cmd	**cmd, char **elems);

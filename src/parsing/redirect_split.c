@@ -6,11 +6,34 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:51:28 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/09 21:08:48 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 03:03:39 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	comb_redir_oper_pipes(char *token)
+{
+	int	i;
+	int	type;
+	int	count;
+
+	i = 0;
+	type = 0 + (token[i] == '|') * PIPE + \
+	(token[i] == '<' || token[i] == '>') * REDIRECTION;
+	count = 1;
+	while (token[++i])
+	{
+		printf("Old_type: %d\nNew_type: %d\nCount: %d\n", type, (0 + (token[i] == '|') * PIPE + \
+			(token[i] == '<' || token[i] == '>') * REDIRECTION), count);
+		if (type && type != (0 + (token[i] == '|') * PIPE + \
+			(token[i] == '<' || token[i] == '>') * REDIRECTION))
+			return (-1);
+		else if (type)
+			count++;
+	}
+	return (0);
+}
 
 static int	verify_two(char	*to_check)
 {

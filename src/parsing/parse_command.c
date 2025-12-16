@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/15 19:26:56 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 02:44:30 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,7 @@ t_cmd	*parse_command(char *line)
 		add_commands(&cmd, &splitted_command[1]);
 	free_array(splitted_command);
 	remove_waste(cmd);
+	if (has_parse_error(cmd))
+		return (NULL);
 	return (cmd);
 }
