@@ -15,7 +15,8 @@
 void	shell_loop(t_shell *shell)
 {
 	char	*line;
-	
+
+	free_();
 	while (1)
 	{
 		line = read_line();
