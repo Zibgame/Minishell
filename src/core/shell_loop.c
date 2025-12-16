@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:51:11 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 15:23:17 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		shell->cmd = parse_command(line);
-		// display_list(shell->cmd);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))

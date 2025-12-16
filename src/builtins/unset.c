@@ -6,11 +6,23 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:55:18 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 15:03:09 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	clean_delete(t_var_list *tmp)
+{
+	if (tmp)
+	{
+		if (tmp->next)
+			tmp->next->previous = tmp->previous;
+		if (tmp->previous)
+			tmp->previous->next = tmp->next;
+		ft_lkldelone(tmp);
+	}
+}
 
 static int	is_valid_identifier(char *s)
 {
@@ -39,11 +51,7 @@ static int	search_and_unset(t_shell *shell)
 			return (1);
 		if (!ft_strncmp(shell->cmd->name, tmp->name, ft_strlen(shell->cmd->name) + 1))
 		{
-			if (tmp->next)
-				tmp->next->previous = tmp->previous;
-			if (tmp->previous)
-				tmp->previous->next = tmp->next;
-			ft_lkldelone(tmp);
+			clean_delete(tmp);
 			free_array(shell->envp_tmp);
 			recreate_envp(shell);
 			clean_command_free(shell);
