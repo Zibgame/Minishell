@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
+#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/16 11:46:59 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/16 12:32:56 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \
 			src/builtins/cd.c \
 			src/builtins/exit.c \
+			src/builtins/unset.c \
 			src/builtins/export.c \
 			src/builtins/pwd.c 
 
@@ -52,6 +53,7 @@ LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lklclear.c \
 			src/struct/var_list/ft_lkllast.c \
 			src/struct/var_list/ft_lkldel_one.c \
+			src/struct/var_list/ft_lklremove.c \
 			src/struct/var_list/ft_lklnew.c \
 			src/struct/var_list/ft_lklsize.c
 

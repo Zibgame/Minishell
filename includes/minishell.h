@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 11:46:36 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 12:34:16 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "structs.h"
 # include "librairies.h"
 
-# define PS1 "\001\033[1;34m\002 MiniShell❯ \001\033[0m\002"
+# define PS1 "\001\033[1;34m\002MiniShell❯ \001\033[0m\002"
 
 /* == SIGNALS == */
 void		init_signal(void);
@@ -74,7 +74,7 @@ void		recreate_envp(t_shell *shell);
 int			print_header(char *path);
 int			echo(t_shell *shell);
 int			cd(t_shell *shell);
-void		print_status(t_shell *shell);
+int			print_status(t_shell *shell);
 int			export(t_shell *shell);
 
 /* == OTHERS == */

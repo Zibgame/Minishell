@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:04:23 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/16 12:33:55 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
-static int	is_status_var(char *s)
+static int	print_variable(char *args, t_shell *shell)
 {
-	return (s && s[0] == '$' && s[1] == '?' && s[2] == '\0');
+	if (get_value(shell ,&args[1]))
+		return (printf("%s",get_value(shell, &args[1])));
+	if (!ft_strncmp(args, "$?", 3))
+    	return (print_status(shell));
+	return (0);
 }
 
 static void	display_argument(t_shell *shell)
@@ -57,6 +61,6 @@ int	echo(t_shell *shell)
 	while (shell->cmd && shell->cmd->type == ARGUMENT)
 		display_argument(shell);
 	if (nl)
-		write(1, "\n", 1);
+		printf("\n");
 	return (0);
 }
