@@ -6,11 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/12/16 13:52:00 by aeherve          ###   ########.fr       */
-=======
-/*   Updated: 2025/12/16 13:52:50 by zcadinot         ###   ########.fr       */
->>>>>>> 4b7a2b31aafdc9cfd94c143e54f5857632a09e8a
+/*   Updated: 2025/12/16 14:03:11 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +27,7 @@ void		shell_loop(t_shell *shell);
 void		start_shell(t_shell *shell);
 void		exec_cmd(t_shell *shell, char *line);
 char		*read_line(void);
+int			free_(void);
 t_shell		*create_shell_struct(char **envp);
 void		free_shell(t_shell *shell);
 
@@ -52,6 +49,7 @@ void		ft_cmdclear(t_cmd **lst);
 void		ft_cmddelone(t_cmd *lst);
 void		ft_lkl_modify(t_var_list **lst, char *value);
 int			ft_cmdsize(t_cmd *lst);
+
 t_cmd		*ft_cmdlast(t_cmd *lst);
 t_cmd		*ft_cmdnew(char *name, int type);
 t_cmd		extract_next_cmd(t_cmd *cmd);
