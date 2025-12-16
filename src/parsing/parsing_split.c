@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:32:07 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/10 20:14:05 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:54:03 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static size_t	count_words(const char *str, char *seps)
 
 static void	next_word(char **word_ptr, size_t *size, char *c)
 {
-	int 	state;
+	int		state;
 	size_t	i;
 
 	*size = 0;

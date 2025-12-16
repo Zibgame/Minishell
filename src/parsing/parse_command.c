@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 02:44:30 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:55:13 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	command_type(t_cmd	*cmd)
 {
 	int	status;
-	
-		if (!ft_strncmp(cmd->name, "-", 2))
+
+	if (!ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
 	if (is_builtins(cmd->name) != -1)
 		return (is_builtins(cmd->name));
-	status = is_redirect(cmd); 
+	status = is_redirect(cmd);
 	if (status)
 		return (status);
 	status = is_pipe(cmd);
@@ -52,7 +52,7 @@ void	add_commands(t_cmd	**cmd, char **elems)
 void	remove_waste(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	
+
 	while (cmd && cmd->next)
 	{
 		if (cmd->next->type == TOREMOVE)
@@ -67,10 +67,10 @@ void	remove_waste(t_cmd *cmd)
 }
 
 t_cmd	*parse_command(char *line)
-{	
+{
 	char	**splitted_command;
 	t_cmd	*cmd;
-	
+
 	splitted_command = ft_split(line, ' ');
 	if (!splitted_command)
 		return (NULL);

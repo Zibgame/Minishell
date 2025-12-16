@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 02:54:01 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:56:35 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	has_multi_redir(char *str)
 {
 	int	i;
 	int	j;
-	
+
 	if (!str)
 		return (0);
 	i = 0;
@@ -52,9 +52,8 @@ int	has_multi_redir(char *str)
 			j++;
 		else
 			j = 0;
-
 		if (j == 2)
-			if (str[i] != str[i-1])
+			if (str[i] != str[i - 1])
 				return (PARSEERROR);
 		if (j > 2)
 			return (PARSEERROR);
@@ -95,7 +94,7 @@ int	has_multi_pipes(char *str)
 {
 	int	i;
 	int	j;
-	
+
 	if (!str)
 		return (0);
 	i = 0;
@@ -106,21 +105,19 @@ int	has_multi_pipes(char *str)
 			j++;
 		else
 			j = 0;
-
 		if (j > 2)
 			return (PARSEERROR);
 		i++;
 	}
 	if (j == i && j == 2)
 		return (OPERATOR);
-	
 	return (0);
 }
 
 int	is_pipe(t_cmd *cmd)
 {
 	char	**new_args;
-	
+
 	if (ft_strchr(cmd->name, '|'))
 	{
 		if (ft_strlen(cmd->name) > 1)

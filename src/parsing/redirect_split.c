@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:51:28 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 03:03:39 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:53:52 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	comb_redir_oper_pipes(char *token)
 	count = 1;
 	while (token[++i])
 	{
-		printf("Old_type: %d\nNew_type: %d\nCount: %d\n", type, (0 + (token[i] == '|') * PIPE + \
-			(token[i] == '<' || token[i] == '>') * REDIRECTION), count);
+		printf("Old_type: %d\nNew_type: %d\nCount: %d\n", type, \
+			(0 + (token[i] == '|') * PIPE + (token[i] == '<' || \
+				token[i] == '>') * REDIRECTION), count);
 		if (type && type != (0 + (token[i] == '|') * PIPE + \
 			(token[i] == '<' || token[i] == '>') * REDIRECTION))
 			return (-1);
@@ -37,7 +38,7 @@ int	comb_redir_oper_pipes(char *token)
 
 static int	verify_two(char	*to_check)
 {
-	if(to_check)
+	if (to_check)
 	{
 		if (ft_strlen(to_check) > 2)
 			return (2);
@@ -51,8 +52,8 @@ static int	m_split(t_cmd *cmd, char **to_fill, int size)
 {
 	int	i;
 	int	len;
-	int state;
-	int words;
+	int	state;
+	int	words;
 
 	i = 0;
 	len = 0;
@@ -81,7 +82,7 @@ int	redirect_split(t_cmd *cmd, char **to_fill)
 	int	i;
 	int	nb;
 	int	nb_appear;
-	
+
 	i = -1;
 	nb = 0;
 	nb_appear = 0;

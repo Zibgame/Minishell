@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:34:16 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/16 13:52:00 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int			export(t_shell *shell);
 /* == OTHERS == */
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
-int			free_(void);
 
 t_cmd		*parse_command(char *line);
 int			has_parse_error(t_cmd *cmd);
@@ -97,6 +96,6 @@ void		display_list(t_cmd	*cmd);
 
 /* == Pipex ==*/
 void	exec_pipeline(t_shell *shell);
-int	has_pipe(t_cmd *cmd);
+int		has_pipe(t_cmd *cmd);
 
 #endif
