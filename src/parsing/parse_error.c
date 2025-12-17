@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/16 15:22:21 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/17 21:44:33 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ int	type_of_char(int type, char c)
 		(type == REDIRECTION));
 	return (0);
 	
+}
+
+char	*return_error(char *err_pos)
+{
+	char	*err_token;
+
+	err_token = ft_calloc(ft_strlen(err_pos), 1);
+	return (err_token);
 }
 
 char	*token_error(char *token)
