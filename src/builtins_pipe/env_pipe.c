@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   env_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:48:59 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/17 10:58:12 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/17 10:58:18 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	clear(void)
+int	env_pipe(char **envp)
 {
-	printf("\e[1;1H\e[2J");
-	print_header("src/utils/header.txt");
-	return ;
-}
+	int	i;
 
-t_cmd	*get_next_cmd(t_cmd *cmd)
-{
-	while (cmd && cmd->type != PIPE)
-		cmd = cmd->next;
-	if (cmd && cmd->type == PIPE)
-		cmd = cmd->next;
-	return (cmd);
+	i = 0;
+	while (envp[i])
+	{
+		ft_putstr_fd(envp[i], STDOUT_FILENO);
+		write(1, "\n", 1);
+		i++;
+	}
+	return (0);
 }

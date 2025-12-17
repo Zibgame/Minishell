@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:00:42 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/17 11:48:19 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 	if (out_fd != STDOUT_FILENO)
 		dup2(out_fd, STDOUT_FILENO);
 	if (cmd->type == BUILTINS)
-	{
-		exec_builtins(shell);
-		exit(shell->last_return);
-	}
+		exit(exec_builtin_pipe(shell, cmd));
 	path = get_cmd_path(shell, cmd->name);
 	if (!path)
 	{
@@ -33,6 +30,8 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 		exit(127);
 	}
 	argv = build_argv(cmd);
+	if (!argv)
+		exit(1);
 	execve(path, argv, shell->envp_tmp);
 	exit(1);
 }
@@ -48,7 +47,7 @@ void	exec_pipeline(t_shell *shell)
 	in_fd = STDIN_FILENO;
 	while (cmd)
 	{
-		if (cmd->next && cmd->next->type == PIPE)
+		if (get_next_cmd(cmd))
 			pipe(pipefd);
 		else
 			pipefd[1] = STDOUT_FILENO;
@@ -60,10 +59,7 @@ void	exec_pipeline(t_shell *shell)
 		if (pipefd[1] != STDOUT_FILENO)
 			close(pipefd[1]);
 		in_fd = pipefd[0];
-		if (cmd->next && cmd->next->type == PIPE)
-			cmd = cmd->next->next;
-		else
-			break ;
+		cmd = get_next_cmd(cmd);
 	}
 	while (wait(NULL) > 0)
 		;

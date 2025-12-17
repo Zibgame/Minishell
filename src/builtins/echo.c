@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 15:36:25 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/17 10:47:07 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	display_argument(t_shell *shell)
 	}
 	else
 	{
-		ft_putstr_fd(shell->cmd->name, 1);
+		ft_putstr_fd(shell->cmd->name, STDOUT_FILENO);
 		if (shell->cmd->next && \
 			(shell->cmd->next->type == OPTION || \
 			shell->cmd->next->type == ARGUMENT || \

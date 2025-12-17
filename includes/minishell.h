@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:30:33 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/17 11:49:19 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,12 @@ int			print_header(char *path);
 int			echo(t_shell *shell);
 int			cd(t_shell *shell);
 int			print_status(t_shell *shell);
+int			exec_builtin_pipeline(t_shell *shell, t_cmd *cmd);
 int			export(t_shell *shell);
+int			echo_pipe(t_cmd *cmd);
+int			pwd_pipe(void);
+int			env_pipe(char **envp);
+int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
 
 /* == OTHERS == */
 void		clear(void);
@@ -93,6 +98,7 @@ void		add_commands(t_cmd	**cmd, char **elems);
 int			is_redirect(t_cmd *cmd);
 char		**ft_split_charset(char const *s, char *c);
 int			is_pipe(t_cmd *cmd);
+t_cmd		*get_next_cmd(t_cmd *cmd);
 
 /* == DEBUG == */
 void		display_list(t_cmd	*cmd);

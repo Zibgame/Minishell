@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/16 14:00:22 by aeherve          ###   ########.fr        #
+#    Updated: 2025/12/17 11:00:27 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,11 @@ BUILTINS = src/builtins/env.c \
 			src/builtins/exit.c \
 			src/builtins/unset.c \
 			src/builtins/export.c \
-			src/builtins/pwd.c 
+			src/builtins_pipe/echo_pipe.c \
+			src/builtins_pipe/env_pipe.c \
+			src/builtins_pipe/exec_builtin_pipe.c \
+			src/builtins_pipe/pwd_pipe.c \
+			src/builtins/pwd.c
 
 LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lklmodify_value.c \

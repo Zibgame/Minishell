@@ -6,21 +6,24 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:40:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:46:25 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/17 11:46:42 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+#include "../../includes/minishell.h"
+
 static int	count_args(t_cmd *cmd)
 {
 	int	count;
 
-	count = 1;
-	cmd = cmd->next;
-	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
+	count = 0;
+	while (cmd && cmd->type != PIPE)
 	{
-		count++;
+		if (cmd->type == ARGUMENT || cmd->type == OPTION
+			|| cmd->type == BUILTINS)
+			count++;
 		cmd = cmd->next;
 	}
 	return (count);
@@ -31,17 +34,17 @@ char	**build_argv(t_cmd *cmd)
 	char	**argv;
 	int		i;
 
-	if (!cmd || !cmd->name)
+	if (!cmd)
 		return (NULL);
 	argv = malloc(sizeof(char *) * (count_args(cmd) + 1));
 	if (!argv)
 		return (NULL);
 	i = 0;
-	argv[i++] = ft_strdup(cmd->name);
-	cmd = cmd->next;
-	while (cmd && cmd->type == ARGUMENT)
+	while (cmd && cmd->type != PIPE)
 	{
-		argv[i++] = ft_strdup(cmd->name);
+		if (cmd->type == ARGUMENT || cmd->type == OPTION
+			|| cmd->type == BUILTINS)
+			argv[i++] = ft_strdup(cmd->name);
 		cmd = cmd->next;
 	}
 	argv[i] = NULL;
@@ -50,14 +53,14 @@ char	**build_argv(t_cmd *cmd)
 
 int	has_pipe(t_cmd *cmd)
 {
-	t_cmd	*current;
-
-	current = cmd;
-	while (current)
+	while (cmd)
 	{
-		if (current->type == PIPE)
+		if (cmd->type == PIPE)
 			return (1);
-		current = current->next;
+		if (cmd->type == OPERATOR && cmd->name
+			&& cmd->name[0] == '|' && cmd->name[1] == '\0')
+			return (1);
+		cmd = cmd->next;
 	}
 	return (0);
 }

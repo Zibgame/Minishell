@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.c                                           :+:      :+:    :+:   */
+/*   pwd_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:48:59 by zcadinot         ###   ########.fr       */
+/*   Created: 2025/12/17 10:58:37 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/17 10:58:39 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	clear(void)
+int	pwd_pipe(void)
 {
-	printf("\e[1;1H\e[2J");
-	print_header("src/utils/header.txt");
-	return ;
-}
+	char	buf[2048];
+	char	*path;
 
-t_cmd	*get_next_cmd(t_cmd *cmd)
-{
-	while (cmd && cmd->type != PIPE)
-		cmd = cmd->next;
-	if (cmd && cmd->type == PIPE)
-		cmd = cmd->next;
-	return (cmd);
+	path = getcwd(buf, sizeof(buf));
+	if (!path)
+	{
+		ft_putstr_fd("pwd: error retrieving current directory\n", 2);
+		return (1);
+	}
+	ft_putstr_fd(path, STDOUT_FILENO);
+	write(1, "\n", 1);
+	return (0);
 }
