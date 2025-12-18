@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/18 13:18:53 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/18 13:36:32 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ static void	print_variable(t_shell *shell)
 
 	envp_tmp = shell->envp;
 	while (envp_tmp)
-	{	
-		if (!ft_strncmp(&(shell->cmd->name[1]), envp_tmp->name, ft_strlen(shell->cmd->name)))
+	{
+		if (!ft_strncmp(&(shell->cmd->name[1]), \
+				envp_tmp->name, ft_strlen(shell->cmd->name)))
 		{
 			printf("%s", envp_tmp->value);
 			return ;
