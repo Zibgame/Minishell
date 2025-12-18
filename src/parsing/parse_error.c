@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/17 21:44:33 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/18 10:23:00 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@ int	type_of_char(int type, char c)
 	if (c == '|')
 		return (PIPE * (type != PIPE) + OPERATOR * (type == PIPE));
 	if (c == '<' || c == '>')
-		return (REDIRECTION * (type != REDIRECTION) + OPERATOR * \
-		(type == REDIRECTION));
+		return (REDIRECTION * (type != REDIRECTION) + OPERATOR * (type == REDIRECTION));
 	return (0);
-	
 }
 
-char	*return_error(char *err_pos)
+char	*return_error(char *err_token, int pos, int type)
 {
-	char	*err_token;
+	char	*err_return;
 
-	err_token = ft_calloc(ft_strlen(err_pos), 1);
-	return (err_token);
+	printf("{%s}=>(%d, %d)\n", err_token, pos, type);
+	pos -= 1 * (type_of_char(0, err_token[pos - 1]) == type);
+	err_return = ft_calloc(ft_strlen(err_token), 1);
+	err_return[0] = err_token[pos]; 
+	if (err_token[++pos] && type_of_char(0, err_token[pos]) == type)
+		err_return[1] = err_token[pos];
+	return (err_return);
 }
 
 char	*token_error(char *token)
@@ -40,26 +43,29 @@ char	*token_error(char *token)
 	i = 0;
 	actual = 0;
 	if (token)
+	{
+		i = ft_strlen(token) - 1;
 		type = type_of_char(0, token[i]);
-	while (token[++i])
+	}
+	while (i > 0 && token[--i])
 	{
 		actual = type_of_char(type, token[i]);
-		if (actual == PIPE && type == OPERATOR)
-			return("|");
-		if (actual == REDIRECTION && type == OPERATOR)
+		if (actual == PIPE && (type == OPERATOR || type == REDIRECTION))
+			return(return_error(token, i, actual));
+		if (actual == REDIRECTION && (type == OPERATOR || type == PIPE))
 		{
-			
 			if (token[i] == '<')
-				return("<");
-			return(">");
+				return(return_error(token, i, actual));
+			return(return_error(token, i, actual));
 		}
 		type = actual;
 	}
-	return (NULL);
+	return (ft_strdup("newline"));
 }
 
 int	has_parse_error(t_cmd *cmd)
 {
+	char	*err;
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
@@ -67,8 +73,10 @@ int	has_parse_error(t_cmd *cmd)
 	{
 		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
 		{
+			err = token_error(tmp->name);
 			printf("bash: syntax error near unexpected token `%s'\n", \
-				token_error(tmp->name));
+				err);
+			free(err);
 			return (1);
 		}
 		tmp = tmp->prev;
