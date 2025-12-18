@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/18 10:23:00 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/18 11:12:31 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ char	*return_error(char *err_token, int pos, int type)
 {
 	char	*err_return;
 
+	printf("{%s}=>(%d, %d)\n", err_token, pos, type_of_char(0, err_token[pos]) == type_of_char(0, err_token[pos+1]));
+	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) == type_of_char(0, err_token[pos+1]))
+		pos++;
+	else if (pos % 2 != 0)
+		pos--;
 	printf("{%s}=>(%d, %d)\n", err_token, pos, type);
-	pos -= 1 * (type_of_char(0, err_token[pos - 1]) == type);
+	// pos -= 1 * (type_of_char(0, err_token[pos - 1]) != type);
 	err_return = ft_calloc(ft_strlen(err_token), 1);
 	err_return[0] = err_token[pos]; 
 	if (err_token[++pos] && type_of_char(0, err_token[pos]) == type)
@@ -51,12 +56,11 @@ char	*token_error(char *token)
 	{
 		actual = type_of_char(type, token[i]);
 		if (actual == PIPE && (type == OPERATOR || type == REDIRECTION))
-			return(return_error(token, i, actual));
+			return(return_error(token, i + 1, actual));
 		if (actual == REDIRECTION && (type == OPERATOR || type == PIPE))
 		{
-			if (token[i] == '<')
-				return(return_error(token, i, actual));
-			return(return_error(token, i, actual));
+			printf("|%d|", i);
+			return(return_error(token, i + 1, actual));
 		}
 		type = actual;
 	}
