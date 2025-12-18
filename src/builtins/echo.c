@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 10:47:07 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/18 13:05:12 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,33 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
+static void	print_variable(t_shell *shell)
+{
+	t_var_list	*envp_tmp;
+
+	envp_tmp = shell->envp;
+	while (envp_tmp)
+	{	
+		if (!ft_strncmp(&shell->cmd->name[1], envp_tmp->name, ft_strlen(shell->cmd->name)))
+		{
+			printf("%s", shell->cmd->name);
+		}
+		envp_tmp = envp_tmp->next;
+	}
+	return ;
+}
+
 static void	display_argument(t_shell *shell)
 {
 	if (!ft_strncmp(shell->cmd->name, "$?", 3))
-	{
+	{	
 		clean_command_free(shell);
 		print_status(shell);
+	}
+	if (!ft_strncmp(shell->cmd->name, "$", 1))
+	{	
+		clean_command_free(shell);
+		print_variable(shell);
 	}
 	else
 	{
