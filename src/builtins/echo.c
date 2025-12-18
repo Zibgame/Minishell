@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/18 13:05:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/18 13:18:53 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	print_variable(t_shell *shell)
 	envp_tmp = shell->envp;
 	while (envp_tmp)
 	{	
-		if (!ft_strncmp(&shell->cmd->name[1], envp_tmp->name, ft_strlen(shell->cmd->name)))
+		if (!ft_strncmp(&(shell->cmd->name[1]), envp_tmp->name, ft_strlen(shell->cmd->name)))
 		{
-			printf("%s", shell->cmd->name);
+			printf("%s", envp_tmp->value);
+			return ;
 		}
 		envp_tmp = envp_tmp->next;
 	}
@@ -43,25 +44,17 @@ static void	print_variable(t_shell *shell)
 static void	display_argument(t_shell *shell)
 {
 	if (!ft_strncmp(shell->cmd->name, "$?", 3))
-	{	
-		clean_command_free(shell);
 		print_status(shell);
-	}
 	if (!ft_strncmp(shell->cmd->name, "$", 1))
-	{	
-		clean_command_free(shell);
 		print_variable(shell);
-	}
 	else
-	{
-		ft_putstr_fd(shell->cmd->name, STDOUT_FILENO);
-		if (shell->cmd->next && \
+		printf("%s", shell->cmd->name);
+	if (shell->cmd->next && \
 			(shell->cmd->next->type == OPTION || \
 			shell->cmd->next->type == ARGUMENT || \
 			shell->cmd->next->type == ARGUMENT))
-			write(1, " ", 1);
-		clean_command_free(shell);
-	}
+			printf(" ");
+	clean_command_free(shell);
 }
 
 int	echo(t_shell *shell)
