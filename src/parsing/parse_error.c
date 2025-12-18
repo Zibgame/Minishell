@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/18 11:12:31 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/18 13:38:30 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ char	*return_error(char *err_token, int pos, int type)
 {
 	char	*err_return;
 
-	printf("{%s}=>(%d, %d)\n", err_token, pos, type_of_char(0, err_token[pos]) == type_of_char(0, err_token[pos+1]));
 	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) == type_of_char(0, err_token[pos+1]))
 		pos++;
 	else if (pos % 2 != 0)
 		pos--;
-	printf("{%s}=>(%d, %d)\n", err_token, pos, type);
-	// pos -= 1 * (type_of_char(0, err_token[pos - 1]) != type);
 	err_return = ft_calloc(ft_strlen(err_token), 1);
 	err_return[0] = err_token[pos]; 
 	if (err_token[++pos] && type_of_char(0, err_token[pos]) == type)
