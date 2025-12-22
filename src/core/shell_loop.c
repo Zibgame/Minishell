@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 21:41:03 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/22 12:19:55 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	shell_loop(t_shell *shell)
 		line = read_line();
 		if (!line)
 			break ;
-		shell->cmd = parse_command(line);
+		shell->cmd = parse_command(line, shell);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))

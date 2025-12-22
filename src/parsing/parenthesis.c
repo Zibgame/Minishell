@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 11:24:19 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/22 12:17:03 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/22 12:20:10 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	clear_parenthesis(t_cmd *last_added, t_shell *shell)
 			shell);
 		free(last_added->name);
 		last_added->name = dup;
-		// if (unclosed_par)
-		// 	printf("uncompleted parenthesis, pls open an heredoc\n");
+		if (unclosed_par)
+			printf("uncompleted parenthesis, pls open an heredoc\n");
 	}
 }
