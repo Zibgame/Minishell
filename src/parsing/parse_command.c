@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 15:26:32 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 12:13:27 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 int	command_type(t_cmd	*cmd)
 {
@@ -29,7 +30,7 @@ int	command_type(t_cmd	*cmd)
 	return (ARGUMENT);
 }
 
-void	add_commands(t_cmd	**cmd, char **elems)
+void	add_commands(t_cmd	**cmd, char **elems, t_shell *shell)
 {
 	int		i;
 	int		old_size;
@@ -41,6 +42,7 @@ void	add_commands(t_cmd	**cmd, char **elems)
 		while (elems[++i])
 		{
 			ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup(elems[i]), 0));
+			clear_parenthesis(ft_cmdlast(*cmd), shell);
 			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
 			if (!(ft_cmdsize(*cmd) > old_size))
 				return ;
@@ -66,7 +68,7 @@ void	remove_waste(t_cmd *cmd)
 	}
 }
 
-t_cmd	*parse_command(char *line)
+t_cmd	*parse_command(char *line, t_shell *shell)
 {
 	char	**splitted_command;
 	t_cmd	*cmd;
@@ -77,7 +79,7 @@ t_cmd	*parse_command(char *line)
 	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);
 	cmd->type = command_type(cmd);
 	if (cmd)
-		add_commands(&cmd, &splitted_command[1]);
+		add_commands(&cmd, &splitted_command[1], shell);
 	free_array(splitted_command);
 	remove_waste(cmd);
 	if (has_parse_error(cmd))

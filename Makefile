@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
+#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/17 11:00:27 by zcadinot         ###   ########.fr        #
+#    Updated: 2025/12/22 11:24:49 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ PARSING_FILES = src/parsing/parse_command.c \
 				src/parsing/redirect_split.c \
 				src/parsing/is_builtins.c \
 				src/parsing/parsing_split.c \
-				src/parsing/parse_error.c
+				src/parsing/parse_error.c \
+				src/parsing/expansions.c \
+				src/parsing/parenthesis.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \

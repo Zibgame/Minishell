@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:35 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 12:15:59 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	is_redirect(t_cmd *cmd)
 			new_args = ft_split_charset(cmd->name, "<>");
 			if (!new_args)
 				return (0);
-			add_commands(&cmd, new_args);
+			add_commands(&cmd, new_args, NULL);
 			free_array(new_args);
 			return (TOREMOVE);
 		}
@@ -130,7 +130,7 @@ int	is_pipe(t_cmd *cmd)
 			new_args = ft_split_charset(cmd->name, "|");
 			if (!new_args)
 				return (0);
-			add_commands(&cmd, new_args);
+			add_commands(&cmd, new_args, NULL);
 			free_array(new_args);
 			return (TOREMOVE);
 		}

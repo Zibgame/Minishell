@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:49:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 12:14:07 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
 
-t_cmd		*parse_command(char *line);
+t_cmd		*parse_command(char *line, t_shell *shell);
 int			has_parse_error(t_cmd *cmd);
+void		expansion(t_cmd *cmd, t_shell *shell);
+void		clear_parenthesis(t_cmd *last_added, t_shell *shell);
 int			comb_redir_oper_pipes(char *token);
 int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);
-void		add_commands(t_cmd	**cmd, char **elems);
+void		add_commands(t_cmd	**cmd, char **elems, t_shell *shell);
 int			is_redirect(t_cmd *cmd);
 char		**ft_split_charset(char const *s, char *c);
 int			is_pipe(t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/22 10:38:56 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/22 11:01:26 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	printf("  TYPE : %d\n", tmp->type);
 	if (tmp->type == REDIRECTION)
 	{	
 		err = token_error(tmp->name);
