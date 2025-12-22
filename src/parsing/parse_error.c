@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/18 13:38:30 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 10:38:56 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,20 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
+	printf("  TYPE : %d\n", tmp->type);
+	if (tmp->type == REDIRECTION)
+	{	
+		err = token_error(tmp->name);
+		printf("minishell: syntax error near unexpected token `%s'\n", err);
+		free(err);
+		return (1);
+	}
 	while (tmp)
 	{
 		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
 		{
 			err = token_error(tmp->name);
-			printf("bash: syntax error near unexpected token `%s'\n", \
+			printf("minishell: syntax error near unexpected token `%s'\n", \
 				err);
 			free(err);
 			return (1);
