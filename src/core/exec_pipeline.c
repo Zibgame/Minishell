@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:48:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:39:52 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 	char	**argv;
 
 	if (in_fd != STDIN_FILENO)
+	{
 		dup2(in_fd, STDIN_FILENO);
+		close(in_fd);
+	}
 	if (out_fd != STDOUT_FILENO)
+	{
 		dup2(out_fd, STDOUT_FILENO);
+		close(out_fd);
+	}
 	if (cmd->type == BUILTINS)
 		exit(exec_builtin_pipe(shell, cmd));
 	path = get_cmd_path(shell, cmd->name);
 	if (!path)
-	{
-		ft_putstr_fd("command not found\n", 2);
 		exit(127);
-	}
 	argv = build_argv(cmd);
 	if (!argv)
 		exit(1);
@@ -45,6 +48,7 @@ void	exec_pipeline(t_shell *shell)
 
 	cmd = shell->cmd;
 	in_fd = STDIN_FILENO;
+	shell->in_pipeline = 1;
 	while (cmd)
 	{
 		if (get_next_cmd(cmd))
@@ -63,4 +67,5 @@ void	exec_pipeline(t_shell *shell)
 	}
 	while (wait(NULL) > 0)
 		;
+	shell->in_pipeline = 0;
 }

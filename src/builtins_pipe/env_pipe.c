@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:58:12 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 10:58:18 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 16:45:11 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	env_pipe(char **envp)
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		ft_putstr_fd(envp[i], STDOUT_FILENO);
 		write(1, "\n", 1);

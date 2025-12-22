@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 16:54:32 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ clear actual node if exists and go to the next one if exists
 */
 void	clean_command_free(t_shell *shell)
 {
-	if (shell && shell->cmd)
+	if (!shell || shell->in_pipeline)
+		return ;
+	if (shell->cmd)
 	{
 		if (shell->cmd->next)
 		{

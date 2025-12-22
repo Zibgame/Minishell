@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:25:59 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:08:13 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	export(t_shell *shell)
 	char	**env_var;
 
 	clean_command_free(shell);
+	if (shell->in_pipeline)
+		return (0);
 	if (!shell->cmd)
 		return (1);
 	if (shell->cmd->name && is_valid_assignment(shell->cmd->name))

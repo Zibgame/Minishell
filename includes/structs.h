@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 17:22:59 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/22 16:50:59 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell
 	char		**envp_tmp;
 	t_var_list	*envp;
 	int			last_return;
+	int			in_pipeline;
 }	t_shell;
 
 #endif

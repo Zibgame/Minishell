@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 15:03:09 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 17:08:27 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static int	search_and_unset(t_shell *shell)
 int	unset(t_shell *shell)
 {
 	clean_command_free(shell);
+	if (shell->in_pipeline)
+		return (0);
 	if (!shell->cmd || !shell->cmd->name)
 	{
 		printf("unset: not enough arguments\n");

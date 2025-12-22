@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:54:51 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:30:28 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,9 @@ int	env(t_shell *shell)
 {
 	clean_command_free(shell);
 	if (!shell->cmd)
-		shell->last_return = print_env(shell);
-	else if (shell->cmd->type != PARSEERROR)
-	{
-		if (!ft_strncmp(shell->cmd->name, "pwd", 4))
-			return (pwd(shell));
-		else if (!ft_strncmp(shell->cmd->name, "env", 4))
-			return (env(shell));
-		printf("env: '%s': No such file or directory\n", shell->cmd->name);
-		clean_command_free(shell);
-		shell->last_return = 127;
-		return (127);
-	}
-	shell->last_return = 0;
-	return (0);
+		return (print_env(shell));
+	printf("env: '%s': No such file or directory\n", shell->cmd->name);
+	clean_command_free(shell);
+	shell->last_return = 127;
+	return (127);
 }

@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:58:37 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 10:58:39 by zcadinot         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:30:39 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	pwd_pipe(void)
 	path = getcwd(buf, sizeof(buf));
 	if (!path)
 	{
-		ft_putstr_fd("pwd: error retrieving current directory\n", 2);
+		ft_putstr_fd("pwd: error retrieving current directory\n", STDERR_FILENO);
 		return (1);
 	}
 	ft_putstr_fd(path, STDOUT_FILENO);

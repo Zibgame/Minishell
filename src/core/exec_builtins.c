@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 14:30:01 by aeherve          ###   ########.fr       */
+/*   Updated: 2025/12/22 16:52:31 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	exec_builtins(t_shell *shell)
 {
+	shell->in_pipeline = 0;
 	if (!shell->cmd->name)
 		return (0);
 	else if (!ft_strncmp(shell->cmd->name, "echo", 4))

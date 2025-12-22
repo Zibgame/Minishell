@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/22 12:14:07 by dadoune          ###   ########.fr       */
+/*   Updated: 2025/12/22 16:46:54 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			cd(t_shell *shell);
 int			print_status(t_shell *shell);
 int			exec_builtin_pipeline(t_shell *shell, t_cmd *cmd);
 int			export(t_shell *shell);
-int			echo_pipe(t_cmd *cmd);
+int			echo_pipe(t_shell *shell, t_cmd *cmd);
 int			pwd_pipe(void);
 int			env_pipe(char **envp);
 int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
