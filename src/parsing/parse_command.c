@@ -6,14 +6,29 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/22 12:13:27 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/01 23:01:40 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	command_nb(t_cmd *cmd)
+{
+	int		i;
+	t_cmd	*tmp;
 
-int	command_type(t_cmd	*cmd)
+	tmp = cmd;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->type == BUILTINS)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+int	command_type(t_cmd *cmd)
 {
 	int	status;
 
@@ -30,7 +45,7 @@ int	command_type(t_cmd	*cmd)
 	return (ARGUMENT);
 }
 
-void	add_commands(t_cmd	**cmd, char **elems, t_shell *shell)
+void	add_commands(t_cmd **cmd, char **elems, t_shell *shell)
 {
 	int		i;
 	int		old_size;

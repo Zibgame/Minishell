@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/22 16:50:59 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/01 23:13:53 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@ enum e_types
 	FILETOOPEN
 };
 
-enum e_file_type
+typedef enum e_redir_type
 {
-	FFILE,
-	EOFILE,
-	HEREDOC	
-};
+	R_IN,      // <
+	R_HEREDOC, // <<
+	R_OUT,     // >
+	R_APPEND   // >>
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type	type;
+	char			*filename;
+	int				fd;
+	struct s_redir	*next;
+}	t_redir;
 
 typedef struct s_cmd
 {
@@ -43,6 +52,7 @@ typedef struct s_cmd
 	int				type;
 	int				file_type;
 	char			*name;
+	t_redir			*redirs;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -57,11 +67,11 @@ typedef struct s_var_list
 
 typedef struct s_shell
 {
-	t_cmd		*cmd;
-	char		**envp_tmp;
-	t_var_list	*envp;
 	int			last_return;
 	int			in_pipeline;
+	char		**envp_tmp;
+	t_cmd		*cmd;
+	t_var_list	*envp;
 }	t_shell;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2025/12/22 11:24:49 by dadoune          ###   ########.fr        #
+#    Updated: 2026/01/01 22:51:48 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ PARSING_FILES = src/parsing/parse_command.c \
 				src/parsing/parsing_split.c \
 				src/parsing/parse_error.c \
 				src/parsing/expansions.c \
-				src/parsing/parenthesis.c
+				src/parsing/parenthesis.c \
+				src/parsing/redirections.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \

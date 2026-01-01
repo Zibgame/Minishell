@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/22 16:46:54 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/01 23:13:16 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ int			pwd_pipe(void);
 int			env_pipe(char **envp);
 int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
 
+/* == REDIRECTS ==*/
+int			has_redirect(t_shell *shell);
+int			apply_redirections(t_cmd *cmd);
 /* == OTHERS == */
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
