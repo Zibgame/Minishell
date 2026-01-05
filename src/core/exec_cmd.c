@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 14:24:25 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 14:39:24 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	exec_cmd(t_shell *shell, char *line)
 	if (!path)
 	{
 		printf("minishell: %s: command not found\n", args[0]);
+		shell->last_return = 127;
 		return ;
 	}
 	pid = fork();
