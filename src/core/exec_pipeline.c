@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:48:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:23:52 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 	char	*path;
 	char	**argv;
 
+	apply_redirections(cmd);
 	if (in_fd != STDIN_FILENO)
 		dup2(in_fd, STDIN_FILENO);
 	if (out_fd != STDOUT_FILENO)

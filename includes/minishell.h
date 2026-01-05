@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 11:24:47 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 13:27:29 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int			pwd(t_shell *shell);
 int			unset(t_shell *shell);
 
 void		free_shell(t_shell *shell);
+void		extract_redirections(t_cmd *cmd);
+int			apply_redirections(t_cmd *cmd);
 char		*join_and_free(char *s1, char *s2);
 void		recreate_envp(t_shell *shell);
 int			print_header(char *path);

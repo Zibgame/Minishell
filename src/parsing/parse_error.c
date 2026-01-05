@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2025/12/22 10:38:56 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/05 13:29:27 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	printf("  TYPE : %d\n", tmp->type);
+	// printf("  TYPE : %d\n", tmp->type);
 	if (tmp->type == REDIRECTION)
 	{	
 		err = token_error(tmp->name);

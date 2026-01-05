@@ -6,11 +6,40 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 13:21:27 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:43:59 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	apply_redirections(t_cmd *cmd)
+{
+	t_redir *r;
+	int fd;
+
+	r = cmd->redirs;
+	while (r)
+	{
+		if (r->type == R_IN)
+			fd = open(r->target, O_RDONLY);
+		else if (r->type == R_OUT)
+			fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (r->type == R_APPEND)
+			fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else
+			fd = r->fd;
+		if (fd < 0)
+			return (perror(r->target), 1);
+		if (r->type == R_IN || r->type == R_HEREDOC)
+			dup2(fd, STDIN_FILENO);
+		else
+			dup2(fd, STDOUT_FILENO);
+
+		close(fd);
+		r = r->next;
+	}
+	return (0);
+}
 
 void	exec_cmd(t_shell *shell, char *line)
 {
@@ -30,6 +59,7 @@ void	exec_cmd(t_shell *shell, char *line)
 	pid = fork();
 	if (pid == 0)
 	{
+		apply_redirections(shell->cmd);
 		execve(path, args, shell->envp_tmp);
 		perror("execve");
 		exit(EXIT_FAILURE);
