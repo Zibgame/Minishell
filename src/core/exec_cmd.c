@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:43:59 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:24:25 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	apply_redirections(t_cmd *cmd)
 {
-	t_redir *r;
-	int fd;
+	t_redir	*r;
+	int		fd;
 
 	r = cmd->redirs;
 	while (r)
@@ -34,7 +34,6 @@ int	apply_redirections(t_cmd *cmd)
 			dup2(fd, STDIN_FILENO);
 		else
 			dup2(fd, STDOUT_FILENO);
-
 		close(fd);
 		r = r->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:43:25 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:12:04 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	shell_loop(t_shell *shell)
 			break ;
 		shell->cmd = parse_command(line);
 		extract_redirections(shell->cmd);
+		prepare_heredocs(shell->cmd);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))

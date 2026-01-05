@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 13:51:00 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/05 14:20:45 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ PARSING_FILES = src/parsing/parse_command.c \
 			src/parsing/is_builtins.c \
 			src/parsing/parsing_split.c \
 			src/parsing/parse_error.c \
+			src/heredoc/heredoc.c \
+			src/heredoc//heredoc_utils.c \
 			src/parsing/extract_redirs.c \
 			src/parsing/tokenizer.c \
 			src/parsing/tokenizer_utils.c
@@ -61,6 +63,7 @@ LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lkllast.c \
 			src/struct/var_list/ft_lkldel_one.c \
 			src/struct/var_list/ft_lklremove.c \
+			src/signals/fc.c \
 			src/struct/var_list/ft_lklnew.c \
 			src/struct/var_list/ft_lklsize.c
 

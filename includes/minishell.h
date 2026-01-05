@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:50:15 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:17:33 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		add_commands(t_cmd	**cmd, char **elems);
 int			is_redirect(t_cmd *cmd);
 char		**ft_split_charset(char const *s, char *c);
 int			is_pipe(t_cmd *cmd);
+int			fc(void);
 t_cmd		*get_next_cmd(t_cmd *cmd);
 
 /* == DEBUG == */
@@ -120,5 +121,9 @@ char		**tokenize_line(char *line);
 int			skip_spaces(char *s, int i);
 int			read_quoted(char *s, int i, char quote);
 int			read_unquoted(char *s, int i);
+
+/* HEREDOC */
+void	prepare_heredocs(t_cmd *cmd);
+int		handle_heredoc(char *limiter);
 
 #endif
