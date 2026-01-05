@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:50:15 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:21:44 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,8 @@ char		**tokenize_line(char *line);
 int			skip_spaces(char *s, int i);
 int			read_quoted(char *s, int i, char quote);
 int			read_unquoted(char *s, int i);
+
+/* == expansion == */
+void		expand_vars(t_shell *shell);
 
 #endif

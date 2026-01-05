@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 13:48:29 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:08:42 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ t_cmd	*parse_command(char *line)
 	remove_waste(cmd);
 	if (has_parse_error(cmd))
 		return (NULL);
-	extract_redirections(cmd);
 	return (cmd);
 }

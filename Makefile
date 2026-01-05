@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 13:51:00 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/05 14:03:47 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,15 +74,14 @@ CMD_FILES	= src/struct/t_cmd/ft_cmdadd_front.c \
 			src/struct/t_cmd/extract_next_cmd.c \
 			src/struct/t_cmd/ft_cmdsize.c
 
-REDIR_FILES	= src/struct/t_redirs/ft_redirnew.c \
+OTHER_FILES	= src/utils/action.c \
+			src/core/exec_pipeline.c \
+			src/expand/expand_vars.c \
+			src/struct/t_redirs/ft_redirnew.c \
 			src/struct/t_redirs/ft_redir_addback.c
 
-OTHER_FILES	= src/utils/action.c \
-			src/core/exec_pipeline.c
-
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) \
-			$(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o) $(PARSING_FILES:%.c=$(OBJ_DIR)/%.o) \
-			$(REDIR_FILES:%.c=$(OBJ_DIR)/%.o)	
+			$(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o) $(PARSING_FILES:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g -I. -I$(LIBFT_DIR)
