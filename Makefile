@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 14:20:45 by zcadinot         ###   ########.fr        #
+#    Updated: 2026/01/05 16:31:06 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ LKL_FILES	= src/struct/init_struct.c \
 			src/struct/var_list/ft_lkllast.c \
 			src/struct/var_list/ft_lkldel_one.c \
 			src/struct/var_list/ft_lklremove.c \
-			src/signals/fc.c \
 			src/struct/var_list/ft_lklnew.c \
 			src/struct/var_list/ft_lklsize.c
 

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 14:36:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 15:05:59 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	expand_vars(t_shell *shell)
 	cmd = shell->cmd;
 	while (cmd)
 	{
-		if (cmd->name && !ft_strchr(cmd->name, '\''))
+		if (cmd->name && !ft_strchr(cmd->name, 39))
 		{
 			new = expand_token(shell, cmd->name);
 			if (!new)
