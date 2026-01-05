@@ -70,7 +70,7 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	printf("  TYPE : %d\n", tmp->type);
+	// printf("  TYPE : %d\n", tmp->type);
 	if (tmp->type == REDIRECTION)
 	{	
 		err = token_error(tmp->name);

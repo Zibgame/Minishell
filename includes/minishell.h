@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:49:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:31:49 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,11 @@ void		display_list(t_cmd	*cmd);
 /* == Pipex ==*/
 void		exec_pipeline(t_shell *shell);
 int			has_pipe(t_cmd *cmd);
+
+/* == Parsing ==*/
+char		**tokenize_line(char *line);
+int			skip_spaces(char *s, int i);
+int			read_quoted(char *s, int i, char quote);
+int			read_unquoted(char *s, int i);
 
 #endif
