@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:27:51 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:43:43 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	read_quoted(char *s, int i, char quote)
 	i++;
 	while (s[i] && s[i] != quote)
 		i++;
-	if (s[i] == quote)
-		i++;
-	return (i);
+	if (s[i] != quote)
+		return (-1);
+	return (i + 1);
 }
 
 int	read_unquoted(char *s, int i)

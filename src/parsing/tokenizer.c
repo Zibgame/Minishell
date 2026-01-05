@@ -6,75 +6,87 @@
 /*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:27:45 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:45:59 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	count_tokens(char *s)
+static int	is_space(char c)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		i = skip_spaces(s, i);
-		if (!s[i])
-			break;
-		count++;
-		if (s[i] == '\'' || s[i] == '"')
-			i = read_quoted(s, i, s[i]);
-		else
-			i = read_unquoted(s, i);
-	}
-	return (count);
+	return (c == ' ' || c == '\t');
 }
 
-static char	*extract_token(char *s, int *i)
+static int	append_char(char **buf, char c)
 {
-	int		start;
-	char	quote;
-	char	*token;
+	char	tmp[2];
+	char	*new;
 
-	*i = skip_spaces(s, *i);
-	start = *i;
-	if (s[*i] == '\'' || s[*i] == '"')
+	tmp[0] = c;
+	tmp[1] = '\0';
+	new = ft_strjoin(*buf, tmp);
+	if (!new)
+		return (0);
+	free(*buf);
+	*buf = new;
+	return (1);
+}
+
+static char	*read_token(char *s, int *i)
+{
+	char	*buf;
+	int		end;
+
+	buf = ft_calloc(1, 1);
+	if (!buf)
+		return (NULL);
+	while (s[*i] && !is_space(s[*i]))
 	{
-		quote = s[*i];
-		start++;
-		*i = read_quoted(s, *i, quote);
-		token = ft_substr(s, start, *i - start - 1);
+		if (s[*i] == '\'' || s[*i] == '"')
+		{
+			end = read_quoted(s, *i, s[*i]);
+			if (end == -1)
+				return (free(buf), NULL);
+			(*i)++;
+			while (*i < end - 1)
+			{
+				if (!append_char(&buf, s[*i]))
+					return (free(buf), NULL);
+				(*i)++;
+			}
+			(*i)++;
+		}
+		else
+		{
+			if (!append_char(&buf, s[*i]))
+				return (free(buf), NULL);
+			(*i)++;
+		}
 	}
-	else
-	{
-		*i = read_unquoted(s, *i);
-		token = ft_substr(s, start, *i - start);
-	}
-	return (token);
+	return (buf);
 }
 
 char	**tokenize_line(char *line)
 {
 	char	**tokens;
 	int		i;
-	int		j;
 	int		count;
 
-	count = count_tokens(line);
-	tokens = ft_calloc(count + 1, sizeof(char *));
+	i = 0;
+	count = 0;
+	tokens = ft_calloc(1024, sizeof(char *));
 	if (!tokens)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (j < count)
+	while (line[i])
 	{
-		tokens[j] = extract_token(line, &i);
-		if (!tokens[j])
+		while (is_space(line[i]))
+			i++;
+		if (!line[i])
+			break ;
+		tokens[count] = read_token(line, &i);
+		if (!tokens[count])
 			return (free_array(tokens), NULL);
-		j++;
+		count++;
 	}
 	return (tokens);
 }
