@@ -6,12 +6,17 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 23:27:51 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/05 23:30:49 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+
+	Ici code a modifier je sais ou est l'erreur a voir comment la corriger
+
+*/
 static char	*read_token(char *s, int *i, char *quote)
 {
 	char	buf[4096];
