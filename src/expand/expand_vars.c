@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 14:31:22 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 14:36:52 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static char	*expand_token(t_shell *shell, char *s)
 		{
 			i++;
 			var = extract_var_name(s, &i);
-			printf("MON RETENU: %s\n", var);
 			value = get_value(shell, var);
 			if (!append_str(&res, value))
 				return (free(var), free(res), NULL);
