@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:43:43 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 21:41:28 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,24 @@ int	read_unquoted(char *s, int i)
 	while (s[i] && s[i] != ' ' && !is_quote(s[i]))
 		i++;
 	return (i);
+}
+
+char	get_token_quote(char *s)
+{
+	int		i;
+	char	current;
+
+	if (!s)
+		return (0);
+	i = 0;
+	current = 0;
+	while (s[i])
+	{
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			return (current);
+		i++;
+	}
+	return (0);
 }

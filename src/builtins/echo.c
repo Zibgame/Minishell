@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 13:42:49 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 21:09:23 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ static int	is_n_option(char *s)
 	return (s[i] == '\0');
 }
 
+static void	putstr_without_quotes(char *s)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != '\'' && s[i] != '"')
+			write(STDOUT_FILENO, &s[i], 1);
+		i++;
+	}
+}
+
+
 int	echo(t_shell *shell)
 {
 	t_cmd	*cmd;
@@ -40,12 +56,12 @@ int	echo(t_shell *shell)
 	}
 	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
 	{
-		ft_putstr_fd(cmd->name, STDOUT_FILENO);
+		putstr_without_quotes(cmd->name);
 		if (cmd->next && (cmd->next->type == ARGUMENT
 				|| cmd->next->type == OPTION))
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		cmd = cmd->next;
-	}
+	}	
 	if (newline)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	clean_command_free(shell);

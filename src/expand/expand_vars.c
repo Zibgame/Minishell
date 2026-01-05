@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 15:05:59 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 21:46:00 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	expand_vars(t_shell *shell)
 	cmd = shell->cmd;
 	while (cmd)
 	{
-		if (cmd->name && !ft_strchr(cmd->name, 39))
+		if (cmd->quote == '\'')
+			return ;
+		// printf("\t%s, %d\n", cmd->name, cmd->quote);
+		if (cmd->name)
 		{
 			new = expand_token(shell, cmd->name);
 			if (!new)

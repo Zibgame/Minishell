@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 17:51:30 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 20:43:15 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	exec_cmd(t_shell *shell, char *line)
 	path = get_cmd_path(shell, args[0]);
 	if (!path)
 	{
-		printf("minishell: %s: command not found\n", args[0]);
+		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
 		return_type(shell, line);
 		return ;
 	}

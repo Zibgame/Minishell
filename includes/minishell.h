@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 16:33:16 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 21:25:12 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,9 @@ int			read_unquoted(char *s, int i);
 /* HEREDOC */
 void	prepare_heredocs(t_cmd *cmd);
 int		handle_heredoc(char *limiter);
+
 /* == expansion == */
 void		expand_vars(t_shell *shell);
+char		get_token_quote(char *s);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:58:30 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/18 13:39:12 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 20:57:26 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
+static void	putstr_without_quotes(char *s)
+{
+	int	len;
+
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	if (len >= 2 && ((s[0] == '\'' && s[len - 1] == '\'')
+			|| (s[0] == '"' && s[len - 1] == '"')))
+	{
+		write(STDOUT_FILENO, s + 1, len - 2);
+		return ;
+	}
+	ft_putstr_fd(s, STDOUT_FILENO);
+}
+
 int	echo_pipe(t_cmd *cmd)
 {
 	int	nl;
@@ -37,13 +53,14 @@ int	echo_pipe(t_cmd *cmd)
 	}
 	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
 	{
-		ft_putstr_fd(cmd->name, STDOUT_FILENO);
+		putstr_without_quotes(cmd->name);
 		if (cmd->next && (cmd->next->type == ARGUMENT
 				|| cmd->next->type == OPTION))
-			write(1, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 		cmd = cmd->next;
 	}
 	if (nl)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
+

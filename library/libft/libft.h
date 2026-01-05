@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:31:29 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 14:05:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 20:42:56 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		ft_putnbr_unsigned_fd(unsigned int n, int fd);
 int		ft_puthex_fd(unsigned int n, int maj, int fd);
 int		ft_putnbr_hexl_fd(unsigned long n, int maj, int fd);
 
-int		ft_printf(const char *str, int fd, ...);
+int		ft_printf_fd(const char *str, int fd, ...);
 
 // get_next_line functions
 char	*get_next_line(int fd);

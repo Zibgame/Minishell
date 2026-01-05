@@ -3,67 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 16:33:39 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 21:43:55 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_space(char c)
+static char	*read_token(char *s, int *i, char *quote)
 {
-	return (c == ' ' || c == '\t');
-}
+	char	buf[4096];
+	int		j;
 
-static int	append_char(char **buf, char c)
-{
-	char	tmp[2];
-	char	*new;
-
-	tmp[0] = c;
-	tmp[1] = '\0';
-	new = ft_strjoin(*buf, tmp);
-	if (!new)
-		return (0);
-	free(*buf);
-	*buf = new;
-	return (1);
-}
-
-static char	*read_token(char *s, int *i)
-{
-	char	*buf;
-	int		end;
-
-	buf = ft_calloc(1, 1);
-	if (!buf)
+	j = 0;
+	*quote = 0;
+	while (s[*i] == ' ' || s[*i] == '\t')
+		(*i)++;
+	if (!s[*i])
 		return (NULL);
-	while (s[*i] && !is_space(s[*i]))
+	if (s[*i] == '\'' || s[*i] == '"')
 	{
-		if (s[*i] == '\'' || s[*i] == '"')
-		{
-			end = read_quoted(s, *i, s[*i]);
-			if (end == -1)
-				return (free(buf), NULL);
+		*quote = s[*i];
+		(*i)++;
+		while (s[*i] && s[*i] != *quote)
+			buf[j++] = s[(*i)++];
+		if (s[*i] == *quote)
 			(*i)++;
-			while (*i < end - 1)
-			{
-				if (!append_char(&buf, s[*i]))
-					return (free(buf), NULL);
-				(*i)++;
-			}
-			(*i)++;
-		}
-		else
-		{
-			if (!append_char(&buf, s[*i]))
-				return (free(buf), NULL);
-			(*i)++;
-		}
 	}
-	return (buf);
+	else
+	{
+		while (s[*i] && s[*i] != ' ' && s[*i] != '\t')
+			buf[j++] = s[(*i)++];
+	}
+	buf[j] = '\0';
+	return (ft_strdup(buf));
 }
 
 char	**tokenize_line(char *line)
@@ -71,6 +46,7 @@ char	**tokenize_line(char *line)
 	char	**tokens;
 	int		i;
 	int		count;
+	char	quote;
 
 	i = 0;
 	count = 0;
@@ -79,14 +55,11 @@ char	**tokenize_line(char *line)
 		return (NULL);
 	while (line[i])
 	{
-		while (is_space(line[i]))
-			i++;
-		if (!line[i])
-			break ;
-		tokens[count] = read_token(line, &i);
+		tokens[count] = read_token(line, &i, &quote);
 		if (!tokens[count])
-			return (free_array(tokens), NULL);
+			break ;
 		count++;
 	}
 	return (tokens);
 }
+

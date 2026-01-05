@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 14:08:42 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 21:43:48 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int	command_type(t_cmd	*cmd)
 {
 	int	status;
+
+	if (cmd->quote)
+		return (ARGUMENT);
 
 	if (!ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
@@ -41,6 +44,7 @@ void	add_commands(t_cmd	**cmd, char **elems)
 		while (elems[++i])
 		{
 			ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup(elems[i]), 0));
+			ft_cmdlast(*cmd)->quote = get_token_quote(ft_cmdlast(*cmd)->name);
 			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
 			if (!(ft_cmdsize(*cmd) > old_size))
 				return ;
@@ -75,6 +79,7 @@ t_cmd	*parse_command(char *line)
 	if (!splitted_command)
 		return (NULL);
 	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);
+	cmd->quote = get_token_quote(splitted_command[0]);
 	cmd->type = command_type(cmd);
 	if (cmd)
 		add_commands(&cmd, &splitted_command[1]);

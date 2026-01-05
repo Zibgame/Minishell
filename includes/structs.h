@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 11:06:18 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 21:21:02 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmd
 	int				type;
 	int				file_type;
 	char			*name;
+	char			quote;
 	t_redir			*redirs;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

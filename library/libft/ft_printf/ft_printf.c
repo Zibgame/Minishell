@@ -61,7 +61,7 @@ int	ft_printf_fd(const char *str, int fd, ...)
 		}
 		else
 		{
-			write(1, &str[i], 1);
+			write(fd, &str[i], 1);
 			i++;
 			p_len++;
 		}
