@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 15:10:24 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 16:33:39 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*read_token(char *s, int *i)
 	buf = ft_calloc(1, 1);
 	if (!buf)
 		return (NULL);
-	printf ("base line -> %s\n", s);
 	while (s[*i] && !is_space(s[*i]))
 	{
 		if (s[*i] == '\'' || s[*i] == '"')
@@ -64,7 +63,6 @@ static char	*read_token(char *s, int *i)
 			(*i)++;
 		}
 	}
-	printf ("base line -> %s\n", s);
 	return (buf);
 }
 
