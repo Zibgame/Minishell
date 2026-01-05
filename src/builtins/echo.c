@@ -6,13 +6,13 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/18 13:36:32 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 13:42:49 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_valid_n(char *s)
+static int	is_n_option(char *s)
 {
 	int	i;
 
@@ -24,55 +24,30 @@ static int	is_valid_n(char *s)
 	return (s[i] == '\0');
 }
 
-static void	print_variable(t_shell *shell)
-{
-	t_var_list	*envp_tmp;
-
-	envp_tmp = shell->envp;
-	while (envp_tmp)
-	{
-		if (!ft_strncmp(&(shell->cmd->name[1]), \
-				envp_tmp->name, ft_strlen(shell->cmd->name)))
-		{
-			printf("%s", envp_tmp->value);
-			return ;
-		}
-		envp_tmp = envp_tmp->next;
-	}
-	return ;
-}
-
-static void	display_argument(t_shell *shell)
-{
-	if (!ft_strncmp(shell->cmd->name, "$?", 3))
-		print_status(shell);
-	if (!ft_strncmp(shell->cmd->name, "$", 1))
-		print_variable(shell);
-	else
-		printf("%s", shell->cmd->name);
-	if (shell->cmd->next && \
-			(shell->cmd->next->type == OPTION || \
-			shell->cmd->next->type == ARGUMENT || \
-			shell->cmd->next->type == ARGUMENT))
-			printf(" ");
-	clean_command_free(shell);
-}
-
 int	echo(t_shell *shell)
 {
-	int		nl;
+	t_cmd	*cmd;
+	int		newline;
 
-	nl = 1;
-	clean_command_free(shell);
-	while (shell->cmd && shell->cmd->type == 1 && is_valid_n(shell->cmd->name))
+	if (!shell || !shell->cmd)
+		return (1);
+	newline = 1;
+	cmd = shell->cmd->next;
+	while (cmd && is_n_option(cmd->name))
 	{
-		nl = 0;
-		clean_command_free(shell);
+		newline = 0;
+		cmd = cmd->next;
 	}
-	while (shell->cmd && (shell->cmd->type == ARGUMENT || shell->cmd->type \
-		== OPTION || shell->cmd->type == PARSEERROR))
-		display_argument(shell);
-	if (nl)
-		printf("\n");
+	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
+	{
+		ft_putstr_fd(cmd->name, STDOUT_FILENO);
+		if (cmd->next && (cmd->next->type == ARGUMENT
+				|| cmd->next->type == OPTION))
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		cmd = cmd->next;
+	}
+	if (newline)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	clean_command_free(shell);
 	return (0);
 }

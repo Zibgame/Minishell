@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 13:28:13 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/05 13:48:23 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ PARSING_FILES = src/parsing/parse_command.c \
 				src/parsing/parsing_split.c \
 				src/parsing/parse_error.c \
 				src/parsing/extract_redirs.c
+				src/parsing/tokenizer.c \
+				src/parsing/tokenizer_utils.c \
+				src/parsing/parse_error.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \

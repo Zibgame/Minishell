@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 11:26:02 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 13:48:29 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_cmd	*parse_command(char *line)
 	char	**splitted_command;
 	t_cmd	*cmd;
 
-	splitted_command = ft_split(line, ' ');
+	splitted_command = tokenize_line(line);
 	if (!splitted_command)
 		return (NULL);
 	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);

@@ -6,7 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/01/05 13:27:29 by aeherve          ###   ########.fr       */
+=======
+/*   Updated: 2026/01/05 13:40:48 by zcadinot         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +118,11 @@ int			has_pipe(t_cmd *cmd);
 /* == Redirs == */
 t_redir *redir_new(t_redir_type type, char *target);
 void	redir_add_back(t_redir **lst, t_redir *new);
+
+/* == Parsing ==*/
+char		**tokenize_line(char *line);
+int			skip_spaces(char *s, int i);
+int			read_quoted(char *s, int i, char quote);
+int			read_unquoted(char *s, int i);
 
 #endif
