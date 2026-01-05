@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 13:48:23 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/05 13:51:00 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_DIR		= obj
 INCLD_DIR	= includes
 LIBFT_DIR	= library/libft
 
-LIBFT			= $(LIBFT_DIR)/libft.a
+LIBFT		= $(LIBFT_DIR)/libft.a
 
 SRCS		= main.c \
 			src/core/shell_loop.c \
@@ -33,14 +33,13 @@ SRCS		= main.c \
 			src/utils/envp.c
 
 PARSING_FILES = src/parsing/parse_command.c \
-				src/parsing/redirect_split.c \
-				src/parsing/is_builtins.c \
-				src/parsing/parsing_split.c \
-				src/parsing/parse_error.c \
-				src/parsing/extract_redirs.c
-				src/parsing/tokenizer.c \
-				src/parsing/tokenizer_utils.c \
-				src/parsing/parse_error.c
+			src/parsing/redirect_split.c \
+			src/parsing/is_builtins.c \
+			src/parsing/parsing_split.c \
+			src/parsing/parse_error.c \
+			src/parsing/extract_redirs.c \
+			src/parsing/tokenizer.c \
+			src/parsing/tokenizer_utils.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \
