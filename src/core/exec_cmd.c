@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 14:52:56 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 17:51:30 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static void	return_type(t_shell *shell, char *line)
 {
 	if (!ft_strncmp("./", line, 2))
 		shell->last_return = 126;
+	else if (!ft_strncmp("$", line, 1) && ft_strncmp("$?", line, 2) \
+	&& ft_strlen(line) > 1)
+		shell->last_return = 0;
 	else
 		shell->last_return = 127;
 }
