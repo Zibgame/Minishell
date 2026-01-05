@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/10 17:22:59 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/05 11:06:18 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,22 @@ enum e_types
 	FILETOOPEN
 };
 
-enum e_file_type
+typedef enum e_redir_type
 {
-	FFILE,
-	EOFILE,
-	HEREDOC	
-};
+	R_IN,      // <
+	R_OUT,     // >
+	R_APPEND,  // >>
+	R_HEREDOC  // <<
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type	type;
+	char			*target; // fichier ou delimiter
+	int				fd;      // utilisé pour heredoc
+	struct s_redir	*next;
+}	t_redir;
+
 
 typedef struct s_cmd
 {
@@ -43,6 +53,7 @@ typedef struct s_cmd
 	int				type;
 	int				file_type;
 	char			*name;
+	t_redir			*redirs;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;

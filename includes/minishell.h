@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:49:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 11:24:47 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);
 
+/* == Parsing == */
 t_cmd		*parse_command(char *line);
 int			has_parse_error(t_cmd *cmd);
+void		extract_redirections(t_cmd *cmd);
 int			comb_redir_oper_pipes(char *token);
 int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);
@@ -106,5 +108,9 @@ void		display_list(t_cmd	*cmd);
 /* == Pipex ==*/
 void		exec_pipeline(t_shell *shell);
 int			has_pipe(t_cmd *cmd);
+
+/* == Redirs == */
+t_redir *redir_new(t_redir_type type, char *target);
+void	redir_add_back(t_redir **lst, t_redir *new);
 
 #endif

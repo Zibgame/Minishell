@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmdnew.c                                        :+:      :+:    :+:   */
+/*   ft_redirnew.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/05 12:34:31 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 11:05:48 by aeherve          ###   ########.fr       */
+/*   Created: 2026/01/05 11:09:34 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/05 11:09:58 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_cmd	*ft_cmdnew(char *name, int type)
+t_redir *redir_new(t_redir_type type, char *target)
 {
-	t_cmd	*elem;
-
-	elem = malloc(sizeof(t_cmd));
-	if (!elem)
-		return (NULL);
-	elem->name = name;
-	elem->type = type;
-	elem->next = NULL;
-	elem->prev = NULL;
-	elem->redirs = NULL;
-	return (elem);
+	t_redir *r = malloc(sizeof(t_redir));
+	if (!r)
+		return NULL;
+	r->type = type;
+	r->target = ft_strdup(target);
+	r->fd = -1;
+	r->next = NULL;
+	return r;
 }
