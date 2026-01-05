@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:51:52 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:32:05 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 22:04:39 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ int	cd(t_shell *shell)
 {
 	char	*path;
 
+	if (ft_cmdsize(shell->cmd) > 2)
+	{
+		ft_printf_fd("cd: too many arguments\n", 2);
+		shell->last_return = 1;
+		return (1);
+	}
 	if (!shell->cmd->next || shell->cmd->next->type != ARGUMENT)
 		return (1);
 	path = shell->cmd->next->name;
@@ -23,7 +29,8 @@ int	cd(t_shell *shell)
 		return (1);
 	if (chdir(path) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", path);
+		ft_printf_fd("minishell: cd: %s: No such file or directory\n", 2, path);
+		shell->last_return = 1;
 		return (1);
 	}
 	clean_command_free(shell);

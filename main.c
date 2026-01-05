@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 13:51:30 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 23:14:07 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	display_list(t_cmd	*cmd)
 		printf("-------------------------------------------\n");
 		printf("name: %s type: %d\n", cmd->name, cmd->type);
 		printf("adress: %p\n", cmd);
+		printf("quote: %c\n", cmd->quote);
 		printf("\n");
 		printf("prev: %p\n", cmd->prev);
 		printf("next: %p\n", cmd->next);

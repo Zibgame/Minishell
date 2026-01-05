@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 21:46:00 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/05 23:06:50 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ void	expand_vars(t_shell *shell)
 	cmd = shell->cmd;
 	while (cmd)
 	{
-		if (cmd->quote == '\'')
-			return ;
 		// printf("\t%s, %d\n", cmd->name, cmd->quote);
-		if (cmd->name)
+		if (cmd->name && cmd->quote != '\'')
 		{
 			new = expand_token(shell, cmd->name);
 			if (!new)

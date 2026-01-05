@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 11:41:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/05 22:37:30 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	valid_char(char c)
 	if (('A' <= c && c <= 'Z')
 		|| ('a' <= c && c <= 'z')
 		|| ('0' <= c && c <= '9')
-		|| c == '_')
+		|| c == '_' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -26,7 +26,7 @@ static int	valid_first_char(char c)
 {
 	if (('A' <= c && c <= 'Z')
 		|| ('a' <= c && c <= 'z')
-		|| c == '_')
+		|| c == '_' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -46,7 +46,7 @@ static char	is_valid_assignment(char *s)
 			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	export(t_shell *shell)
@@ -61,10 +61,12 @@ int	export(t_shell *shell)
 		env_var = ft_split(shell->cmd->name, '=');
 		set_value(&shell, env_var[0], env_var[1]);
 		clean_command_free(shell);
+		shell->last_return = 0;
 		return (0);
 	}
-	printf("bash: export: `%s': not a valid identifier\n", \
+	ft_printf_fd("bash: export: `%s': not a valid identifier\n", 2, \
 		shell->cmd->name);
 	clean_command_free(shell);
+	shell->last_return = 1;
 	return (1);
 }

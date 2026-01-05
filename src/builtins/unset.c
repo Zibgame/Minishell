@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 15:03:09 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/05 22:25:09 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,7 @@ int	unset(t_shell *shell)
 {
 	clean_command_free(shell);
 	if (!shell->cmd || !shell->cmd->name)
-	{
-		printf("unset: not enough arguments\n");
-		shell->last_return = 1;
 		return (1);
-	}
 	if (search_and_unset(shell))
 	{
 		printf("unset: %s: invalid parameter name\n", shell->cmd->name);
