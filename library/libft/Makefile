@@ -26,7 +26,8 @@ MEMUSE_FILES = memuse/ft_bzero.c memuse/ft_calloc.c memuse/ft_memchr.c \
 STRMANIP_FILES = strmanip/ft_strdup.c strmanip/ft_striteri.c \
                  strmanip/ft_strjoin.c strmanip/ft_strlcat.c \
                  strmanip/ft_strlcpy.c strmanip/ft_strmapi.c \
-                 strmanip/ft_tolower.c strmanip/ft_toupper.c
+                 strmanip/ft_tolower.c strmanip/ft_toupper.c \
+				 strmanip/ft_strjoinchar.c
 
 STRUSE_FILES = struse/ft_strchr.c struse/ft_strlen.c struse/ft_strncmp.c \
                struse/ft_strnstr.c struse/ft_strrchr.c struse/ft_strtrim.c \

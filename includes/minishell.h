@@ -125,5 +125,7 @@ int			read_unquoted(char *s, int i);
 /* HEREDOC */
 void	prepare_heredocs(t_cmd *cmd);
 int		handle_heredoc(char *limiter);
+/* == expansion == */
+void		expand_vars(t_shell *shell);
 
 #endif

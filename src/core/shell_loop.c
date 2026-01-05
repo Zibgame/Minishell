@@ -24,6 +24,7 @@ void	shell_loop(t_shell *shell)
 		if (!line)
 			break ;
 		shell->cmd = parse_command(line);
+		expand_vars(shell);
 		extract_redirections(shell->cmd);
 		prepare_heredocs(shell->cmd);
 		if (shell->cmd)
