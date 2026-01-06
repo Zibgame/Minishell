@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/06 11:49:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:12:31 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,58 +48,52 @@ static int	is_valid_var_start(char c)
 	return (0);
 }
 
-static char	*extract_var_name(char *s, int *i)
-{
-	int		start;
-	char	*name;
-
-	start = *i;
-	while (s[*i] && (ft_isalnum(s[*i]) || s[*i] == '_'))
-		(*i)++;
-	name = ft_strndup(&s[start], *i - start);
-	return (name);
-}
-
 static char	*expand_token(t_shell *shell, char *s)
 {
 	char	*res;
 	char	*var;
 	char	*value;
 	int		i;
-	char	current;
+	char	quote;
 
 	res = ft_calloc(1, 1);
 	if (!res)
 		return (NULL);
 	i = 0;
-	current = 0;
+	quote = 0;
 	while (s[i])
 	{
-		if (!current && (s[i] == '\'' || s[i] == '"'))
-			current = s[i];
-		else if (current && s[i] == current)
-			current = 0;
-		else if (s[i] == '$' && current != '\'' && s[i + 1] == '?')
+		if (!quote && (s[i] == '\'' || s[i] == '"'))
+			quote = s[i];
+		else if (quote && s[i] == quote)
+			quote = 0;
+		else if (s[i] == '$' && quote != '\'' && s[i + 1] == '?')
 		{
 			value = ft_itoa(shell->last_return);
-			if (!append_str(&res, value))
+			if (!value || !append_str(&res, value))
 				return (free(value), free(res), NULL);
 			free(value);
 			i += 2;
 			continue ;
 		}
-		else if (s[i] == '$' && current != '\'')
+		else if (s[i] == '$' && quote != '\'')
 		{
-			if (!s[i + 1] || !is_valid_var_start(s[i + 1]))
+			i++;
+			if (!s[i] || !is_valid_var_start(s[i]))
 			{
 				if (!append_char(&res, '$'))
 					return (free(res), NULL);
-				i++;
 				continue ;
 			}
-			i++;
-			var = extract_var_name(s, &i);
+			int start = i;
+			while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
+				i++;
+			var = ft_substr(s, start, i - start);
+			if (!var)
+				return (free(res), NULL);
 			value = get_value(shell, var);
+			if (!value)
+				value = ""; // sécurité si variable non définie
 			if (!append_str(&res, value))
 				return (free(var), free(res), NULL);
 			free(var);
@@ -111,7 +105,6 @@ static char	*expand_token(t_shell *shell, char *s)
 	}
 	return (res);
 }
-	
 
 void	expand_vars(t_shell *shell)
 {
