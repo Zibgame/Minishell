@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 22:55:17 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 19:25:19 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@
 static int	is_str_numeric(const char *str)
 {
 	int	i;
+	int	count;
 
 	if (!str || !str[0])
 		return (0);
 	i = 0;
-	if (str[i] == '+' || str[i] == '-' || str[i] == '\"' || str[i] == '\'')
+	count = 0;
+	while (str[i] == '+' || str[i] == '-' || str[i] == '\"' || str[i] == '\'')
+	{
+		count += str[i] == '+' || str[i] == '-';
 		i++;
-	if (!str[i])
+	}
+	if (!str[i] || count > 1)
 		return (0);
 	while (str[i])
 	{
