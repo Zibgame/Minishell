@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 21:05:57 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 14:08:10 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,11 @@ int	is_redirect(t_cmd *cmd)
 	{
 		if (ft_strlen(cmd->name) > 1)
 		{
+			// printf("Redirs: %d, chaine: %s\n echo >>./outfiles/outfile01 bye >./test_files/invalid_permission\n", has_multi_redir(cmd->name), cmd->name);
 			if (has_multi_redir(cmd->name) != 0)
 				return (has_multi_redir(cmd->name));
-			if (comb_redir_oper_pipes(cmd->name) != 0)
-				return (comb_redir_oper_pipes(cmd->name));
+			// if (comb_redir_oper_pipes(cmd->name) != 0)
+			// 	return (comb_redir_oper_pipes(cmd->name));
 			new_args = NULL;
 			new_args = ft_split_charset(cmd->name, "<>");
 			if (!new_args)

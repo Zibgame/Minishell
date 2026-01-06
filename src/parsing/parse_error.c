@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/06 11:22:54 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/06 14:12:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	
-	if (tmp->type == REDIRECTION)
+	if (tmp->type == REDIRECTION && ft_strncmp(token_error(tmp->name),
+	"newline", ft_strlen("newline")))
 	{	
 		err = token_error(tmp->name);
 		printf("minishell: syntax error near unexpected token `%s'\n", err);
