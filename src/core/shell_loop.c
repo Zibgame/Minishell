@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 23:15:14 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 13:52:53 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	shell_loop(t_shell *shell)
 			break ;
 		shell->cmd = parse_command(line);
 		expand_vars(shell);
+		remove_empty_commands(&shell->cmd);
 		extract_redirections(shell->cmd);
 		prepare_heredocs(shell->cmd);
 		if (shell->cmd)
