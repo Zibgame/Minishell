@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 13:42:46 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/06 13:52:23 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		exec_cmd(t_shell *shell, char *line);
 char		*read_line(void);
 int			free_(void);
 t_shell		*create_shell_struct(char **envp);
+void			remove_empty_commands(t_cmd **cmd);
 void		free_shell(t_shell *shell);
 
 /* == VARS LINKED LIST == */
