@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 11:16:36 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:35:51 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "structs.h"
 # include "librairies.h"
-
+# include <sys/stat.h>
 # define PS1 "\001\033[1;34m\002MiniShell❯ \001\033[0m\002"
 
 /* == SIGNALS == */
@@ -86,7 +86,7 @@ int			echo_pipe(t_cmd *cmd);
 int			pwd_pipe(void);
 int			env_pipe(char **envp);
 int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
-
+char		**clean_empty_args(char **args);
 /* == OTHERS == */
 void		clear(void);
 void		set_value(t_shell **shell, char *to_change, char *value);

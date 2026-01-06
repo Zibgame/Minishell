@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 20:43:15 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 12:40:09 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,74 @@
 
 static void	return_type(t_shell *shell, char *line)
 {
-	if (!ft_strncmp("./", line, 2))
-		shell->last_return = 126;
-	else if (!ft_strncmp("$", line, 1) && ft_strncmp("$?", line, 2) \
-	&& ft_strlen(line) > 1)
+	if (!ft_strncmp("$", line, 1) && ft_strncmp("$?", line, 2)
+		&& ft_strlen(line) > 1)
 		shell->last_return = 0;
 	else
 		shell->last_return = 127;
 }
 
-int	apply_redirections(t_cmd *cmd)
+static int	handle_direct_path(t_shell *shell, char *cmd)
 {
-	t_redir	*r;
-	int		fd;
+	struct stat	st;
 
-	r = cmd->redirs;
-	while (r)
+	if (stat(cmd, &st) != 0)
 	{
-		if (r->type == R_IN)
-			fd = open(r->target, O_RDONLY);
-		else if (r->type == R_OUT)
-			fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else if (r->type == R_APPEND)
-			fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else
-			fd = r->fd;
-		if (fd < 0)
-			return (perror(r->target), 1);
-		if (r->type == R_IN || r->type == R_HEREDOC)
-			dup2(fd, STDIN_FILENO);
-		else
-			dup2(fd, STDOUT_FILENO);
-		close(fd);
-		r = r->next;
+		ft_printf_fd("minishell: %s: No such file or directory\n", 2, cmd);
+		shell->last_return = 127;
+		return (1);
+	}
+	if (S_ISDIR(st.st_mode))
+	{
+		ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd);
+		shell->last_return = 126;
+		return (1);
+	}
+	if (access(cmd, X_OK) != 0)
+	{
+		ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd);
+		shell->last_return = 126;
+		return (1);
 	}
 	return (0);
+}
+
+static void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args && args[i])
+		free(args[i++]);
+	free(args);
 }
 
 void	exec_cmd(t_shell *shell, char *line)
 {
 	pid_t	pid;
+	int		status;
 	char	**args;
 	char	*path;
 
 	args = ft_split(line, ' ');
 	if (!args)
 		return ;
-	path = get_cmd_path(shell, args[0]);
+	args = clean_empty_args(args);
+	if (!args || !args[0])
+		return (free_args(args));
+	if (ft_strchr(args[0], '/'))
+	{
+		if (handle_direct_path(shell, args[0]))
+			return (free_args(args));
+		path = ft_strdup(args[0]);
+	}
+	else
+		path = get_cmd_path(shell, args[0]);
 	if (!path)
 	{
 		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
 		return_type(shell, line);
-		return ;
+		return (free_args(args));
 	}
 	pid = fork();
 	if (pid == 0)
@@ -73,9 +89,11 @@ void	exec_cmd(t_shell *shell, char *line)
 		apply_redirections(shell->cmd);
 		execve(path, args, shell->envp_tmp);
 		perror("execve");
-		exit(EXIT_FAILURE);
+		exit(126);
 	}
-	waitpid(pid, NULL, 0);
-	shell->last_return = WEXITSTATUS(pid);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->last_return = WEXITSTATUS(status);
 	free(path);
+	free_args(args);
 }

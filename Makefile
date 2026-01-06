@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/05 16:31:06 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/06 12:36:59 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ PARSING_FILES = src/parsing/parse_command.c \
 			src/parsing/is_builtins.c \
 			src/parsing/parsing_split.c \
 			src/parsing/parse_error.c \
+			src/parsing/clean_args.c \
 			src/heredoc/heredoc.c \
 			src/heredoc//heredoc_utils.c \
 			src/parsing/extract_redirs.c \
