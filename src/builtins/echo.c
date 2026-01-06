@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 21:09:23 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:41:16 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,26 @@ static int	is_n_option(char *s)
 	return (s[i] == '\0');
 }
 
-static void	putstr_without_quotes(char *s)
+static void	print_echo_arg(char *s)
 {
-	int	i;
+	int		i;
+	char	current;
 
 	if (!s)
 		return ;
 	i = 0;
+	current = 0;
 	while (s[i])
 	{
-		if (s[i] != '\'' && s[i] != '"')
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			current = 0;
+		else
 			write(STDOUT_FILENO, &s[i], 1);
 		i++;
 	}
 }
-
 
 int	echo(t_shell *shell)
 {
@@ -56,7 +61,7 @@ int	echo(t_shell *shell)
 	}
 	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
 	{
-		putstr_without_quotes(cmd->name);
+		print_echo_arg(cmd->name);
 		if (cmd->next && (cmd->next->type == ARGUMENT
 				|| cmd->next->type == OPTION))
 			ft_putchar_fd(' ', STDOUT_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 21:41:28 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:16:19 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,19 @@ char	get_token_quote(char *s)
 			return (current);
 		i++;
 	}
+	return (0);
+}
+
+char	is_quoted(char *s)
+{
+	int	len;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	if (len < 2)
+		return (0);
+	if ((s[0] == '\'' || s[0] == '"') && s[len - 1] == s[0])
+		return (s[0]);
 	return (0);
 }

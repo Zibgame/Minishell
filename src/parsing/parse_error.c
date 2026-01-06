@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/05 13:29:27 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:22:54 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ char	*token_error(char *token)
 		if (actual == PIPE && (type == OPERATOR || type == REDIRECTION))
 			return(return_error(token, i + 1, actual));
 		if (actual == REDIRECTION && (type == OPERATOR || type == PIPE))
-		{
-			printf("|%d|", i);
 			return(return_error(token, i + 1, actual));
-		}
 		type = actual;
 	}
 	return (ft_strdup("newline"));
@@ -70,7 +67,7 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	// printf("  TYPE : %d\n", tmp->type);
+	
 	if (tmp->type == REDIRECTION)
 	{	
 		err = token_error(tmp->name);

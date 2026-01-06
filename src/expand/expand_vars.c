@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 23:06:50 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:49:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ static int	append_str(char **dst, char *src)
 	return (1);
 }
 
+static int	is_valid_var_start(char c)
+{
+	if (ft_isalpha(c) || c == '_' || c == '?')
+		return (1);
+	return (0);
+}
+
 static char	*extract_var_name(char *s, int *i)
 {
 	int		start;
@@ -49,7 +56,7 @@ static char	*extract_var_name(char *s, int *i)
 	start = *i;
 	while (s[*i] && (ft_isalnum(s[*i]) || s[*i] == '_'))
 		(*i)++;
-	name = ft_strndup(&s[start], *i - start + 1);
+	name = ft_strndup(&s[start], *i - start);
 	return (name);
 }
 
@@ -59,39 +66,52 @@ static char	*expand_token(t_shell *shell, char *s)
 	char	*var;
 	char	*value;
 	int		i;
+	char	current;
 
 	res = ft_calloc(1, 1);
 	if (!res)
 		return (NULL);
 	i = 0;
+	current = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] == '?')
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			current = 0;
+		else if (s[i] == '$' && current != '\'' && s[i + 1] == '?')
 		{
 			value = ft_itoa(shell->last_return);
 			if (!append_str(&res, value))
 				return (free(value), free(res), NULL);
 			free(value);
 			i += 2;
+			continue ;
 		}
-		else if (s[i] == '$' && s[i + 1])
+		else if (s[i] == '$' && current != '\'')
 		{
+			if (!s[i + 1] || !is_valid_var_start(s[i + 1]))
+			{
+				if (!append_char(&res, '$'))
+					return (free(res), NULL);
+				i++;
+				continue ;
+			}
 			i++;
 			var = extract_var_name(s, &i);
 			value = get_value(shell, var);
 			if (!append_str(&res, value))
 				return (free(var), free(res), NULL);
 			free(var);
+			continue ;
 		}
-		else
-		{
-			if (!append_char(&res, s[i]))
-				return (free(res), NULL);
-			i++;
-		}
+		if (!append_char(&res, s[i]))
+			return (free(res), NULL);
+		i++;
 	}
 	return (res);
 }
+	
 
 void	expand_vars(t_shell *shell)
 {
@@ -101,8 +121,7 @@ void	expand_vars(t_shell *shell)
 	cmd = shell->cmd;
 	while (cmd)
 	{
-		// printf("\t%s, %d\n", cmd->name, cmd->quote);
-		if (cmd->name && cmd->quote != '\'')
+		if (cmd->name)
 		{
 			new = expand_token(shell, cmd->name);
 			if (!new)
@@ -113,4 +132,5 @@ void	expand_vars(t_shell *shell)
 		cmd = cmd->next;
 	}
 }
+
 

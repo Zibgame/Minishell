@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 23:21:35 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/06 11:17:19 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	command_type(t_cmd	*cmd)
 {
 	int	status;
 
-	if (cmd->quote)
+	if (cmd->quote || is_quoted(cmd->name))
 		return (ARGUMENT);
-
+	
 	if (!ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
 	if (is_builtins(cmd->name) != -1)
@@ -62,13 +62,16 @@ void	remove_waste(t_cmd *cmd)
 		if (cmd->next->type == TOREMOVE)
 		{
 			tmp = cmd->next;
-			cmd->next = cmd->next->next;
-			cmd->next->prev = cmd;
+			cmd->next = tmp->next;
+			if (cmd->next)
+				cmd->next->prev = cmd;
 			ft_cmddelone(tmp);
 		}
-		cmd = cmd->next;
+		else
+			cmd = cmd->next;
 	}
 }
+
 
 t_cmd	*parse_command(char *line)
 {
