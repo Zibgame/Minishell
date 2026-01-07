@@ -3,14 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 13:52:53 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/07 14:21:18 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char	**cmdtoarg(t_cmd *cmd)
+{
+	int		i;
+	char	**tmp;
+
+	if (cmd)
+	{
+		tmp = ft_calloc(1, sizeof(char *)*(ft_cmdsize(cmd) + 1));
+		i = 0;
+		while (cmd)
+		{
+			tmp[i] = cmd->name;
+			i++;
+			cmd = cmd->next;
+		}
+		return(tmp);
+	}
+	return (NULL);
+}
+
+static void	recreate_line(t_shell *shell, char **line)
+{
+	int		i;
+	char	*tmp;
+	char	**args;
+
+	args = cmdtoarg(shell->cmd);
+	if (!args)
+		return ;
+	free(*line);
+	*line = malloc(sizeof(char));
+	*line[0] = '\0';
+	i = 0;
+	while (i < ft_cmdsize(shell->cmd))
+	{
+		tmp = *line;
+		*line = ft_strjoin(ft_strdup(*line), args[i++]);
+		free(tmp);
+	}
+}
 
 void	shell_loop(t_shell *shell)
 {
@@ -28,6 +69,7 @@ void	shell_loop(t_shell *shell)
 		remove_empty_commands(&shell->cmd);
 		extract_redirections(shell->cmd);
 		prepare_heredocs(shell->cmd);
+		recreate_line(shell, &line);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))

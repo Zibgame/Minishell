@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 14:31:41 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/07 11:02:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int			is_redirect(t_cmd *cmd);
 char		**ft_split_charset(char const *s, char *c);
 int			is_pipe(t_cmd *cmd);
 t_cmd		*get_next_cmd(t_cmd *cmd);
+int			is_operator_char(char c);
+int			is_double_operator(char *s);
 
 /* == DEBUG == */
 void		display_list(t_cmd	*cmd);

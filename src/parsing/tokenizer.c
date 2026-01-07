@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 11:21:56 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 11:01:39 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static char	*read_token(char *s, int *i, char *quote)
 		(*i)++;
 	if (!s[*i])
 		return (NULL);
+	if (is_operator_char(s[*i]))
+	{
+		buf[j++] = s[(*i)++];
+		if ((buf[0] == '<' || buf[0] == '>')
+			&& s[*i] == buf[0])
+			buf[j++] = s[(*i)++];
+		buf[j] = '\0';
+		return (ft_strdup(buf));
+	}
 	while (s[*i])
 	{
 		if (!current && (s[*i] == '\'' || s[*i] == '"'))
@@ -39,7 +48,8 @@ static char	*read_token(char *s, int *i, char *quote)
 			current = 0;
 			buf[j++] = s[(*i)++];
 		}
-		else if (!current && (s[*i] == ' ' || s[*i] == '\t'))
+		else if (!current && (s[*i] == ' ' || s[*i] == '\t'
+				|| is_operator_char(s[*i])))
 			break ;
 		else
 			buf[j++] = s[(*i)++];

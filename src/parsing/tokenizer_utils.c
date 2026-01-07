@@ -6,11 +6,26 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 11:16:19 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 11:02:02 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	is_operator_char(char c)
+{
+	return (c == '<' || c == '>' || c == '|');
+}
+
+int	is_double_operator(char *s)
+{
+	if (!s || !s[1])
+		return (0);
+	if ((s[0] == '<' && s[1] == '<')
+		|| (s[0] == '>' && s[1] == '>'))
+		return (1);
+	return (0);
+}
 
 static int	is_quote(char c)
 {

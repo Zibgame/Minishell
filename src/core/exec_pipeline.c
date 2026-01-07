@@ -6,11 +6,20 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 12:04:21 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 10:56:22 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	get_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (1);
+}
 
 static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 {
@@ -43,9 +52,12 @@ void	exec_pipeline(t_shell *shell)
 	int		pipefd[2];
 	int		in_fd;
 	pid_t	pid;
+	pid_t	last_pid;
+	int		status;
 
 	cmd = shell->cmd;
 	in_fd = STDIN_FILENO;
+	last_pid = -1;
 	while (cmd)
 	{
 		if (get_next_cmd(cmd))
@@ -55,6 +67,8 @@ void	exec_pipeline(t_shell *shell)
 		pid = fork();
 		if (pid == 0)
 			exec_child(shell, cmd, in_fd, pipefd[1]);
+		if (pid > 0)
+			last_pid = pid;
 		if (in_fd != STDIN_FILENO)
 			close(in_fd);
 		if (pipefd[1] != STDOUT_FILENO)
@@ -62,6 +76,9 @@ void	exec_pipeline(t_shell *shell)
 		in_fd = pipefd[0];
 		cmd = get_next_cmd(cmd);
 	}
+	waitpid(last_pid, &status, 0);
+	shell->last_return = get_exit_status(status);
 	while (wait(NULL) > 0)
 		;
 }
+

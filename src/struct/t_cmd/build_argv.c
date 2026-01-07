@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   build_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:40:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/17 11:46:42 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/07 13:24:38 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-#include "../../includes/minishell.h"
 
 static int	count_args(t_cmd *cmd)
 {
