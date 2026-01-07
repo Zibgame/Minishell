@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_empty_commands.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:51:39 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 13:51:55 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:58:48 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,24 @@ static int	is_empty_unquoted(t_cmd *cmd)
 	if (cmd->quote)
 		return (0);
 	return (cmd->name[0] == '\0');
+}
+
+char	*strip_quotes(char *s)
+{
+	int		len;
+	char	*res;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	if (len >= 2 && ((s[0] == '"' && s[len - 1] == '"')
+			|| (s[0] == '\'' && s[len - 1] == '\'')))
+	{
+		res = ft_substr(s, 1, len - 2);
+		free(s);
+		return (res);
+	}
+	return (s);
 }
 
 void	remove_empty_commands(t_cmd **head)

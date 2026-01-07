@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 15:37:11 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 15:59:35 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int			unset(t_shell *shell);
 
 int			apply_redirections(t_cmd *cmd);
 void		free_shell(t_shell *shell);
-void		extract_redirections(t_cmd *cmd);
 int			apply_redirections(t_cmd *cmd);
 char		*join_and_free(char *s1, char *s2);
 void		recreate_envp(t_shell *shell);
@@ -108,6 +107,7 @@ int			is_pipe(t_cmd *cmd);
 t_cmd		*get_next_cmd(t_cmd *cmd);
 int			is_operator_char(char c);
 int			is_double_operator(char *s);
+char		*strip_quotes(char *s);
 
 /* == DEBUG == */
 void		display_list(t_cmd	*cmd);
