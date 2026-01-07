@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 14:21:18 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 14:27:08 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ static void	recreate_line(t_shell *shell, char **line)
 		tmp = *line;
 		*line = ft_strjoin(ft_strdup(*line), args[i++]);
 		free(tmp);
+		if (i < ft_cmdsize(shell->cmd))
+		{
+			tmp = *line;
+			*line = ft_strjoin(ft_strdup(*line), " ");
+			free(tmp);
+		}
 	}
 }
 
