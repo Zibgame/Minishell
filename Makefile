@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/06 14:32:02 by zcadinot         ###   ########.fr        #
+#    Updated: 2026/01/07 15:38:14 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ PARSING_FILES = src/parsing/parse_command.c \
 			src/parsing/parsing_split.c \
 			src/parsing/parse_error.c \
 			src/parsing/clean_args.c \
-			src/execution/apply_redirections.c \
 			src/heredoc/heredoc.c \
 			src/heredoc/heredoc_utils.c \
 			src/parsing/extract_redirs.c \
@@ -83,7 +82,9 @@ OTHER_FILES	= src/utils/action.c \
 			src/core/exec_pipeline.c \
 			src/expand/expand_vars.c \
 			src/struct/t_redirs/ft_redirnew.c \
-			src/struct/t_redirs/ft_redir_addback.c
+			src/struct/t_redirs/ft_redir_addback.c \
+			src/execution/apply_redirections.c \
+			src/execution/redir_utils.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) \
 			$(CMD_FILES:%.c=$(OBJ_DIR)/%.o) $(OTHER_FILES:%.c=$(OBJ_DIR)/%.o) $(PARSING_FILES:%.c=$(OBJ_DIR)/%.o)

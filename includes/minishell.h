@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 11:02:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 15:37:11 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		**build_argv(t_cmd *cmd);
 
 /* == EXECUTION == */
 char		*get_cmd_path(t_shell *shell, char *cmd);
+int			builtin_uses_stdin(int type);
 int			finish(t_shell *shell);
 
 /* == BUILTINS == */
