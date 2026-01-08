@@ -6,18 +6,11 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 19:25:19 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:29:16 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// static int	numeric_argument_return(const char *str)
-// {
-// 	if ()
-// 	return (2);
-// 	return (156);
-// }
 
 static int	is_str_numeric(const char *str)
 {

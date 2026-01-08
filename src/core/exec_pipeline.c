@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 10:56:22 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/07 18:55:09 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 	if (!argv)
 		exit(1);
 	execve(path, argv, shell->envp_tmp);
+	ft_putstr("SURVIVOR");
 	exit(1);
 }
 
@@ -55,6 +56,7 @@ void	exec_pipeline(t_shell *shell)
 	pid_t	last_pid;
 	int		status;
 
+	write(1, "ok", 2);
 	cmd = shell->cmd;
 	in_fd = STDIN_FILENO;
 	last_pid = -1;
@@ -77,6 +79,7 @@ void	exec_pipeline(t_shell *shell)
 		cmd = get_next_cmd(cmd);
 	}
 	waitpid(last_pid, &status, 0);
+	write(1, "apres", 5);
 	shell->last_return = get_exit_status(status);
 	while (wait(NULL) > 0)
 		;
