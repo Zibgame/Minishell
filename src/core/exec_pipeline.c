@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 18:55:09 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/08 23:05:18 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,25 @@ static int	get_exit_status(int status)
 	return (1);
 }
 
+// static int	valid_redirs(t_shell *shell, t_cmd *cmd)
+// {
+// 	t_redir	*redirs;
+	
+// 	redirs = cmd->redirs;
+// 	while (redirs)
+// 	{
+// 		if (handle_direct_path(shell, redirs->target))
+// 			return (0);
+// 		redirs = redirs->next;
+// 	}
+// 	return (1);
+// }
+
 static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 {
 	char	*path;
 	char	**argv;
 
-	apply_redirections(cmd);
 	if (in_fd != STDIN_FILENO)
 		dup2(in_fd, STDIN_FILENO);
 	if (out_fd != STDOUT_FILENO)
@@ -42,8 +55,13 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 	argv = build_argv(cmd);
 	if (!argv)
 		exit(1);
-	execve(path, argv, shell->envp_tmp);
-	ft_putstr("SURVIVOR");
+	if (apply_redirections(cmd))
+	{
+		shell->last_return = 1;
+		exit(1);
+	}
+	else
+		execve(path, argv, shell->envp_tmp);
 	exit(1);
 }
 
@@ -56,30 +74,31 @@ void	exec_pipeline(t_shell *shell)
 	pid_t	last_pid;
 	int		status;
 
-	write(1, "ok", 2);
 	cmd = shell->cmd;
 	in_fd = STDIN_FILENO;
 	last_pid = -1;
 	while (cmd)
 	{
-		if (get_next_cmd(cmd))
-			pipe(pipefd);
-		else
-			pipefd[1] = STDOUT_FILENO;
-		pid = fork();
-		if (pid == 0)
-			exec_child(shell, cmd, in_fd, pipefd[1]);
-		if (pid > 0)
-			last_pid = pid;
-		if (in_fd != STDIN_FILENO)
-			close(in_fd);
-		if (pipefd[1] != STDOUT_FILENO)
-			close(pipefd[1]);
-		in_fd = pipefd[0];
+		// if (valid_redirs(shell, cmd))
+		// {
+			if (get_next_cmd(cmd))
+				pipe(pipefd);
+			else
+				pipefd[1] = STDOUT_FILENO;
+			pid = fork();
+			if (pid == 0)
+				exec_child(shell, cmd, in_fd, pipefd[1]);
+			if (pid > 0)
+				last_pid = pid;
+			if (in_fd != STDIN_FILENO)
+				close(in_fd);
+			if (pipefd[1] != STDOUT_FILENO)
+				close(pipefd[1]);
+			in_fd = pipefd[0];
+		// }
 		cmd = get_next_cmd(cmd);
 	}
 	waitpid(last_pid, &status, 0);
-	write(1, "apres", 5);
 	shell->last_return = get_exit_status(status);
 	while (wait(NULL) > 0)
 		;

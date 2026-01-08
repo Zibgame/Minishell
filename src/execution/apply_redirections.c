@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:42:14 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 18:55:22 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/08 22:30:15 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	apply_redirections(t_cmd *cmd)
 	int		fd;
 
 	r = cmd->redirs;
-	// if (r && is_quoted(r->target))
-	// 	r = redir_new(r->type, strip_quotes(r->target));
 	while (r)
 	{
 		if (r->type == R_IN)

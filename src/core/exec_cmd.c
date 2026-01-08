@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 18:40:32 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/08 22:48:58 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	return_type(t_shell *shell, char *line)
 		shell->last_return = 127;
 }
 
-static int	handle_direct_path(t_shell *shell, char *cmd)
+int	handle_direct_path(t_shell *shell, char *cmd)
 {
 	struct stat	st;
 
@@ -33,27 +33,20 @@ static int	handle_direct_path(t_shell *shell, char *cmd)
 	}
 	if (S_ISDIR(st.st_mode))
 	{
-		ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd);
 		shell->last_return = 126;
-		return (1);
+		return (ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd));
 	}
 	if (access(cmd, X_OK) != 0)
 	{
-		ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd);
 		shell->last_return = 126;
-		return (1);
+		return (ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd));
+	}
+	if (access(cmd, R_OK) != 0)
+	{
+		shell->last_return = 126;
+		return (ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd));
 	}
 	return (0);
-}
-
-static void	free_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args && args[i])
-		free(args[i++]);
-	free(args);
 }
 
 void	exec_cmd(t_shell *shell, char *line)
@@ -68,11 +61,11 @@ void	exec_cmd(t_shell *shell, char *line)
 		return ;
 	args = clean_empty_args(args);
 	if (!args || !args[0])
-		return (free_args(args));
+		return (free_array(args));
 	if (ft_strchr(args[0], '/'))
 	{
 		if (handle_direct_path(shell, args[0]))
-			return (free_args(args));
+			return (free_array(args));
 		path = ft_strdup(args[0]);
 	}
 	else
@@ -81,13 +74,18 @@ void	exec_cmd(t_shell *shell, char *line)
 	{
 		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
 		return_type(shell, line);
-		return (free_args(args));
+		return (free_array(args));
 	}
 	pid = fork();
 	if (pid == 0)
 	{
-		apply_redirections(shell->cmd);
-		execve(path, args, shell->envp_tmp);
+		if (apply_redirections(shell->cmd))
+		{
+			shell->last_return = 1;
+			return ;
+		}
+		else
+			execve(path, args, shell->envp_tmp);
 		perror("execve");
 		exit(126);
 	}
@@ -95,5 +93,5 @@ void	exec_cmd(t_shell *shell, char *line)
 	if (WIFEXITED(status))
 		shell->last_return = WEXITSTATUS(status);
 	free(path);
-	free_args(args);
+	free_array(args);
 }
