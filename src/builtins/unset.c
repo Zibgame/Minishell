@@ -6,23 +6,11 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 22:25:09 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/12 16:39:39 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	clean_delete(t_var_list *tmp)
-{
-	if (tmp)
-	{
-		if (tmp->next)
-			tmp->next->previous = tmp->previous;
-		if (tmp->previous)
-			tmp->previous->next = tmp->next;
-		ft_lkldelone(tmp);
-	}
-}
 
 static int	is_valid_identifier(char *s)
 {
@@ -40,43 +28,50 @@ static int	is_valid_identifier(char *s)
 	return (1);
 }
 
-static int	search_and_unset(t_shell *shell)
+static void	remove_var(t_shell *shell, char *name)
 {
-	t_var_list	*tmp;
+	t_var_list	*cur;
 
-	tmp = shell->envp;
-	while (shell->cmd && shell->cmd->type == ARGUMENT)
+	cur = shell->envp;
+	while (cur)
 	{
-		if (!is_valid_identifier(shell->cmd->name))
-			return (1);
-		if (!ft_strncmp(shell->cmd->name, tmp->name, ft_strlen(shell->cmd->name) + 1))
+		if (!ft_strncmp(cur->name, name, ft_strlen(name) + 1))
 		{
-			clean_delete(tmp);
-			free_array(shell->envp_tmp);
-			recreate_envp(shell);
-			clean_command_free(shell);
-			tmp = shell->envp;
+			if (cur->previous)
+				cur->previous->next = cur->next;
+			else
+				shell->envp = cur->next;
+			if (cur->next)
+				cur->next->previous = cur->previous;
+			ft_lkldelone(cur);
+			return ;
 		}
-		tmp = tmp->next;
-		if (!tmp)
-		{
-			tmp = shell->envp;
-			clean_command_free(shell);
-		}
+		cur = cur->next;
 	}
-	return (0);
 }
 
 int	unset(t_shell *shell)
 {
-	clean_command_free(shell);
-	if (!shell->cmd || !shell->cmd->name)
+	t_cmd	*arg;
+
+	if (!shell || !shell->cmd)
 		return (1);
-	if (search_and_unset(shell))
+	arg = shell->cmd->next;
+	while (arg)
 	{
-		printf("unset: %s: invalid parameter name\n", shell->cmd->name);
-		shell->last_return = 1;
-		return (1);
+		if (!is_valid_identifier(arg->name))
+		{
+			ft_printf_fd("unset: `%s': not a valid identifier\n", 2, arg->name);
+			shell->last_return = 1;
+			clean_command_free(shell);
+			return (1);
+		}
+		remove_var(shell, arg->name);
+		arg = arg->next;
 	}
-	return (1);
+	free_array(shell->envp_tmp);
+	recreate_envp(shell);
+	shell->last_return = 0;
+	clean_command_free(shell);
+	return (0);
 }

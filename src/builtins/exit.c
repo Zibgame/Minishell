@@ -6,61 +6,58 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 18:29:16 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/12 16:44:41 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <limits.h>
 
-static int	is_str_numeric(const char *str)
+static char	*remove_all_quotes(char *s)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		j;
+	char	*res;
 
-	if (!str || !str[0])
-		return (0);
+	res = malloc(ft_strlen(s) + 1);
+	if (!res)
+		return (NULL);
 	i = 0;
-	count = 0;
-	while (str[i] == '+' || str[i] == '-' || str[i] == '\"' || str[i] == '\'')
+	j = 0;
+	while (s[i])
 	{
-		count += str[i] == '+' || str[i] == '-';
+		if (s[i] != '\'' && s[i] != '"')
+			res[j++] = s[i];
 		i++;
 	}
-	if (!str[i] || count > 1)
-		return (0);
-	while (str[i])
-	{
-		if ((str[i] < '0' || str[i] > '9') && \
-		(str[i] != '\"' || str[i] == '\''))
-			return (0);
-		i++;
-	}
-	return (1);
+	res[j] = '\0';
+	return (res);
 }
 
-static int	parse_ll(const char *str, long long *out)
+static int	parse_ll(char *s, long long *out)
 {
 	int			i;
-	int			sign;
 	long long	res;
+	int			sign;
 
 	i = 0;
 	sign = 1;
 	res = 0;
-	while (str[i] == '+' || str[i] == '-' || str[i] == '\"' || str[i] == '\'')
+	if (s[i] == '+' || s[i] == '-')
 	{
-		if (str[i] == '-')
+		if (s[i] == '-')
 			sign = -1;
 		i++;
 	}
-	while (str[i])
+	if (!s[i])
+		return (0);
+	while (s[i])
 	{
-		if (str[i] != '\"' && str[i] != '\'')
-		{
-			if (res > (LLONG_MAX - (str[i] - '0')) / 10)
-				return (0);
-			res = res * 10 + (str[i] - '0');
-		}
+		if (!ft_isdigit(s[i]))
+			return (0);
+		if (res > (LLONG_MAX - (s[i] - '0')) / 10)
+			return (0);
+		res = res * 10 + (s[i] - '0');
 		i++;
 	}
 	*out = res * sign;
@@ -69,29 +66,28 @@ static int	parse_ll(const char *str, long long *out)
 
 int	finish(t_shell *shell)
 {
+	t_cmd		*arg;
+	char		*clean;
 	long long	code;
 
-	code = 0;
 	printf("exit\n");
-	clean_command_free(shell);
-	if (shell->cmd && shell->cmd->name)
+	arg = shell->cmd->next;
+	if (!arg)
+		exit((unsigned char)shell->last_return);
+	clean = remove_all_quotes(arg->name);
+	if (!clean || !parse_ll(clean, &code))
 	{
-		if (!is_str_numeric(shell->cmd->name)
-			|| !parse_ll(shell->cmd->name, &code))
-		{
-			ft_printf_fd("minishell: exit: %s: numeric argument required\n", 2,
-				shell->cmd->name);
-			clean_command_free(shell);
-			free_shell(shell);
-			exit(2);
-		}
-		if (ft_cmdsize(shell->cmd) >= 2)
-		{
-			ft_printf_fd("minishell: exit: too many arguments\n", 2);
-			shell->last_return = 1;
-			return (1);
-		}
+		ft_printf_fd("minishell: exit: %s: numeric argument required\n",
+			2, arg->name);
+		free(clean);
+		exit(2);
 	}
-	free_shell(shell);
+	free(clean);
+	if (arg->next)
+	{
+		ft_printf_fd("minishell: exit: too many arguments\n", 2);
+		shell->last_return = 2;
+		return (2);
+	}
 	exit((unsigned char)code);
 }
