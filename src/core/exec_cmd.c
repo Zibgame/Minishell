@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/08 22:48:58 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/12 16:57:03 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,10 @@ void	exec_cmd(t_shell *shell, char *line)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (apply_redirections(shell->cmd))
-		{
-			shell->last_return = 1;
-			return ;
-		}
-		else
-			execve(path, args, shell->envp_tmp);
+		if (open_all_redirections(shell->cmd))
+			exit(1);
+		dup_redirections(shell->cmd);
+		execve(path, args, shell->envp_tmp);
 		perror("execve");
 		exit(126);
 	}

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:42:14 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/08 22:30:15 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/12 17:01:05 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,48 @@
 
 int	apply_redirections(t_cmd *cmd)
 {
+	if (!cmd)
+		return (0);
+	if (open_all_redirections(cmd))
+		return (1);
+	dup_redirections(cmd);
+	return (0);
+}
+
+int	open_all_redirections(t_cmd *cmd)
+{
 	t_redir	*r;
-	int		fd;
 
 	r = cmd->redirs;
 	while (r)
 	{
 		if (r->type == R_IN)
-		{
-			fd = open(r->target, O_RDONLY);
-			if (fd < 0)
-			{
-				if (!builtin_uses_stdin(cmd->type))
-				{
-					r = r->next;
-					continue;
-				}
-				return (perror(r->target), 1);
-			}
-		}
+			r->fd = open(r->target, O_RDONLY);
 		else if (r->type == R_OUT)
-			fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			r->fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (r->type == R_APPEND)
-			fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			r->fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else
-			fd = r->fd;
-		if (fd < 0)
+			r->fd = r->fd;
+		if (r->fd < 0)
 			return (perror(r->target), 1);
-		if (r->type == R_IN || r->type == R_HEREDOC)
-			dup2(fd, STDIN_FILENO);
-		else
-			dup2(fd, STDOUT_FILENO);
-		close(fd);
 		r = r->next;
 	}
 	return (0);
 }
 
+void	dup_redirections(t_cmd *cmd)
+{
+	t_redir	*r;
+
+	r = cmd->redirs;
+	while (r)
+	{
+		if (r->type == R_IN || r->type == R_HEREDOC)
+			dup2(r->fd, STDIN_FILENO);
+		else
+			dup2(r->fd, STDOUT_FILENO);
+		close(r->fd);
+		r = r->next;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/08 21:55:13 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/12 16:59:27 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ int		handle_heredoc(char *limiter);
 /* == expansion == */
 void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);
+int	open_all_redirections(t_cmd *cmd);
+void	dup_redirections(t_cmd *cmd);
 
 #endif
