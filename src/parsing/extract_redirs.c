@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/08 22:24:41 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:34:17 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	extract_redirections(t_cmd *cmd)
 	int		type;
 
 	if (!cmd)
-		return;
+		return ;
 	cur = cmd;
 	while (cur)
 	{
@@ -71,9 +71,9 @@ void	extract_redirections(t_cmd *cmd)
 			file = cur->next;
 			type = get_redir_type(cur->name);
 			if (!file || type == -1)
-				return;
+				return ;
 			if (!safe_add_redir(cmd, type, file->name))
-				return;
+				return ;
 			unlink_tokens(&cmd, cur, file);
 			cur = cmd;
 		}

@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:11:25 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/05 11:12:53 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:31:25 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	redir_add_back(t_redir **lst, t_redir *new)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 
 	if (!*lst)
 	{
 		*lst = new;
-		return;
+		return ;
 	}
 	tmp = *lst;
 	while (tmp->next)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/12 16:44:41 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/13 10:03:51 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	finish(t_shell *shell)
 	if (arg->next)
 	{
 		ft_printf_fd("minishell: exit: too many arguments\n", 2);
-		shell->last_return = 2;
+		shell->last_return = 1;
 		return (2);
 	}
 	exit((unsigned char)code);

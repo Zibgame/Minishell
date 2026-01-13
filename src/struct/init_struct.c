@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/06 12:07:56 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:33:19 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	convert_env_variables(t_shell *shell, char **envp)
 		if (!get_value(shell, tmp[0]))
 		{
 			ft_lkladd_back(&shell->envp,
-				ft_lklnew(ft_strdup(tmp[0]), ft_strdup(ft_strchr(envp[i], '=') + 1)));
+				ft_lklnew(ft_strdup(tmp[0]),
+					ft_strdup(ft_strchr(envp[i], '=') + 1)));
 			free_array(tmp);
 		}
 	}

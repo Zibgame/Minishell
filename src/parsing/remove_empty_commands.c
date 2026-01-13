@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_empty_commands.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:51:39 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/07 18:33:50 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:33:28 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ void	remove_empty_commands(t_cmd **head)
 		cur = next;
 	}
 }
-
