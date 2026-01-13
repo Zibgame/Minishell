@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 16:53:10 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 17:18:08 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	**cmdtoarg(t_cmd *cmd)
 		i = 0;
 		while (cmd)
 		{
-			tmp[i] = cmd->name;
+			tmp[i] = ft_strdup(cmd->name);
 			i++;
 			cmd = cmd->next;
 		}
@@ -41,31 +41,31 @@ static void	recreate_line(t_shell *shell, char **line)
 	args = cmdtoarg(shell->cmd);
 	if (!args)
 		return ;
-	free(*line);
 	*line = malloc(sizeof(char));
 	*line[0] = '\0';
 	i = 0;
 	while (i < ft_cmdsize(shell->cmd))
 	{
 		tmp = *line;
-		*line = ft_strjoin(ft_strdup(*line), args[i++]);
+		*line = ft_strjoin(*line, args[i++]);
 		free(tmp);
 		if (i < ft_cmdsize(shell->cmd))
 		{
 			tmp = *line;
-			*line = ft_strjoin(ft_strdup(*line), " ");
+			*line = ft_strjoin(*line, " ");
 			free(tmp);
 		}
 	}
+	free_array(args);
 }
-static void	create_command(t_shell *shell, char *line)
+static void	create_command(t_shell *shell, char **line)
 {
-	shell->cmd = parse_command(line);
+	shell->cmd = parse_command(*line);
 	expand_vars(shell);
 	remove_empty_commands(&shell->cmd);
 	extract_redirections(shell->cmd);
 	prepare_heredocs(shell->cmd);
-	recreate_line(shell, &line);
+	recreate_line(shell, line);
 }
 
 static void	treat_fd(int save_in, int save_out)
@@ -87,7 +87,7 @@ void	shell_loop(t_shell *shell)
 		line = read_line();
 		if (!line)
 			break ;
-		create_command(shell, line);
+		create_command(shell, &line);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))
