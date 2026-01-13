@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/07 14:12:32 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:00:02 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static char	*expand_token(t_shell *shell, char *s)
 	char	*var;
 	char	*value;
 	int		i;
+	int		start;
 	char	quote;
 
 	res = ft_calloc(1, 1);
@@ -85,7 +86,7 @@ static char	*expand_token(t_shell *shell, char *s)
 					return (free(res), NULL);
 				continue ;
 			}
-			int start = i;
+			start = i;
 			while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
 				i++;
 			var = ft_substr(s, start, i - start);
@@ -93,7 +94,7 @@ static char	*expand_token(t_shell *shell, char *s)
 				return (free(res), NULL);
 			value = get_value(shell, var);
 			if (!value)
-				value = ""; // sécurité si variable non définie
+				value = "";
 			if (!append_str(&res, value))
 				return (free(var), free(res), NULL);
 			free(var);
@@ -125,4 +126,3 @@ void	expand_vars(t_shell *shell)
 		cmd = cmd->next;
 	}
 }
-

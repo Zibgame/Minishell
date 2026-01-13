@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/06 14:12:51 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:58:30 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	command_type(t_cmd	*cmd)
 
 	if (cmd->quote || is_quoted(cmd->name))
 		return (ARGUMENT);
-	
 	if (!ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
 	if (is_builtins(cmd->name) != -1)
@@ -71,7 +70,6 @@ void	remove_waste(t_cmd *cmd)
 			cmd = cmd->next;
 	}
 }
-
 
 t_cmd	*parse_command(char *line)
 {
