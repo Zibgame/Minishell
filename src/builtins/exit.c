@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 10:03:51 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:31:22 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ static int	parse_ll(char *s, long long *out)
 	res = 0;
 	if (s[i] == '+' || s[i] == '-')
 	{
-		if (s[i] == '-')
+		if (s[i++] == '-')
 			sign = -1;
-		i++;
 	}
 	if (!s[i])
 		return (0);
