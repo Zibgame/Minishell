@@ -70,6 +70,14 @@ static int	cd_home(t_shell *shell)
 	return (0);
 }
 
+static int	tmp(t_shell *shell)
+{
+	perror("minishell: cd");
+	shell->last_return = 1;
+	clean_command_free(shell);
+	return (1);
+}
+
 int	cd(t_shell *shell)
 {
 	t_cmd	*arg;
@@ -89,12 +97,7 @@ int	cd(t_shell *shell)
 		return (shell->last_return);
 	}
 	if (chdir(arg->name) != 0)
-	{
-		perror("minishell: cd");
-		shell->last_return = 1;
-		clean_command_free(shell);
-		return (1);
-	}
+		return (tmp);
 	update_pwd_vars(shell);
 	shell->last_return = 0;
 	clean_command_free(shell);
