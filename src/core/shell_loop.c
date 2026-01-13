@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 14:15:21 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 16:53:10 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	shell_loop(t_shell *shell)
 			}
 			else
 				exec_cmd(shell, line);
-			add_history(line);
 			free(line);
 		}
 	}
