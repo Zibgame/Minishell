@@ -19,7 +19,7 @@ static char	**cmdtoarg(t_cmd *cmd)
 
 	if (cmd)
 	{
-		tmp = ft_calloc(1, sizeof(char *)*(ft_cmdsize(cmd) + 1));
+		tmp = ft_calloc(1, sizeof(char *) * (ft_cmdsize(cmd) + 1));
 		i = 0;
 		while (cmd)
 		{
@@ -27,7 +27,7 @@ static char	**cmdtoarg(t_cmd *cmd)
 			i++;
 			cmd = cmd->next;
 		}
-		return(tmp);
+		return (tmp);
 	}
 	return (NULL);
 }
@@ -90,7 +90,7 @@ void	shell_loop(t_shell *shell)
 					dup2(save_out, STDOUT_FILENO);
 					close(save_in);
 					close(save_out);
-					continue;
+					continue ;
 				}
 				exec_builtins(shell);
 				dup2(save_in, STDIN_FILENO);

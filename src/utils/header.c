@@ -36,7 +36,7 @@ int	print_header(char *path)
 		return (ft_putstr_fd("cat: missing file\n", 2), 1);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (1); //ft_putstr_fd("cat: cannot open file\n", 2), 1
+		return (1);
 	print_file(fd);
 	close(fd);
 	return (0);

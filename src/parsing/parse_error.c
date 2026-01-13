@@ -17,7 +17,8 @@ int	type_of_char(int type, char c)
 	if (c == '|')
 		return (PIPE * (type != PIPE) + OPERATOR * (type == PIPE));
 	if (c == '<' || c == '>')
-		return (REDIRECTION * (type != REDIRECTION) + OPERATOR * (type == REDIRECTION));
+		return (REDIRECTION * (type != REDIRECTION) \
+	+ OPERATOR * (type == REDIRECTION));
 	return (0);
 }
 
@@ -25,7 +26,8 @@ char	*return_error(char *err_token, int pos, int type)
 {
 	char	*err_return;
 
-	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) == type_of_char(0, err_token[pos+1]))
+	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) \
+	== type_of_char(0, err_token[pos+1]))
 		pos++;
 	else if (pos % 2 != 0)
 		pos--;
