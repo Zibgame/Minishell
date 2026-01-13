@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 22:37:30 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 18:14:13 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	export(t_shell *shell)
 		set_value(&shell, env_var[0], env_var[1]);
 		clean_command_free(shell);
 		shell->last_return = 0;
+		free(env_var);
 		return (0);
 	}
 	ft_printf_fd("bash: export: `%s': not a valid identifier\n", 2, \
