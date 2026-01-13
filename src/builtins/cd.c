@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:51:52 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 12:54:43 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/13 13:38:13 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ static int	cd_home(t_shell *shell)
 	return (0);
 }
 
+static int	non_existing_path(t_shell *shell)
+{
+	perror("minishell: cd");
+	shell->last_return = 1;
+	clean_command_free(shell);
+	return (1);
+}
+
 int	cd(t_shell *shell)
 {
 	t_cmd	*arg;
@@ -78,7 +86,7 @@ int	cd(t_shell *shell)
 	if (arg && arg->next)
 	{
 		ft_printf_fd("minishell: cd: too many arguments\n", 2);
-		shell->last_return = 2;
+		shell->last_return = 1;
 		clean_command_free(shell);
 		return (2);
 	}
@@ -89,12 +97,7 @@ int	cd(t_shell *shell)
 		return (shell->last_return);
 	}
 	if (chdir(arg->name) != 0)
-	{
-		perror("minishell: cd");
-		shell->last_return = 1;
-		clean_command_free(shell);
-		return (1);
-	}
+		return (non_existing_path(shell));
 	update_pwd_vars(shell);
 	shell->last_return = 0;
 	clean_command_free(shell);
