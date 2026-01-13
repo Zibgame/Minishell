@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/06 14:12:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:43:11 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	*return_error(char *err_token, int pos, int type)
 	char	*err_return;
 
 	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) \
-	== type_of_char(0, err_token[pos+1]))
+	== type_of_char(0, err_token[pos + 1]))
 		pos++;
 	else if (pos % 2 != 0)
 		pos--;
 	err_return = ft_calloc(ft_strlen(err_token), 1);
-	err_return[0] = err_token[pos]; 
+	err_return[0] = err_token[pos];
 	if (err_token[++pos] && type_of_char(0, err_token[pos]) == type)
 		err_return[1] = err_token[pos];
 	return (err_return);
@@ -55,9 +55,9 @@ char	*token_error(char *token)
 	{
 		actual = type_of_char(type, token[i]);
 		if (actual == PIPE && (type == OPERATOR || type == REDIRECTION))
-			return(return_error(token, i + 1, actual));
+			return (return_error(token, i + 1, actual));
 		if (actual == REDIRECTION && (type == OPERATOR || type == PIPE))
-			return(return_error(token, i + 1, actual));
+			return (return_error(token, i + 1, actual));
 		type = actual;
 	}
 	return (ft_strdup("newline"));
@@ -70,8 +70,8 @@ int	has_parse_error(t_cmd *cmd)
 
 	tmp = ft_cmdlast(cmd);
 	if (tmp->type == REDIRECTION && ft_strncmp(token_error(tmp->name),
-	"newline", ft_strlen("newline")))
-	{	
+			"newline", ft_strlen("newline")))
+	{
 		err = token_error(tmp->name);
 		printf("minishell: syntax error near unexpected token `%s'\n", err);
 		free(err);

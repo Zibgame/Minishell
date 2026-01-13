@@ -1,50 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*   tokenizer_utils0,5.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 10:45:29 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 10:44:32 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_operator_char(char c)
+int	read_unquoted(char *s, int i)
 {
-	return (c == '<' || c == '>' || c == '|');
-}
-
-int	is_double_operator(char *s)
-{
-	if (!s || !s[1])
-		return (0);
-	if ((s[0] == '<' && s[1] == '<')
-		|| (s[0] == '>' && s[1] == '>'))
-		return (1);
-	return (0);
-}
-
-static int	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
-
-int	skip_spaces(char *s, int i)
-{
-	while (s[i] == ' ')
+	while (s[i] && s[i] != ' ' && !is_quote(s[i]))
 		i++;
 	return (i);
 }
 
-int	read_quoted(char *s, int i, char quote)
+char	get_token_quote(char *s)
 {
-	i++;
-	while (s[i] && s[i] != quote)
+	int		i;
+	char	current;
+
+	if (!s)
+		return (0);
+	i = 0;
+	current = 0;
+	while (s[i])
+	{
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			return (current);
 		i++;
-	if (s[i] != quote)
-		return (-1);
-	return (i + 1);
+	}
+	return (0);
+}
+
+char	is_quoted(char *s)
+{
+	int	len;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	if (len < 2)
+		return (0);
+	if ((s[0] == '\'' || s[0] == '"') && s[len - 1] == s[0])
+		return (s[0]);
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/07 15:38:14 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/13 10:45:00 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ PARSING_FILES = src/parsing/parse_command.c \
 			src/heredoc/heredoc_utils.c \
 			src/parsing/extract_redirs.c \
 			src/parsing/tokenizer.c \
-			src/parsing/tokenizer_utils.c
+			src/parsing/tokenizer_utils.c \
+			src/parsing/tokenizer_utils0,5.c
 
 BUILTINS = src/builtins/env.c \
 			src/builtins/echo.c \
