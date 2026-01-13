@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 13:00:26 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:15:21 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ static void	recreate_line(t_shell *shell, char **line)
 		}
 	}
 }
+static void	create_command(t_shell *shell, char *line)
+{
+	shell->cmd = parse_command(line);
+	expand_vars(shell);
+	remove_empty_commands(&shell->cmd);
+	extract_redirections(shell->cmd);
+	prepare_heredocs(shell->cmd);
+	recreate_line(shell, &line);
+}
+
+static void	treat_fd(int save_in, int save_out)
+{
+	dup2(save_in, STDIN_FILENO);
+	dup2(save_out, STDOUT_FILENO);
+	close(save_in);
+	close(save_out);
+}
 
 void	shell_loop(t_shell *shell)
 {
@@ -70,12 +87,7 @@ void	shell_loop(t_shell *shell)
 		line = read_line();
 		if (!line)
 			break ;
-		shell->cmd = parse_command(line);
-		expand_vars(shell);
-		remove_empty_commands(&shell->cmd);
-		extract_redirections(shell->cmd);
-		prepare_heredocs(shell->cmd);
-		recreate_line(shell, &line);
+		create_command(shell, line);
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))
@@ -86,17 +98,11 @@ void	shell_loop(t_shell *shell)
 				save_out = dup(STDOUT_FILENO);
 				if (apply_redirections(shell->cmd))
 				{
-					dup2(save_in, STDIN_FILENO);
-					dup2(save_out, STDOUT_FILENO);
-					close(save_in);
-					close(save_out);
+					treat_fd(save_in, save_out);
 					continue ;
 				}
 				exec_builtins(shell);
-				dup2(save_in, STDIN_FILENO);
-				dup2(save_out, STDOUT_FILENO);
-				close(save_in);
-				close(save_out);
+				treat_fd(save_in, save_out);
 			}
 			else
 				exec_cmd(shell, line);
@@ -106,4 +112,3 @@ void	shell_loop(t_shell *shell)
 	}
 	free_shell(shell);
 }
-
