@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 13:20:57 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 19:00:26 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ static int	get_exit_status(int status)
 	return (1);
 }
 
-static void	free_child_exec(char *path, char **argv)
+static void	free_child_exec(t_shell *shell, char *path, char **argv)
 {
 	if (path)
 		free(path);
 	if (argv)
 		free_array(argv);
+	free_shell(shell);
 }
 
 static void	close_child_fds(t_pipedata data)
 {
-	if (data.in_fd != STDIN_FILENO)
-		close(data.in_fd);
 	if (data.pipefd[0] != STDIN_FILENO)
 		close(data.pipefd[0]);
 	if (data.pipefd[1] != STDOUT_FILENO)
@@ -60,11 +59,11 @@ static void	exec_child(t_shell *shell, t_pipedata data)
 	argv = build_argv(data.cmd);
 	if (!argv || apply_redirections(data.cmd))
 	{
-		free_child_exec(path, argv);
+		free_child_exec(shell, path, argv);
 		exit(1);
 	}
 	execve(path, argv, shell->envp_tmp);
-	free_child_exec(path, argv);
+	free_child_exec(shell, path, argv);
 	exit(1);
 }
 
@@ -86,15 +85,11 @@ void	exec_pipeline(t_shell *shell)
 			exec_child(shell, data);
 		if (data.pid > 0)
 			data.last_pid = data.pid;
-		if (data.in_fd != STDIN_FILENO)
-			close(data.in_fd);
 		if (data.pipefd[1] != STDOUT_FILENO)
 			close(data.pipefd[1]);
 		data.in_fd = data.pipefd[0];
 		data.cmd = get_next_cmd(data.cmd);
 	}
-	if (data.in_fd != STDIN_FILENO)
-		close(data.in_fd);
 	waitpid(data.last_pid, &data.status, 0);
 	shell->last_return = get_exit_status(data.status);
 	while (wait(NULL) > 0)
