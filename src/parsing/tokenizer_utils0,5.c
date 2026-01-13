@@ -6,11 +6,16 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 10:44:32 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:58:45 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	is_quote(char c)
+{
+	return (c == '\'' || c == '"');
+}
 
 int	read_unquoted(char *s, int i)
 {

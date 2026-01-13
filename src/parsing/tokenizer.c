@@ -6,36 +6,34 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 11:10:25 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:57:58 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *if_char(char *buf, char *s, int *i, int *j)
-{
-	buf[(*j)++] = s[(*i)++];
-	if ((buf[0] == '<' || buf[0] == '>')
-		&& s[*i] == buf[0])
-		buf[(*j)++] = s[(*i)++];
-	buf[*j] = '\0';
-	return (ft_strdup(buf));
-}
-static char	*read_token(char *s, int *i, char *quote)
+static char *read_token(char *s, int *i, char *quote)
 {
 	char	buf[4096];
 	int		j;
 	char	current;
-
+	
 	j = 0;
 	current = 0;
 	*quote = 0;
 	while (s[*i] == ' ' || s[*i] == '\t')
-		(*i)++;
+			(*i)++;
 	if (!s[*i])
 		return (NULL);
 	if (is_operator_char(s[*i]))
-		return (if_char(&buf, s, i, &j));
+	{
+		buf[j++] = s[(*i)++];
+		if ((buf[0] == '<' || buf[0] == '>')
+		&& s[*i] == buf[0])
+			buf[j++] = s[(*i)++];
+		buf[j] = '\0';
+		return (ft_strdup(buf));
+	}
 	while (s[*i])
 	{
 		if (!current && (s[*i] == '\'' || s[*i] == '"'))
@@ -51,7 +49,7 @@ static char	*read_token(char *s, int *i, char *quote)
 			buf[j++] = s[(*i)++];
 		}
 		else if (!current && (s[*i] == ' ' || s[*i] == '\t'
-				|| is_operator_char(s[*i])))
+		|| is_operator_char(s[*i])))
 			break ;
 		else
 			buf[j++] = s[(*i)++];

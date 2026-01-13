@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 10:45:29 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:58:36 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ int	is_double_operator(char *s)
 		|| (s[0] == '>' && s[1] == '>'))
 		return (1);
 	return (0);
-}
-
-static int	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
 }
 
 int	skip_spaces(char *s, int i)
