@@ -63,4 +63,3 @@ int	echo_pipe(t_cmd *cmd)
 		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
-

@@ -66,7 +66,7 @@ int	echo(t_shell *shell)
 				|| cmd->next->type == OPTION))
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		cmd = cmd->next;
-	}	
+	}
 	if (newline)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	clean_command_free(shell);

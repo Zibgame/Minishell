@@ -32,20 +32,19 @@ enum e_types
 
 typedef enum e_redir_type
 {
-	R_IN,      // <
-	R_OUT,     // >
-	R_APPEND,  // >>
-	R_HEREDOC  // <<
+	R_IN,
+	R_OUT,
+	R_APPEND,
+	R_HEREDOC
 }	t_redir_type;
 
 typedef struct s_redir
 {
 	t_redir_type	type;
-	char			*target; // fichier ou delimiter
-	int				fd;      // utilisé pour heredoc
+	char			*target;
+	int				fd;
 	struct s_redir	*next;
 }	t_redir;
-
 
 typedef struct s_cmd
 {

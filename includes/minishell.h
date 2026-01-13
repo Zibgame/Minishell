@@ -29,7 +29,7 @@ void		exec_cmd(t_shell *shell, char *line);
 char		*read_line(void);
 int			free_(void);
 t_shell		*create_shell_struct(char **envp);
-void			remove_empty_commands(t_cmd **cmd);
+void		remove_empty_commands(t_cmd **cmd);
 void		free_shell(t_shell *shell);
 
 /* == VARS LINKED LIST == */
@@ -117,8 +117,8 @@ void		exec_pipeline(t_shell *shell);
 int			has_pipe(t_cmd *cmd);
 
 /* == Redirs == */
-t_redir *redir_new(t_redir_type type, char *target);
-void	redir_add_back(t_redir **lst, t_redir *new);
+t_redir		*redir_new(t_redir_type type, char *target);
+void		redir_add_back(t_redir **lst, t_redir *new);
 
 /* == Parsing ==*/
 char		**tokenize_line(char *line);
@@ -129,13 +129,13 @@ char		is_quoted(char *s);
 int			handle_direct_path(t_shell *shell, char *cmd);
 
 /* HEREDOC */
-void	prepare_heredocs(t_cmd *cmd);
-int		handle_heredoc(char *limiter);
+void		prepare_heredocs(t_cmd *cmd);
+int			handle_heredoc(char *limiter);
 
 /* == expansion == */
 void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);
-int	open_all_redirections(t_cmd *cmd);
-void	dup_redirections(t_cmd *cmd);
+int			open_all_redirections(t_cmd *cmd);
+void		dup_redirections(t_cmd *cmd);
 
 #endif
