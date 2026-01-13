@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/08 23:05:18 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:01:01 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ static int	get_exit_status(int status)
 		return (128 + WTERMSIG(status));
 	return (1);
 }
-
-// static int	valid_redirs(t_shell *shell, t_cmd *cmd)
-// {
-// 	t_redir	*redirs;
-	
-// 	redirs = cmd->redirs;
-// 	while (redirs)
-// 	{
-// 		if (handle_direct_path(shell, redirs->target))
-// 			return (0);
-// 		redirs = redirs->next;
-// 	}
-// 	return (1);
-// }
 
 static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 {
@@ -79,23 +65,20 @@ void	exec_pipeline(t_shell *shell)
 	last_pid = -1;
 	while (cmd)
 	{
-		// if (valid_redirs(shell, cmd))
-		// {
-			if (get_next_cmd(cmd))
-				pipe(pipefd);
-			else
-				pipefd[1] = STDOUT_FILENO;
-			pid = fork();
-			if (pid == 0)
-				exec_child(shell, cmd, in_fd, pipefd[1]);
-			if (pid > 0)
-				last_pid = pid;
-			if (in_fd != STDIN_FILENO)
-				close(in_fd);
-			if (pipefd[1] != STDOUT_FILENO)
-				close(pipefd[1]);
-			in_fd = pipefd[0];
-		// }
+		if (get_next_cmd(cmd))
+			pipe(pipefd);
+		else
+			pipefd[1] = STDOUT_FILENO;
+		pid = fork();
+		if (pid == 0)
+			exec_child(shell, cmd, in_fd, pipefd[1]);
+		if (pid > 0)
+			last_pid = pid;
+		if (in_fd != STDIN_FILENO)
+			close(in_fd);
+		if (pipefd[1] != STDOUT_FILENO)
+			close(pipefd[1]);
+		in_fd = pipefd[0];
 		cmd = get_next_cmd(cmd);
 	}
 	waitpid(last_pid, &status, 0);
