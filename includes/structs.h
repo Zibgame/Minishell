@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/08 22:25:46 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:17:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,15 @@ typedef struct s_shell
 	t_var_list	*envp;
 	int			last_return;
 }	t_shell;
+
+typedef struct s_pipedata
+{
+	int			in_fd;
+	int			pipefd[2];
+	int			status;
+	pid_t		pid;
+	pid_t		last_pid;
+	t_cmd		*cmd;
+} t_pipedata;
 
 #endif

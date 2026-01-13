@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 13:01:01 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/13 13:20:57 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,25 @@ static int	get_exit_status(int status)
 	return (1);
 }
 
-static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
+static void	exec_child(t_shell *shell, t_pipedata data)
 {
 	char	*path;
 	char	**argv;
 
-	if (in_fd != STDIN_FILENO)
-		dup2(in_fd, STDIN_FILENO);
-	if (out_fd != STDOUT_FILENO)
-		dup2(out_fd, STDOUT_FILENO);
-	if (cmd->type == BUILTINS)
-		exit(exec_builtin_pipe(shell, cmd));
-	path = get_cmd_path(shell, cmd->name);
+	if (data.in_fd != STDIN_FILENO)
+		dup2(data.in_fd, STDIN_FILENO);
+	if (data.pipefd[1] != STDOUT_FILENO)
+		dup2(data.pipefd[1], STDOUT_FILENO);
+	if (data.cmd->type == BUILTINS)
+		exit(exec_builtin_pipe(shell, data.cmd));
+	path = get_cmd_path(shell, data.cmd->name);
 	if (!path)
 	{
 		ft_putstr_fd("command not found\n", 2);
 		exit(127);
 	}
-	argv = build_argv(cmd);
-	if (!argv)
-		exit(1);
-	if (apply_redirections(cmd))
+	argv = build_argv(data.cmd);
+	if (!argv || apply_redirections(data.cmd))
 	{
 		shell->last_return = 1;
 		exit(1);
@@ -53,37 +51,31 @@ static void	exec_child(t_shell *shell, t_cmd *cmd, int in_fd, int out_fd)
 
 void	exec_pipeline(t_shell *shell)
 {
-	t_cmd	*cmd;
-	int		pipefd[2];
-	int		in_fd;
-	pid_t	pid;
-	pid_t	last_pid;
-	int		status;
+	t_pipedata	data;
 
-	cmd = shell->cmd;
-	in_fd = STDIN_FILENO;
-	last_pid = -1;
-	while (cmd)
+	data.cmd = shell->cmd;
+	data.in_fd = STDIN_FILENO;
+	data.last_pid = -1;
+	while (data.cmd)
 	{
-		if (get_next_cmd(cmd))
-			pipe(pipefd);
+		if (get_next_cmd(data.cmd))
+			pipe(data.pipefd);
 		else
-			pipefd[1] = STDOUT_FILENO;
-		pid = fork();
-		if (pid == 0)
-			exec_child(shell, cmd, in_fd, pipefd[1]);
-		if (pid > 0)
-			last_pid = pid;
-		if (in_fd != STDIN_FILENO)
-			close(in_fd);
-		if (pipefd[1] != STDOUT_FILENO)
-			close(pipefd[1]);
-		in_fd = pipefd[0];
-		cmd = get_next_cmd(cmd);
+			data.pipefd[1] = STDOUT_FILENO;
+		data.pid = fork();
+		if (data.pid == 0)
+			exec_child(shell, data);
+		if (data.pid > 0)
+			data.last_pid = data.pid;
+		if (data.in_fd != STDIN_FILENO)
+			close(data.in_fd);
+		if (data.pipefd[1] != STDOUT_FILENO)
+			close(data.pipefd[1]);
+		data.in_fd = data.pipefd[0];
+		data.cmd = get_next_cmd(data.cmd);
 	}
-	waitpid(last_pid, &status, 0);
-	shell->last_return = get_exit_status(status);
+	waitpid(data.last_pid, &data.status, 0);
+	shell->last_return = get_exit_status(data.status);
 	while (wait(NULL) > 0)
 		;
 }
-
