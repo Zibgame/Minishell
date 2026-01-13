@@ -33,18 +33,15 @@ int	handle_direct_path(t_shell *shell, char *cmd)
 	}
 	if (S_ISDIR(st.st_mode))
 	{
+		ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd);
 		shell->last_return = 126;
-		return (ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd));
+		return (1);
 	}
-	if (access(cmd, X_OK) != 0)
+	if (access(cmd, X_OK) != 0 || access(cmd, R_OK) != 0)
 	{
+		ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd);
 		shell->last_return = 126;
-		return (ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd));
-	}
-	if (access(cmd, R_OK) != 0)
-	{
-		shell->last_return = 126;
-		return (ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd));
+		return (1);
 	}
 	return (0);
 }
@@ -61,11 +58,18 @@ void	exec_cmd(t_shell *shell, char *line)
 		return ;
 	args = clean_empty_args(args);
 	if (!args || !args[0])
-		return (free_array(args));
+	{
+		free_array(args);
+		return ;
+	}
+	path = NULL;
 	if (ft_strchr(args[0], '/'))
 	{
 		if (handle_direct_path(shell, args[0]))
-			return (free_array(args));
+		{
+			free_array(args);
+			return ;
+		}
 		path = ft_strdup(args[0]);
 	}
 	else
@@ -74,7 +78,8 @@ void	exec_cmd(t_shell *shell, char *line)
 	{
 		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
 		return_type(shell, line);
-		return (free_array(args));
+		free_array(args);
+		return ;
 	}
 	pid = fork();
 	if (pid == 0)
