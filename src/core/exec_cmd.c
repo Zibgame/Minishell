@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/12 16:57:03 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:09:18 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ void	exec_cmd(t_shell *shell, char *line)
 			exit(1);
 		dup_redirections(shell->cmd);
 		execve(path, args, shell->envp_tmp);
+		free(path);
+		free(line);
+		free_array(args);
+		free_shell(shell);
 		perror("execve");
 		exit(126);
 	}
@@ -96,4 +100,6 @@ void	exec_cmd(t_shell *shell, char *line)
 		shell->last_return = WEXITSTATUS(status);
 	free(path);
 	free_array(args);
+	if (shell->cmd)
+		ft_cmdclear(&shell->cmd);
 }

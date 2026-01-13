@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 17:18:08 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/13 18:02:12 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,23 @@ static char	**cmdtoarg(t_cmd *cmd)
 static void	recreate_line(t_shell *shell, char **line)
 {
 	int		i;
-	char	*tmp;
 	char	**args;
 
 	args = cmdtoarg(shell->cmd);
 	if (!args)
 		return ;
-	*line = malloc(sizeof(char));
-	*line[0] = '\0';
 	i = 0;
+	free(*line);
+	*line = ft_calloc(1, sizeof(char));
 	while (i < ft_cmdsize(shell->cmd))
 	{
-		tmp = *line;
-		*line = ft_strjoin(*line, args[i++]);
-		free(tmp);
+		*line = join_and_free(*line, args[i++]);
 		if (i < ft_cmdsize(shell->cmd))
-		{
-			tmp = *line;
-			*line = ft_strjoin(*line, " ");
-			free(tmp);
-		}
+			*line = join_and_free(*line, " ");
 	}
 	free_array(args);
 }
+
 static void	create_command(t_shell *shell, char **line)
 {
 	shell->cmd = parse_command(*line);

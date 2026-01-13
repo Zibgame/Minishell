@@ -6,27 +6,27 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/12 17:00:17 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:58:25 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-/* void	display_list(t_cmd	*cmd) */
-/* { */
-/* 	while (cmd) */
-/* 	{ */
-/* 		printf("-------------------------------------------\n"); */
-/* 		printf("name: %s type: %d\n", cmd->name, cmd->type); */
-/* 		printf("adress: %p\n", cmd); */
-/* 		printf("quote: %c\n", cmd->quote); */
-/* 		printf("\n"); */
-/* 		printf("prev: %p\n", cmd->prev); */
-/* 		printf("next: %p\n", cmd->next); */
-/* 		printf("-------------------------------------------\n"); */
-/* 		cmd = cmd->next; */
-/* 	} */
-/* } */
+void	display_list(t_cmd	*cmd) 
+{ 
+	while (cmd) 
+	{ 
+		printf("-------------------------------------------\n"); 
+		printf("name: %s type: %d\n", cmd->name, cmd->type); 
+		printf("adress: %p\n", cmd); 
+		printf("quote: %c\n", cmd->quote); 
+		printf("\n"); 
+		printf("prev: %p\n", cmd->prev); 
+		printf("next: %p\n", cmd->next); 
+		printf("-------------------------------------------\n"); 
+		cmd = cmd->next; 
+	} 
+} 
 
 // int	main(int argc, char **argv, char **envp)
 // {
