@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/14 13:01:59 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 13:37:26 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	command_type(t_cmd	*cmd)
 
 	if (cmd->quote || is_quoted(cmd->name))
 		return (ARGUMENT);
-	if (!ft_strncmp(cmd->name, "-", 2))
+	if (!cmd->name || !ft_strncmp(cmd->name, "-", 2))
 		return (PARSEERROR);
 	if (is_builtins(cmd->name) != -1)
 		return (is_builtins(cmd->name));
