@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/13 12:58:30 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 13:01:59 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	add_commands(t_cmd	**cmd, char **elems)
 		while (elems[++i])
 		{
 			ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup(elems[i]), 0));
+			if (!ft_cmdlast(*cmd))
+				return ;
 			ft_cmdlast(*cmd)->quote = get_token_quote(ft_cmdlast(*cmd)->name);
 			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
 			if (!(ft_cmdsize(*cmd) > old_size))
@@ -80,6 +82,8 @@ t_cmd	*parse_command(char *line)
 	if (!splitted_command)
 		return (NULL);
 	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);
+	if (!cmd)
+		return (free_array(splitted_command), NULL);
 	cmd->quote = get_token_quote(splitted_command[0]);
 	cmd->type = command_type(cmd);
 	if (cmd)
@@ -87,6 +91,9 @@ t_cmd	*parse_command(char *line)
 	free_array(splitted_command);
 	remove_waste(cmd);
 	if (has_parse_error(cmd))
+	{
+		ft_cmdclear(&cmd);
 		return (NULL);
+	}
 	return (cmd);
 }

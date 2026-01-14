@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 19:00:31 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/14 11:32:47 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static char	**cmdtoarg(t_cmd *cmd)
 	int		i;
 	char	**tmp;
 
-	if (cmd)
+	if (!cmd)
+		return (NULL);
+	tmp = ft_calloc(ft_cmdsize(cmd) + 1, sizeof(char *));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (cmd)
 	{
-		tmp = ft_calloc(1, sizeof(char *) * (ft_cmdsize(cmd) + 1));
-		i = 0;
-		while (cmd)
-		{
-			tmp[i] = ft_strdup(cmd->name);
-			i++;
-			cmd = cmd->next;
-		}
-		return (tmp);
+		tmp[i] = ft_strdup(cmd->name);
+		i++;
+		cmd = cmd->next;
 	}
-	return (NULL);
+	return (tmp);
 }
 
 static void	recreate_line(t_shell *shell, char **line)
@@ -40,21 +40,27 @@ static void	recreate_line(t_shell *shell, char **line)
 	args = cmdtoarg(shell->cmd);
 	if (!args)
 		return ;
-	i = 0;
 	free(*line);
 	*line = ft_calloc(1, sizeof(char));
-	while (i < ft_cmdsize(shell->cmd))
+	if (!*line)
+		return ;
+	i = 0;
+	while (args[i])
 	{
-		*line = join_and_free(*line, args[i++]);
-		if (i < ft_cmdsize(shell->cmd))
+		*line = join_and_free(*line, args[i]);
+		free(args[i]);
+		if (args[i + 1])
 			*line = join_and_free(*line, " ");
+		i++;
 	}
-	free_array(args);
+	free(args);
 }
 
 static void	create_command(t_shell *shell, char **line)
 {
 	shell->cmd = parse_command(*line);
+	if (!shell->cmd)
+		return ;
 	expand_vars(shell);
 	remove_empty_commands(&shell->cmd);
 	extract_redirections(shell->cmd);
@@ -76,9 +82,10 @@ void	shell_loop(t_shell *shell)
 	int		save_in;
 	int		save_out;
 
+	line = NULL;
 	while (1)
 	{
-		line = read_line();
+		line = readline("MiniShell❯ ");
 		if (!line)
 			break ;
 		create_command(shell, &line);
@@ -93,15 +100,20 @@ void	shell_loop(t_shell *shell)
 				if (apply_redirections(shell->cmd))
 				{
 					treat_fd(save_in, save_out);
-					continue ;
+					ft_cmdclear(&shell->cmd);
+					break ;
 				}
 				exec_builtins(shell);
 				treat_fd(save_in, save_out);
+				ft_cmdclear(&shell->cmd);
 			}
 			else
 				exec_cmd(shell, line);
-			free(line);
 		}
+		free(line);
+		line = NULL;
 	}
+	if (line)
+		free(line);
 	free_shell(shell);
 }

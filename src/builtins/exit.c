@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 13:31:22 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/14 13:05:32 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ static int	parse_ll(char *s, long long *out)
 int	finish(t_shell *shell)
 {
 	t_cmd		*arg;
+	int			rn;
 	char		*clean;
 	long long	code;
 
 	printf("exit\n");
 	arg = shell->cmd->next;
 	if (!arg)
-		exit((unsigned char)shell->last_return);
+	{
+		rn = shell->last_return;
+		free_shell(shell);
+		exit((unsigned char)rn);
+	}
 	clean = remove_all_quotes(arg->name);
 	if (!clean || !parse_ll(clean, &code))
 	{
@@ -88,5 +93,6 @@ int	finish(t_shell *shell)
 		shell->last_return = 1;
 		return (2);
 	}
+	free_shell(shell);
 	exit((unsigned char)code);
 }

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 19:00:26 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/14 11:29:30 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,15 @@ void	exec_pipeline(t_shell *shell)
 			exec_child(shell, data);
 		if (data.pid > 0)
 			data.last_pid = data.pid;
+		if (data.in_fd != STDIN_FILENO)
+			close(data.in_fd);
 		if (data.pipefd[1] != STDOUT_FILENO)
 			close(data.pipefd[1]);
 		data.in_fd = data.pipefd[0];
 		data.cmd = get_next_cmd(data.cmd);
 	}
+	if (data.in_fd != STDIN_FILENO)
+		close(data.in_fd);
 	waitpid(data.last_pid, &data.status, 0);
 	shell->last_return = get_exit_status(data.status);
 	while (wait(NULL) > 0)
