@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:59:17 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,21 @@ void	free_shell(t_shell *shell)
 	}
 }
 
+char	*join_and_free(char *s1, char *s2)
+{
+	char	*res;
 
-
+	if (!s1 || !s2)
+		return (NULL);
+	res = ft_strjoin(s1, s2);
+	if (!res)
+	{
+		free(s1);
+		return (NULL);
+	}
+	free(s1);
+	return (res);
+}
 
 /*
 clear actual node if exists and go to the next one if exists
