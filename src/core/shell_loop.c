@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 15:42:02 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:48:26 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,33 @@ static void	recreate_line(t_shell *shell, char **line)
 	int		i;
 	char	**args;
 	char	*new_line;
+	char	*tmp;
 
 	args = cmdtoarg(shell->cmd);
 	if (!args)
 		return ;
 	new_line = ft_calloc(1, sizeof(char));
 	if (!new_line)
-	{
-		free_array(args);
-		return ;
-	}
+		return (free_array(args));
 	i = 0;
 	while (args[i])
 	{
-		new_line = join_and_free(new_line, args[i]);
-		free(args[i]);
+		tmp = join_and_free(new_line, args[i]);
+		if (!tmp)
+			break ;
+		new_line = tmp;
 		if (args[i + 1])
-			new_line = join_and_free(new_line, " ");
+		{
+			tmp = join_and_free(new_line, " ");
+			if (!tmp)
+				break ;
+			new_line = tmp;
+		}
+		free(args[i]);
 		i++;
 	}
+	while (args[i])
+		free(args[i++]);
 	free(args);
 	free(*line);
 	*line = new_line;
@@ -115,10 +123,14 @@ void	shell_loop(t_shell *shell)
 				ft_cmdclear(&shell->cmd);
 			}
 			else
+			{
 				exec_cmd(shell, line);
-		}
+				free(line);
+				line = NULL;
+			}
 		free(line);
 		line = NULL;
+		}
 	}
 	if (line)
 		free(line);
