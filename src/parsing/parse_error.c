@@ -79,8 +79,9 @@ int	has_parse_error(t_cmd *cmd)
 	}
 	while (tmp)
 	{
-		if (tmp->type == PARSEERROR && (!tmp->name || \
-			ft_strncmp(tmp->name, "-", 2)))
+		if (!tmp->name)
+			return (0);
+		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
 		{
 			err = token_error(tmp->name);
 			printf("minishell: syntax error near unexpected token `%s'\n", \
