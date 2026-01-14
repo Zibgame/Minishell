@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 11:32:47 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 13:36:46 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ void	shell_loop(t_shell *shell)
 	line = NULL;
 	while (1)
 	{
-		line = readline("MiniShell❯ ");
+		line = readline(PS1);
 		if (!line)
 			break ;
+		if (*line)
+			add_history(line);
 		create_command(shell, &line);
 		if (shell->cmd)
 		{
