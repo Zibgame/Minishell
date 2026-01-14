@@ -28,15 +28,18 @@ void	free_shell(t_shell *shell)
 
 char	*join_and_free(char *s1, char *s2)
 {
-	char	*new_line;
+	char	*res;
 
-	new_line = ft_strjoin(s1, s2);
-	if (s1)
+	if (!s1 || !s2)
+		return (NULL);
+	res = ft_strjoin(s1, s2);
+	if (!res)
 	{
 		free(s1);
-		s1 = NULL;
+		return (NULL);
 	}
-	return (new_line);
+	free(s1);
+	return (res);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 13:36:46 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:42:02 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,29 @@ static void	recreate_line(t_shell *shell, char **line)
 {
 	int		i;
 	char	**args;
+	char	*new_line;
 
 	args = cmdtoarg(shell->cmd);
 	if (!args)
 		return ;
-	free(*line);
-	*line = ft_calloc(1, sizeof(char));
-	if (!*line)
+	new_line = ft_calloc(1, sizeof(char));
+	if (!new_line)
+	{
+		free_array(args);
 		return ;
+	}
 	i = 0;
 	while (args[i])
 	{
-		*line = join_and_free(*line, args[i]);
+		new_line = join_and_free(new_line, args[i]);
 		free(args[i]);
 		if (args[i + 1])
-			*line = join_and_free(*line, " ");
+			new_line = join_and_free(new_line, " ");
 		i++;
 	}
 	free(args);
+	free(*line);
+	*line = new_line;
 }
 
 static void	create_command(t_shell *shell, char **line)
@@ -118,4 +123,7 @@ void	shell_loop(t_shell *shell)
 	if (line)
 		free(line);
 	free_shell(shell);
+	rl_clear_history();
+	rl_free_line_state();
+	rl_cleanup_after_signal();
 }

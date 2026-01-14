@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/12 16:59:27 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:39:23 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "structs.h"
 # include "librairies.h"
 # include <sys/stat.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # define PS1 "\001\033[1;34m\002MiniShell❯ \001\033[0m\002"
 
 /* == SIGNALS == */
@@ -137,5 +139,10 @@ void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);
 int			open_all_redirections(t_cmd *cmd);
 void		dup_redirections(t_cmd *cmd);
+
+void	signal_prompt(void);
+void	signal_exec(void);
+void	signal_child(void);
+void	signal_heredoc(void);
 
 #endif
