@@ -1,0 +1,64 @@
+Voici le dump de l'architecture de mon minishell_tester:
+.:
+bash.supp
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+minishell_tester.txt
+os_specific
+pipes
+README.md
+redirects
+syntax
+tester
+test_files
+wildcards
+
+./manual_tests:
+heredoc
+mandatory
+not_mandatory
+signals
+
+./test_files:
+empty
+file name with spaces
+infile
+infile_big
+invalid_permission
+loop
+loop.c
+Voici le dump complet de mon projet minishell_tester:
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int	main(int argc, char const *argv[])
+{
+	int	pid;
+
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
+	{
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
+	}
+	return (0);
+}

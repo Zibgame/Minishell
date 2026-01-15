@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/15 14:23:58 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 15:06:00 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,25 @@ static int	get_redir_type(char *name)
 static char	*get_clean_filename(char *name)
 {
 	char	*clean;
+	int		i;
+	int		j;
+	int		len;
 
-	if (!name)
+	if (! name)
 		return (NULL);
-	clean = ft_strdup(name);
+	len = ft_strlen(name);
+	clean = malloc(len + 1);
 	if (!clean)
 		return (NULL);
-	clean = strip_quotes(clean);
+	i = 0;
+	j = 0;
+	while (name[i])
+	{
+		if (name[i] != '\'' && name[i] != '"')
+			clean[j++] = name[i];
+		i++;
+	}
+	clean[j] = '\0';
 	return (clean);
 }
 
