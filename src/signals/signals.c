@@ -1,8 +1,8 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*   signals.c                                          :+:      :+:    : +:   */
+/*                                                    +: + +:+         +:+     */
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:44:17 by zcadinot          #+#    #+#             */
@@ -12,9 +12,14 @@
 
 #include "../../includes/minishell.h"
 
+// Global shell pointer for signal handlers
+static t_shell	*g_shell = NULL;
+
 static void	handle_sigint_prompt(int sig)
 {
 	(void)sig;
+	if (g_shell)
+		g_shell->last_return = 130;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -67,4 +72,9 @@ void	signal_heredoc(void)
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	set_signal_shell(t_shell *shell)
+{
+	g_shell = shell;
 }
