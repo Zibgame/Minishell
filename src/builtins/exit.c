@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 14:34:07 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 15:23:05 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	finish(t_shell *shell, char *line)
 	{
 		ft_printf_fd("minishell: exit: too many arguments\n", 2);
 		shell->last_return = 1;
-		free(line);
 		return (2);
 	}
 	free(line);
