@@ -9,6 +9,9 @@ obj
 */*.a
 */*/*.a
 
+# dump
+Minishell.txt
+
 # compiled program
 minishell
 

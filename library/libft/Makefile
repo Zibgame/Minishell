@@ -45,7 +45,7 @@ OBJECTS = $(FT_PRINTF_FILES:.c=.o) $(FT_IS_FILES:.c=.o) $(FT_PUT_FILES:.c=.o) \
 
 NAME = libft.a
 
-all: $(NAME)
+all: $(NAME) clean
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
