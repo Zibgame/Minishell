@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 14:24:50 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 13:38:57 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	ft_lklclear(t_var_list **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		free((*lst)->name);
-		free((*lst)->value);
+		if ((*lst)->name)
+			free((*lst)->name);
+		if ((*lst)->value)
+			free((*lst)->value);
 		free(*lst);
 		*lst = temp;
 	}
