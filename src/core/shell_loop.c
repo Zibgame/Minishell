@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 13:33:38 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:29:48 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	shell_loop(t_shell *shell)
 					ft_cmdclear(&shell->cmd);
 					continue ;
 				}
-				exec_builtins(shell);
+				exec_builtins(shell, line);
 				treat_fd(save_in, save_out);
 				ft_cmdclear(&shell->cmd);
 			}

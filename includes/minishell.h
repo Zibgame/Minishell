@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 11:19:22 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 14:32:42 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		shell_loop(t_shell *shell);
 void		start_shell(t_shell *shell);
 void		exec_cmd(t_shell *shell, char *line);
 char		*read_line(void);
-int			free_(void);
 t_shell		*create_shell_struct(char **envp);
 void		remove_empty_commands(t_cmd **cmd);
 void		free_shell(t_shell *shell);
@@ -63,11 +62,11 @@ char		**build_argv(t_cmd *cmd);
 /* == EXECUTION == */
 char		*get_cmd_path(t_shell *shell, char *cmd);
 int			builtin_uses_stdin(int type);
-int			finish(t_shell *shell);
+int			finish(t_shell *shell, char *line);
 
 /* == BUILTINS == */
 int			is_builtins(char *name);
-int			exec_builtins(t_shell *shell);
+int			exec_builtins(t_shell *shell, char *line);
 int			env(t_shell *shell);
 
 char		*get_cmd_path(t_shell *shell, char *cmd);

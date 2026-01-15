@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/13 18:25:13 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/15 14:23:58 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,29 @@ static int	get_redir_type(char *name)
 	return (-1);
 }
 
+static char	*get_clean_filename(char *name)
+{
+	char	*clean;
+
+	if (!name)
+		return (NULL);
+	clean = ft_strdup(name);
+	if (!clean)
+		return (NULL);
+	clean = strip_quotes(clean);
+	return (clean);
+}
+
 static int	safe_add_redir(t_cmd *cmd, int type, char *filename)
 {
 	t_redir	*new;
+	char	*clean;
 
-	new = redir_new(type, filename);
+	clean = get_clean_filename(filename);
+	if (!clean)
+		return (0);
+	new = redir_new(type, clean);
+	free(clean);
 	if (!new)
 		return (0);
 	redir_add_back(&cmd->redirs, new);

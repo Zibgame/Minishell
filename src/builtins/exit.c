@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 13:05:32 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:34:07 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	parse_ll(char *s, long long *out)
 	return (1);
 }
 
-int	finish(t_shell *shell)
+int	finish(t_shell *shell, char *line)
 {
 	t_cmd		*arg;
 	int			rn;
@@ -76,6 +76,7 @@ int	finish(t_shell *shell)
 	{
 		rn = shell->last_return;
 		free_shell(shell);
+		free(line);
 		exit((unsigned char)rn);
 	}
 	clean = remove_all_quotes(arg->name);
@@ -84,6 +85,7 @@ int	finish(t_shell *shell)
 		ft_printf_fd("minishell: exit: %s: numeric argument required\n",
 			2, arg->name);
 		free(clean);
+		free(line);
 		exit(2);
 	}
 	free(clean);
@@ -91,8 +93,10 @@ int	finish(t_shell *shell)
 	{
 		ft_printf_fd("minishell: exit: too many arguments\n", 2);
 		shell->last_return = 1;
+		free(line);
 		return (2);
 	}
+	free(line);
 	free_shell(shell);
 	exit((unsigned char)code);
 }
