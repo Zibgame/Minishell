@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 10:35:16 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 10:57:52 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	shell_loop(t_shell *shell)
 		line = NULL;
 		}
 	}
+	ft_printf_fd("exit\n", 1);
 	free_shell(shell);
 	rl_clear_history();
 	rl_free_line_state();
