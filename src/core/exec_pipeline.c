@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 13:32:46 by zcadinot         ###   ########.fr       */
+/*   Created: 2026/01/15 15:15:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/15 15:15:18 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,27 @@ static void	exec_child(t_shell *shell, t_pipedata data, char *line)
 		dup2(data.pipefd[1], STDOUT_FILENO);
 	close_child_fds(data);
 	free(line);
-	if (apply_redirections(data.cmd))
+	
+	if (apply_redirections(data. cmd))
+	{
+		free_shell(shell);
 		exit(1);
+	}
+	
 	if (data.cmd->type == BUILTINS)
 		exit(exec_builtin_pipe(shell, data.cmd));
 	path = get_cmd_path(shell, data.cmd->name);
-	if (!path)
+	if (! path)
 	{
 		ft_putstr_fd("minishell: command not found\n", 2);
+		free_shell(shell);
 		exit(127);
 	}
 	argv = build_argv(data.cmd);
-	if (!argv)
+	if (! argv)
 	{
 		free(path);
+		free_shell(shell);
 		exit(1);
 	}
 	execve(path, argv, shell->envp_tmp);
