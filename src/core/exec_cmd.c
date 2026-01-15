@@ -84,22 +84,18 @@ void	exec_cmd(t_shell *shell, char *line)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (open_all_redirections(shell->cmd))
+		signal_child();
+		if (apply_redirections(shell->cmd))
 			exit(1);
-		dup_redirections(shell->cmd);
 		execve(path, args, shell->envp_tmp);
-		free(path);
-		free(line);
-		free_array(args);
-		free_shell(shell);
 		perror("execve");
 		exit(126);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->last_return = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->last_return = 128 + WTERMSIG(status);
 	free(path);
 	free_array(args);
-	if (shell->cmd)
-		ft_cmdclear(&shell->cmd);
 }

@@ -145,4 +145,6 @@ void	signal_exec(void);
 void	signal_child(void);
 void	signal_heredoc(void);
 
+void	exec_pipeline(t_shell *shell);
+
 #endif

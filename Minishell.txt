@@ -1,0 +1,6016 @@
+Voici le dump de l'architecture de mon Minishell:
+.:
+includes
+library
+main.c
+Makefile
+minishell
+minishell_tester
+Minishell.txt
+README.md
+src
+supp.supp
+test1
+
+./includes:
+librairies.h
+minishell.h
+structs.h
+
+./library:
+libft
+
+./library/libft:
+ft_is
+ft_printf
+ft_put
+get_next_line
+libft.a
+libft.h
+lst
+Makefile
+memuse
+other
+strmanip
+struse
+
+./library/libft/ft_is:
+ft_isalnum.c
+ft_isapha.c
+ft_isascii.c
+ft_isdigit.c
+ft_isprint.c
+
+./library/libft/ft_printf:
+ft_printf.c
+
+./library/libft/ft_put:
+put
+putfd
+
+./library/libft/ft_put/put:
+ft_putnbr.c
+ft_putnbr_hex.c
+ft_putnbr_hexl.c
+ft_putnbr_unsigned.c
+ft_putptr.c
+ft_putstr.c
+
+./library/libft/ft_put/putfd:
+ft_putchar_fd.c
+ft_putendl_fd.c
+ft_putnbr_fd.c
+ft_putnbr_hex_fd.c
+ft_putnbr_hexl_fd.c
+ft_putnbr_unsigned_fd.c
+ft_putptr_fd.c
+ft_putstr_fd.c
+
+./library/libft/get_next_line:
+get_next_line.c
+get_next_line.h
+get_next_line_utils.c
+Makefile
+
+./library/libft/lst:
+ft_lstadd_back.c
+ft_lstadd_front.c
+ft_lstclear.c
+ft_lstdelone.c
+ft_lstiter.c
+ft_lstlast.c
+ft_lstmap.c
+ft_lstnew.c
+ft_lstsize.c
+
+./library/libft/memuse:
+ft_bzero.c
+ft_calloc.c
+ft_memchr.c
+ft_memcmp.c
+ft_memcpy.c
+ft_memmove.c
+ft_memset.c
+
+./library/libft/other:
+free_array.c
+ft_array_len.c
+ft_atoi.c
+ft_itoa.c
+ft_split.c
+
+./library/libft/strmanip:
+ft_strdup.c
+ft_striteri.c
+ft_strjoin.c
+ft_strjoinchar.c
+ft_strlcat.c
+ft_strlcpy.c
+ft_strmapi.c
+ft_tolower.c
+ft_toupper.c
+
+./library/libft/struse:
+ft_strchr.c
+ft_strlen.c
+ft_strncmp.c
+ft_strnstr.c
+ft_strrchr.c
+ft_strtrim.c
+ft_substr.c
+
+./minishell_tester:
+bash.supp
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+os_specific
+pipes
+README.md
+redirects
+syntax
+tester
+test_files
+wildcards
+
+./minishell_tester/manual_tests:
+heredoc
+mandatory
+not_mandatory
+signals
+
+./minishell_tester/test_files:
+empty
+file name with spaces
+infile
+infile_big
+invalid_permission
+loop
+loop.c
+
+./src:
+builtins
+builtins_pipe
+bye
+core
+execution
+expand
+heredoc
+input
+parsing
+signals
+struct
+utils
+
+./src/builtins:
+cd.c
+echo.c
+env.c
+exit.c
+export.c
+pwd.c
+unset.c
+
+./src/builtins_pipe:
+echo_pipe.c
+env_pipe.c
+exec_builtin_pipe.c
+pwd_pipe.c
+
+./src/core:
+cmd_utils.c
+exec_builtins.c
+exec_cmd.c
+exec_pipeline.c
+shell_loop.c
+start_shell.c
+status.c
+
+./src/execution:
+apply_redirections.c
+redir_utils.c
+
+./src/expand:
+expand_vars.c
+
+./src/heredoc:
+heredoc.c
+heredoc_utils.c
+
+./src/input:
+read_line.c
+
+./src/parsing:
+clean_args.c
+extract_redirs.c
+is_builtins.c
+parse_command.c
+parse_error.c
+parsing_split.c
+redirect_split.c
+remove_empty_commands.c
+tokenizer.c
+tokenizer_utils0,5.c
+tokenizer_utils.c
+
+./src/signals:
+signals.c
+
+./src/struct:
+init_struct.c
+t_cmd
+t_redirs
+var_list
+
+./src/struct/t_cmd:
+build_argv.c
+extract_next_cmd.c
+ft_cmdadd_back.c
+ft_cmdadd_front.c
+ft_cmdclear.c
+ft_cmddel_one.c
+ft_cmdlast.c
+ft_cmdnew.c
+ft_cmdsize.c
+
+./src/struct/t_redirs:
+ft_redir_addback.c
+ft_redirnew.c
+
+./src/struct/var_list:
+ft_lkladd_back.c
+ft_lkladd_front.c
+ft_lklclear.c
+ft_lkldel_one.c
+ft_lkllast.c
+ft_lklmodify_value.c
+ft_lklnew.c
+ft_lklremove.c
+ft_lklsize.c
+
+./src/utils:
+action.c
+envp.c
+frees.c
+header.c
+header.txt
+Voici le dump complet de mon projet Minishell:
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   librairies.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 10:05:59 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/05 13:21:56 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBRAIRIES_H
+# define LIBRAIRIES_H
+
+# include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <string.h>
+# include <stdbool.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+
+#endif/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 15:39:23 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "structs.h"
+# include "librairies.h"
+# include <sys/stat.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# define PS1 "\001\033[1;34m\002MiniShell❯ \001\033[0m\002"
+
+/* == SIGNALS == */
+void		init_signal(void);
+void		sig_handler(int sig);
+
+/* == SHELL == */
+void		shell_loop(t_shell *shell);
+void		start_shell(t_shell *shell);
+void		exec_cmd(t_shell *shell, char *line);
+char		*read_line(void);
+int			free_(void);
+t_shell		*create_shell_struct(char **envp);
+void		remove_empty_commands(t_cmd **cmd);
+void		free_shell(t_shell *shell);
+
+/* == VARS LINKED LIST == */
+void		ft_lkladd_back(t_var_list **lst, t_var_list *new);
+void		ft_lkladd_front(t_var_list **lst, t_var_list *new);
+void		ft_lklclear(t_var_list **lst);
+void		ft_lkldelone(t_var_list *lst);
+int			ft_lklsize(t_var_list *lst);
+t_var_list	*ft_lkllast(t_var_list *lst);
+t_var_list	*ft_lklnew(char *name, char *value);
+void		display_vars(t_var_list *vars);
+char		*get_value(t_shell *shell, char *name);
+
+/* == COMMAND COMMAND LIST == */
+void		ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+void		ft_cmdadd_front(t_cmd **lst, t_cmd *new);
+void		ft_cmdclear(t_cmd **lst);
+void		ft_cmddelone(t_cmd *lst);
+void		ft_lkl_modify(t_var_list **lst, char *value);
+int			ft_cmdsize(t_cmd *lst);
+
+t_cmd		*ft_cmdlast(t_cmd *lst);
+t_cmd		*ft_cmdnew(char *name, int type);
+t_cmd		extract_next_cmd(t_cmd *cmd);
+int			command_type(t_cmd	*cmd);
+void		clean_command_free(t_shell *shell);
+char		**build_argv(t_cmd *cmd);
+
+/* == EXECUTION == */
+char		*get_cmd_path(t_shell *shell, char *cmd);
+int			builtin_uses_stdin(int type);
+int			finish(t_shell *shell);
+
+/* == BUILTINS == */
+int			is_builtins(char *name);
+int			exec_builtins(t_shell *shell);
+int			env(t_shell *shell);
+
+char		*get_cmd_path(t_shell *shell, char *cmd);
+int			is_builtins(char *name);
+int			pwd(t_shell *shell);
+int			unset(t_shell *shell);
+
+int			apply_redirections(t_cmd *cmd);
+void		free_shell(t_shell *shell);
+int			apply_redirections(t_cmd *cmd);
+char		*join_and_free(char *s1, char *s2);
+void		recreate_envp(t_shell *shell);
+int			print_header(char *path);
+int			echo(t_shell *shell);
+int			cd(t_shell *shell);
+int			print_status(t_shell *shell);
+int			exec_builtin_pipeline(t_shell *shell, t_cmd *cmd);
+int			export(t_shell *shell);
+int			echo_pipe(t_cmd *cmd);
+int			pwd_pipe(void);
+int			env_pipe(char **envp);
+int			exec_builtin_pipe(t_shell *shell, t_cmd *cmd);
+char		**clean_empty_args(char **args);
+/* == OTHERS == */
+void		clear(void);
+void		set_value(t_shell **shell, char *to_change, char *value);
+
+/* == Parsing == */
+t_cmd		*parse_command(char *line);
+int			has_parse_error(t_cmd *cmd);
+void		extract_redirections(t_cmd *cmd);
+int			comb_redir_oper_pipes(char *token);
+int			redirect_split(t_cmd *cmd, char **to_fill);
+void		set_value(t_shell **shell, char *to_change, char *value);
+void		add_commands(t_cmd	**cmd, char **elems);
+int			is_redirect(t_cmd *cmd);
+char		**ft_split_charset(char const *s, char *c);
+int			is_pipe(t_cmd *cmd);
+t_cmd		*get_next_cmd(t_cmd *cmd);
+int			is_operator_char(char c);
+int			is_double_operator(char *s);
+char		*strip_quotes(char *s);
+
+/* == DEBUG == */
+void		display_list(t_cmd	*cmd);
+
+/* == Pipex ==*/
+void		exec_pipeline(t_shell *shell);
+int			has_pipe(t_cmd *cmd);
+
+/* == Redirs == */
+t_redir		*redir_new(t_redir_type type, char *target);
+void		redir_add_back(t_redir **lst, t_redir *new);
+
+/* == Parsing ==*/
+char		**tokenize_line(char *line);
+int			skip_spaces(char *s, int i);
+int			read_quoted(char *s, int i, char quote);
+int			read_unquoted(char *s, int i);
+char		is_quoted(char *s);
+int			handle_direct_path(t_shell *shell, char *cmd);
+
+/* HEREDOC */
+void		prepare_heredocs(t_cmd *cmd);
+int			handle_heredoc(char *limiter);
+
+/* == expansion == */
+void		expand_vars(t_shell *shell);
+char		get_token_quote(char *s);
+int			open_all_redirections(t_cmd *cmd);
+void		dup_redirections(t_cmd *cmd);
+
+void	signal_prompt(void);
+void	signal_exec(void);
+void	signal_child(void);
+void	signal_heredoc(void);
+
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 09:37:21 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/13 13:24:43 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef STRUCTS_H
+# define STRUCTS_H
+
+# include <stdbool.h>
+# include "library/libft/libft.h"
+
+enum e_types
+{
+	TOREMOVE = -2,
+	PARSEERROR = -1,
+	BUILTINS,
+	OPTION,
+	REDIRECTION,
+	PIPE,
+	ARGUMENT,
+	EXPANSION,
+	OPERATOR,
+	FILETOOPEN
+};
+
+typedef enum e_redir_type
+{
+	R_IN,
+	R_OUT,
+	R_APPEND,
+	R_HEREDOC
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type	type;
+	char			*target;
+	int				fd;
+	struct s_redir	*next;
+}	t_redir;
+
+typedef struct s_cmd
+{
+	int				fd;
+	int				type;
+	int				file_type;
+	char			*name;
+	char			quote;
+	t_redir			*redirs;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
+
+typedef struct s_var_list
+{
+	char				*name;
+	char				*value;
+	struct s_var_list	*previous;
+	struct s_var_list	*next;
+}	t_var_list;
+
+typedef struct s_shell
+{
+	t_cmd		*cmd;
+	char		**envp_tmp;
+	t_var_list	*envp;
+	int			last_return;
+}	t_shell;
+
+typedef struct s_pipedata
+{
+	int			in_fd;
+	int			pipefd[2];
+	int			status;
+	pid_t		pid;
+	pid_t		last_pid;
+	t_cmd		*cmd;
+}	t_pipedata;
+
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:16:30 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/06 10:36:36 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_isalnum(int c)
+{
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (8);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isapha.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 11:31:14 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:56:31 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_isalpha(int c)
+{
+	if (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'))
+		return (1024);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:20:56 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:56:41 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_isascii(int c)
+{
+	if (0 <= c && c < 128)
+		return (1);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:15:40 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:56:45 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_isdigit(int c)
+{
+	if ('0' <= c && c <= '9')
+		return (2048);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:28:27 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:56:50 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_isprint(int c)
+{
+	if (' ' <= c && c < 127)
+		return (16384);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/23 20:25:10 by aeherve           #+#    #+#             */
+/*   Updated: 2025/10/23 20:25:10 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+static int	ft_check_flags(const char *s, int fd, va_list p_args, int *index)
+{
+	char	c;
+
+	if (s[++(*index)])
+	{
+		if (s[*index] == 'c')
+		{
+			c = va_arg(p_args, int);
+			write(1, &c, 1);
+		}
+		else if (s[*index] == 's')
+			return (ft_putstr_fd(va_arg(p_args, char *), fd));
+		else if (s[*index] == 'p')
+			return (ft_putptr_fd(va_arg(p_args, void *), fd));
+		else if (s[*index] == 'd' || s[*index] == 'i')
+			return (ft_putnbr_fd(va_arg(p_args, int), fd));
+		else if (s[*index] == 'u')
+			return (ft_putnbr_unsigned_fd(va_arg(p_args, unsigned int), fd));
+		else if (s[*index] == 'x' || s[*index] == 'X')
+			return (ft_puthex_fd(va_arg(p_args, int), (s[*index] == 'X'), fd));
+		else if (s[*index] == '%')
+			write(1, "%", 1);
+		return (1);
+	}
+	(*index)++;
+	return (0);
+}
+
+int	ft_printf_fd(const char *str, int fd, ...)
+{
+	int		i;
+	int		p_len;
+	va_list	p_args;
+
+	if (!str)
+		return (0);
+	i = 0;
+	p_len = 0;
+	va_start(p_args, fd);
+	while (str[i])
+	{
+		if (str[i] == '%')
+		{
+			p_len += ft_check_flags(str, fd, p_args, &i);
+			i++;
+		}
+		else
+		{
+			write(fd, &str[i], 1);
+			i++;
+			p_len++;
+		}
+	}
+	va_end(p_args);
+	return (p_len);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:08:08 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:23:23 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr(int n)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		j = 1;
+		if (n == -2147483648)
+		{
+			write(1, "2147483648", 10);
+			return (11);
+		}
+		else
+			n *= -1;
+	}
+	if (n < 10)
+	{
+		i = '0' + n;
+		write(1, &i, 1);
+		return (j + 1);
+	}
+	else
+		return (j + ft_putnbr(n / 10) + ft_putnbr(n % 10));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:09:27 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:23:12 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_hex(unsigned int n, int maj)
+{
+	char	c;
+
+	if (n < 16)
+	{
+		if (maj == 0)
+			c = "0123456789abcdef"[n];
+		else
+			c = "0123456789ABCDEF"[n];
+		write(1, &c, 1);
+		return (1);
+	}
+	else
+		return (ft_putnbr_hex(n / 16, maj) + ft_putnbr_hex(n % 16, maj));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_hexl.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/23 20:28:26 by aeherve           #+#    #+#             */
+/*   Updated: 2025/10/23 20:28:26 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_hexl(unsigned long n, int maj)
+{
+	char	c;
+
+	if (n < 16)
+	{
+		if (maj == 0)
+			c = "0123456789abcdef"[n];
+		else
+			c = "0123456789ABCDEF"[n];
+		write(1, &c, 1);
+		return (1);
+	}
+	else
+		return (ft_putnbr_hexl(n / 16, maj) + ft_putnbr_hexl(n % 16, maj));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:08:48 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/08 17:12:33 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_unsigned(unsigned int n)
+{
+	int	i;
+
+	if (n < 10)
+	{
+		i = '0' + n;
+		write(1, &i, 1);
+		return (1);
+	}
+	else
+		return (ft_putnbr_unsigned(n / 10) + ft_putnbr_unsigned(n % 10));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:09:55 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:23:27 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putptr(void *ptr)
+{
+	if (!ptr)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	write(1, "0x", 2);
+	return (2 + ft_putnbr_hexl((unsigned long)ptr, 0));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:07:26 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:23:30 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (s[i])
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:20:20 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 17:18:59 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putchar_fd(char c, int fd)
+{
+	return (write(fd, &c, 1));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:24:06 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 18:15:45 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = ft_putstr_fd(s, fd);
+	i += write(fd, "\n", 1);
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:25:33 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 16:40:16 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_fd(int n, int fd)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		j = 1;
+		if (n == -2147483648)
+		{
+			write(fd, "2147483648", 10);
+			return (11);
+		}
+		else
+			n *= -1;
+	}
+	if (n < 10)
+	{
+		i = '0' + n;
+		write(fd, &i, 1);
+		return (j + 1);
+	}
+	else
+		return (j + ft_putnbr(n / 10) + ft_putnbr(n % 10));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_hex_fd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:09:27 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/08 18:14:49 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_puthex_fd(unsigned int n, int maj, int fd)
+{
+	char	c;
+
+	if (n < 16)
+	{
+		if (maj == 0)
+			c = "0123456789abcdef"[n];
+		else
+			c = "0123456789ABCDEF"[n];
+		write(fd, &c, 1);
+		return (1);
+	}
+	else
+		return (ft_puthex_fd(n / 16, maj, fd) + ft_puthex_fd(n % 16, maj, fd));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_hexl.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/23 20:28:26 by aeherve           #+#    #+#             */
+/*   Updated: 2025/10/23 20:28:26 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_hexl_fd(unsigned long n, int maj, int fd)
+{
+	char	c;
+
+	if (n < 16)
+	{
+		if (maj == 0)
+			c = "0123456789abcdef"[n];
+		else
+			c = "0123456789ABCDEF"[n];
+		write(fd, &c, 1);
+		return (1);
+	}
+	else
+		return (ft_putnbr_hexl_fd(n / 16, maj, fd) + \
+		ft_putnbr_hexl_fd(n % 16, maj, fd));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_unsigned_fd.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:08:48 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/08 18:15:33 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putnbr_unsigned_fd(unsigned int n, int fd)
+{
+	int	i;
+
+	if (n < 10)
+	{
+		i = '0' + n;
+		write(fd, &i, 1);
+		return (1);
+	}
+	else
+		return (ft_putnbr_unsigned_fd(n / 10, fd) + \
+		ft_putnbr_unsigned_fd(n % 10, fd));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putptr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/26 20:09:55 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/08 17:20:20 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putptr_fd(void *ptr, int fd)
+{
+	if (!ptr)
+	{
+		write(fd, "(nil)", 5);
+		return (5);
+	}
+	write(1, "0x", 2);
+	return (2 + ft_putnbr_hexl_fd((unsigned long)ptr, 0, fd));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:21:57 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 16:43:30 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../libft.h"
+
+int	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+	{
+		write(fd, "(null)", 6);
+		return (6);
+	}
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/19 01:58:41 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/11/18 11:41:52 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+char	*ft_extract_line(char *str)
+{
+	long	i;
+	char	*res;
+
+	if (!str || str[0] == '\0')
+		return (NULL);
+	res = malloc((cft_strlen(str) + 2) * sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		res[i] = str[i];
+		i++;
+	}
+	if (str[i] == '\n')
+		res[i++] = '\n';
+	res[i] = '\0';
+	return (res);
+}
+
+char	*ft_read_fd(int fd, char *stash)
+{
+	ssize_t	byte_read;
+	char	*buffer;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	byte_read = 1;
+	while (!cft_strchr(stash, '\n') && byte_read > 0)
+	{
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read < 0)
+			return (free(buffer), free(stash), NULL);
+		buffer[byte_read] = '\0';
+		stash = cft_strjoin(stash, buffer);
+		if (!stash)
+			return (free(buffer), NULL);
+	}
+	free(buffer);
+	return (stash);
+}
+
+char	*ft_clean_stash(char *stash)
+{
+	char	*new;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (!stash[i])
+		return (free(stash), NULL);
+	new = malloc(cft_strlen(stash) - i + 1);
+	if (!new)
+		return (free(stash), NULL);
+	i++;
+	j = 0;
+	while (stash[i])
+		new[j++] = stash[i++];
+	new[j] = '\0';
+	free(stash);
+	return (new);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*stash;
+	char		*line;
+
+	stash = ft_read_fd(fd, stash);
+	if (!stash)
+		return (NULL);
+	line = ft_extract_line(stash);
+	stash = ft_clean_stash(stash);
+	return (line);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/19 01:58:22 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 15:14:34 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "../libft.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+char	*get_next_line(int fd);
+char	*cft_strjoin(char *s1, char *s2);
+char	*cft_strchr(char *s, int c);
+char	*ft_extract_line(char *str);
+char	*ft_read_fd(int fd, char *stash);
+size_t	cft_strlen(const char *str);
+/* int main(void); */
+
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/19 01:58:28 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/11/20 10:38:00 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+size_t	cft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+	return (len);
+}
+
+char	*cft_strjoin(char *left_str, char *buff)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	if (!left_str)
+	{
+		left_str = (char *)malloc(1 * sizeof(char));
+		left_str[0] = '\0';
+	}
+	if (!left_str || !buff)
+		return (NULL);
+	str = malloc(
+			sizeof(char) * (cft_strlen(left_str) + cft_strlen(buff) + 1));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (left_str)
+		while (left_str[++i] != '\0')
+			str[i] = left_str[i];
+	while (buff[j] != '\0')
+		str[i++] = buff[j++];
+	str[cft_strlen(left_str) + cft_strlen(buff)] = '\0';
+	free(left_str);
+	return (str);
+}
+
+char	*cft_strchr(char *s, int c)
+{
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 11:31:29 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/05 20:42:56 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBFT_H
+# define LIBFT_H
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
+// Libft functions
+int		ft_toupper(int c);
+int		ft_tolower(int c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+int		ft_isalnum(int c);
+int		ft_isascii(int c);
+int		ft_isprint(int c);
+int		ft_lstsize(t_list *lst);
+int		ft_atoi(const char *nptr);
+int		ft_memcmp(const void *s1, const void *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+char	*ft_itoa(int n);
+char	*ft_strdup(const char *s);
+char	*ft_strndup(const char *s, int n);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
+char	*ft_strjoin_char(char *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strnstr(const char *big, const char *little, size_t len);
+
+char	**ft_split(char const *s, char c);
+
+void	free_array(char	**arr);
+void	ft_bzero(void *t, size_t n);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
+void	ft_striteri(char *s, void (*f)(unsigned int, char *));
+
+void	*ft_calloc(size_t nb_elem, size_t size);
+void	*ft_memset(void *s, int c, size_t count);
+void	*ft_memchr(const void *s, int c, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+
+size_t	array_len(char	**arr);
+size_t	ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstnew(void *content);
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+// put functions
+int		ft_putnbr(int n);
+int		ft_putstr(char *s);
+int		ft_putptr(void *ptr);
+int		ft_putnbr_fd(int n, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putendl_fd(char *s, int fd);
+int		ft_putptr_fd(void *ptr, int fd);
+int		ft_putnbr_unsigned(unsigned int n);
+int		ft_putnbr_hex(unsigned int n, int maj);
+int		ft_putnbr_hexl(unsigned long n, int maj);
+int		ft_putnbr_unsigned_fd(unsigned int n, int fd);
+int		ft_puthex_fd(unsigned int n, int maj, int fd);
+int		ft_putnbr_hexl_fd(unsigned long n, int maj, int fd);
+
+int		ft_printf_fd(const char *str, int fd, ...);
+
+// get_next_line functions
+char	*get_next_line(int fd);
+
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:17:58 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:44 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*last;
+
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		last = ft_lstlast(*lst);
+		last->next = new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:16:52 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:40 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (new != NULL)
+	{
+		if (lst != NULL)
+		{
+			new->next = *lst;
+			*lst = new;
+		}
+		else
+			lst = &new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:18:37 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:50 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*tmp;
+
+	while (*lst != NULL)
+	{
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:18:16 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:52 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	del(lst->content);
+	free(lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:19:02 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:54 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:17:38 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:57 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (lst);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:19:23 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:34:59 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*init;
+	t_list	*new;
+	void	*content;
+
+	init = NULL;
+	while (lst)
+	{
+		content = (*f)(lst->content);
+		new = ft_lstnew(content);
+		if (!new)
+			return (del(content), ft_lstclear(&init, del), NULL);
+		ft_lstadd_back(&init, new);
+		lst = lst->next;
+	}
+	return (init);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:16:22 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:35:01 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:17:11 by dadoune           #+#    #+#             */
+/*   Updated: 2025/11/26 20:35:04 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_lstsize(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 15:21:18 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:58:57 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 09:59:41 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:58:58 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+	size_t	total;
+
+	total = count * size;
+	ptr = malloc(total);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, 0, total);
+	return (ptr);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 16:56:37 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:48:09 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*str;
+
+	i = 0;
+	str = (unsigned char *)s;
+	while (i < n)
+	{
+		if (str[i] == (unsigned char)c)
+			return ((void *)str + i);
+		i++;
+	}
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 08:45:38 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:04 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*p_s1;
+	unsigned char	*p_s2;
+
+	p_s1 = (unsigned char *)s1;
+	p_s2 = (unsigned char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < n)
+	{
+		if (p_s1[i] != p_s2[i])
+			return (p_s1[i] - p_s2[i]);
+		i++;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 16:18:30 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:08 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	int				i;
+	unsigned char	*src_tmp;
+
+	i = 0;
+	if (!dest && !src)
+		return (NULL);
+	src_tmp = (unsigned char *)src;
+	while (i < (int)n)
+	{
+		ft_memset(dest, src_tmp[i], 1);
+		dest++;
+		i++;
+	}
+	return (dest - n);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 09:09:53 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:12 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	char	*data_dst;
+	char	*data_src;
+
+	if (!src && !dst)
+		return (NULL);
+	if (src > dst)
+		dst = ft_memcpy(dst, src, len);
+	else
+	{
+		data_dst = (char *)dst;
+		data_src = (char *)src;
+		while (len--)
+			data_dst[len] = data_src[len];
+	}
+	return (dst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:47:23 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:15 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	*ft_memset(void *s, int c, size_t count)
+{
+	size_t			i;
+	unsigned char	*temp;
+
+	i = 0;
+	temp = (unsigned char *)s;
+	while (i < count)
+	{
+		*temp = c;
+		i++;
+		temp++;
+	}
+	return (s);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_array.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 15:12:30 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/10 19:21:22 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+/*
+big big free
+*/
+void	free_array(char	**arr)
+{
+	int	i;
+
+	if (arr)
+	{
+		i = 0;
+		while (arr[i])
+			i++;
+		while (i >= 0)
+		{
+			free(arr[i]);
+			i--;
+		}
+		free(arr);
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_array_len.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 19:21:10 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/16 13:53:26 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+size_t	array_len(char	**arr)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+		while (arr[i])
+			i++;
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:48:34 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:19 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_atoi(const char *nptr)
+{
+	int		i;
+	int		res;
+	int		sign;
+
+	i = 0;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	sign = 1;
+	if (nptr[i] == '+' || nptr[i] == '-')
+	{
+		if (nptr[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	res = 0;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		res = res * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (res * sign);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 15:39:56 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:21 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+static int	num_digit(long n)
+{
+	int	c;
+
+	c = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		c++;
+	while (n != 0)
+	{
+		n = n / 10;
+		c++;
+	}
+	return (c);
+}
+
+char	*ft_itoa(int n)
+{
+	long	len;
+	long	nl;
+	char	*result;
+
+	len = num_digit(n);
+	nl = n;
+	if (n < 0)
+		nl *= -1;
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+	result[len] = 0;
+	if (nl == 0)
+		result[0] = '0';
+	else
+	{
+		while (len--, nl != 0)
+		{
+			result[len] = (nl % 10) + '0';
+			nl = (nl - (nl % 10)) / 10;
+		}
+		if (n < 0)
+			result[len] = '-';
+	}
+	return (result);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 09:18:08 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/10 17:33:39 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+static char	**free_sep(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return (NULL);
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
+}
+
+static size_t	count_words(const char *str, char sep)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == sep))
+			i++;
+		if (str[i])
+			count++;
+		while (str[i] && !(str[i] == sep))
+			i++;
+	}
+	return (count);
+}
+
+static void	next_word(char **word_ptr, size_t *size, char c)
+{
+	size_t	i;
+
+	*word_ptr += *size;
+	*size = 0;
+	i = 0;
+	while (**word_ptr && **word_ptr == c)
+		(*word_ptr)++;
+	while ((*word_ptr)[i])
+	{
+		if ((*word_ptr)[i] == c)
+			return ;
+		(*size)++;
+		i++;
+	}
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**sep;
+	char	*temp;
+	size_t	len_temp;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	sep = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1));
+	if (!sep)
+		return (NULL);
+	i = 0;
+	temp = (char *)s;
+	len_temp = 0;
+	while (i < count_words(s, c))
+	{
+		next_word(&temp, &len_temp, c);
+		sep[i] = (char *)malloc(sizeof(char) * (len_temp + 1));
+		if (!sep[i])
+			return (free_sep(sep));
+		ft_strlcpy(sep[i], temp, len_temp + 1);
+		i++;
+	}
+	sep[i] = NULL;
+	return (sep);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 15:37:44 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/16 13:53:58 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strdup(const char *s)
+{
+	char	*duped;
+
+	if (!s)
+		return (NULL);
+	duped = malloc(ft_strlen(s) * sizeof(char) + 1);
+	if (!duped)
+		return (NULL);
+	ft_strlcpy(duped, s, ft_strlen(s)+1);
+	return (duped);
+}
+
+char	*ft_strndup(const char *s, int n)
+{
+	char	*duped;
+
+	if (!s)
+		return (NULL);
+	duped = malloc(n * sizeof(char) + 1);
+	if (!duped)
+		return (NULL);
+	ft_strlcpy(duped, s, n);
+	duped[n] = '\0';
+	return (duped);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 15:00:51 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:12 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	if (!f)
+		return ;
+	while (s[i])
+	{
+		(*f)(i, &(s[i]));
+		++i;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 09:36:46 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 15:02:23 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*joined;
+
+	joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!joined)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
+	{
+		joined[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2 && s2[j])
+	{
+		joined[i + j] = s2[j];
+		j++;
+	}
+	joined[i + j] = '\0';
+	return (joined);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoinchar.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 14:05:03 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/05 14:05:21 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strjoin_char(char *s, char c)
+{
+	size_t	len;
+	char	*res;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	res = malloc(len + 2);
+	if (!res)
+		return (NULL);
+	ft_memcpy(res, s, len);
+	res[len] = c;
+	res[len + 1] = '\0';
+	return (res);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 15:57:01 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:17 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	size_t	len_dest;
+	size_t	k;
+	size_t	len_src;
+
+	len_dest = ft_strlen(dest);
+	len_src = ft_strlen(src);
+	if (size == 0)
+		return (len_src);
+	if (size < len_dest)
+		len_src += size;
+	else
+		len_src += len_dest;
+	k = 0;
+	while (src[k] != '\0' && (len_dest + k) < size - 1)
+	{
+		dest[len_dest + k] = src[k];
+		k++;
+	}
+	dest[len_dest + k] = '\0';
+	return (len_src);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 15:36:27 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:20 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (src[i] && i < size - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 10:43:25 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:24 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (!f)
+		return (NULL);
+	ptr = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!ptr)
+		return (NULL);
+	while (s[i])
+	{
+		ptr[i] = f(i, s[i]);
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:47:26 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:55 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_tolower(int c)
+{
+	if ('A' <= c && c <= 'Z')
+		return (c + 32);
+	return (c);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 10:45:24 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:01:02 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_toupper(int c)
+{
+	if ('a' <= c && c <= 'z')
+		return (c -32);
+	return (c);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 14:47:14 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 19:59:45 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char) c)
+			break ;
+		i++;
+	}
+	if (s[i] == (char) c)
+		return ((char *) s + i);
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/13 13:35:25 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 15:01:02 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str && str[i])
+		i++;
+	return (i);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 15:07:50 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:27 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	if ((!s1[i] || !s2[i]) && i < n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 11:07:40 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:31 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+#include <stdio.h>
+
+char	*ft_strnstr(const char *big, const char *little, size_t len)
+{
+	size_t	i;
+	size_t	j;
+
+	if (ft_strlen(little) == 0)
+		return ((char *)big);
+	i = 0;
+	while (i <= len && big[i])
+	{
+		if (big[i] == little[0])
+		{
+			j = 1;
+			while (little[j] && big[i + j] == little[j])
+				j++;
+			if (j == ft_strlen(little) && i + j <= len)
+				return ((char *)&big[i]);
+		}
+		i++;
+	}
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 14:55:23 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:35 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_strrchr(const char *s, int c)
+{
+	int	i;
+
+	i = ft_strlen(s);
+	s += i;
+	if (c == '\0')
+		return ((char *)s);
+	while (i >= 0)
+	{
+		if ((unsigned char)*s == (unsigned char)c)
+			return ((char *)s);
+		i--;
+		s--;
+	}
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/14 09:59:36 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:50 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+static int	is_in_set(char const c, char const *set)
+{
+	int	cur;
+
+	cur = -1;
+	while (set[++cur])
+		if (set[cur] == c)
+			return (1);
+	return (0);
+}
+
+static char	*empty_string(void)
+{
+	char	*str;
+
+	str = malloc(sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, "", 1);
+	return (str);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	start;
+	size_t	end;
+	size_t	s1_len;
+	char	*trim;
+
+	if (!s1 || !set)
+		return (NULL);
+	start = 0;
+	while (is_in_set(s1[start], set))
+		start++;
+	s1_len = ft_strlen(s1);
+	end = s1_len - 1;
+	if (start == s1_len)
+		return (empty_string());
+	while (is_in_set(s1[end], set))
+		end--;
+	trim = malloc((end - start + 2) * sizeof(char));
+	if (!trim)
+		return (NULL);
+	ft_strlcpy(trim, (s1 + start), (end - start + 2));
+	return (trim);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 10:41:31 by aeherve           #+#    #+#             */
+/*   Updated: 2025/11/26 20:00:40 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft.h"
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*tab;
+	size_t	size;
+	size_t	count;
+
+	if (!s)
+		return (NULL);
+	if ((unsigned int)ft_strlen(s) < start)
+		return (ft_strdup(""));
+	size = ft_strlen(s + start);
+	if (size < len)
+		len = size;
+	tab = (char *)malloc((len + 1) * sizeof(char));
+	if (!tab)
+		return (NULL);
+	count = 0;
+	while (count < len)
+	{
+		tab[count] = s[start + count];
+		count++;
+	}
+	tab[count] = '\0';
+	return (tab);
+}
+
+// #include <stdio.h>
+// int main(void)
+// {
+// 	char	str[] = "lorem ipsum dolor sit amet";
+// 	char	*strsub;
+// 	strsub = ft_substr(str, 7, 10);
+// 	printf("%s", strsub);
+// }/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:05:18 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 17:58:25 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/minishell.h"
+
+void	display_list(t_cmd	*cmd) 
+{ 
+	while (cmd) 
+	{ 
+		printf("-------------------------------------------\n"); 
+		printf("name: %s type: %d\n", cmd->name, cmd->type); 
+		printf("adress: %p\n", cmd); 
+		printf("quote: %c\n", cmd->quote); 
+		printf("\n"); 
+		printf("prev: %p\n", cmd->prev); 
+		printf("next: %p\n", cmd->next); 
+		printf("-------------------------------------------\n"); 
+		cmd = cmd->next; 
+	} 
+} 
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	int		i;
+// 	char	*bufr;
+// 	t_shell	*shell;
+
+// 	(void)argc;
+// 	shell = create_shell_struct(envp);
+// 	if (!shell)
+// 		return (1);
+// 	bufr = ft_calloc(500, 1);
+// 	i = 0;
+// 	while (argv[i])
+// 	{
+// 		bufr = join_and_free(bufr, argv[i++]);
+// 		if (argv[i])
+// 			bufr = join_and_free(bufr, " ");
+// 	}
+// 	shell->cmd = parse_command(bufr);
+// 	free(bufr);c
+// 	display_list(shell->cmd);
+// 	free_shell(shell);
+// 	return (0);
+// }
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	*shell;
+
+	(void)argc;
+	(void)argv;
+	shell = create_shell_struct(envp);
+	if (!shell)
+		return (1);
+	start_shell(shell);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int	main(int argc, char const *argv[])
+{
+	int	pid;
+
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
+	{
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 10:51:52 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 13:38:13 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	set_env_var(t_shell *shell, char *name, char *value)
+{
+	t_var_list	*cur;
+	t_var_list	*new;
+
+	cur = shell->envp;
+	while (cur)
+	{
+		if (!ft_strncmp(cur->name, name, ft_strlen(name) + 1))
+		{
+			free(cur->value);
+			cur->value = ft_strdup(value);
+			return ;
+		}
+		cur = cur->next;
+	}
+	new = ft_lklnew(name, value);
+	if (!new)
+		return ;
+	ft_lkladd_back(&shell->envp, new);
+}
+
+static void	update_pwd_vars(t_shell *shell)
+{
+	char	cwd[PATH_MAX];
+	char	*oldpwd;
+
+	oldpwd = get_value(shell, "PWD");
+	if (oldpwd)
+		set_env_var(shell, "OLDPWD", oldpwd);
+	if (getcwd(cwd, sizeof(cwd)))
+		set_env_var(shell, "PWD", cwd);
+	free_array(shell->envp_tmp);
+	recreate_envp(shell);
+}
+
+static int	cd_home(t_shell *shell)
+{
+	char	*home;
+
+	home = get_value(shell, "HOME");
+	if (!home)
+	{
+		ft_printf_fd("minishell: cd: HOME not set\n", 2);
+		shell->last_return = 1;
+		return (1);
+	}
+	if (chdir(home) != 0)
+	{
+		perror("minishell: cd");
+		shell->last_return = 1;
+		return (1);
+	}
+	update_pwd_vars(shell);
+	shell->last_return = 0;
+	return (0);
+}
+
+static int	non_existing_path(t_shell *shell)
+{
+	perror("minishell: cd");
+	shell->last_return = 1;
+	clean_command_free(shell);
+	return (1);
+}
+
+int	cd(t_shell *shell)
+{
+	t_cmd	*arg;
+
+	arg = shell->cmd->next;
+	if (arg && arg->next)
+	{
+		ft_printf_fd("minishell: cd: too many arguments\n", 2);
+		shell->last_return = 1;
+		clean_command_free(shell);
+		return (2);
+	}
+	if (!arg)
+	{
+		cd_home(shell);
+		clean_command_free(shell);
+		return (shell->last_return);
+	}
+	if (chdir(arg->name) != 0)
+		return (non_existing_path(shell));
+	update_pwd_vars(shell);
+	shell->last_return = 0;
+	clean_command_free(shell);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 20:44:04 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/06 11:41:16 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	is_n_option(char *s)
+{
+	int	i;
+
+	if (!s || s[0] != '-' || s[1] != 'n')
+		return (0);
+	i = 2;
+	while (s[i] == 'n')
+		i++;
+	return (s[i] == '\0');
+}
+
+static void	print_echo_arg(char *s)
+{
+	int		i;
+	char	current;
+
+	if (!s)
+		return ;
+	i = 0;
+	current = 0;
+	while (s[i])
+	{
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			current = 0;
+		else
+			write(STDOUT_FILENO, &s[i], 1);
+		i++;
+	}
+}
+
+int	echo(t_shell *shell)
+{
+	t_cmd	*cmd;
+	int		newline;
+
+	if (!shell || !shell->cmd)
+		return (1);
+	newline = 1;
+	cmd = shell->cmd->next;
+	while (cmd && is_n_option(cmd->name))
+	{
+		newline = 0;
+		cmd = cmd->next;
+	}
+	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
+	{
+		print_echo_arg(cmd->name);
+		if (cmd->next && (cmd->next->type == ARGUMENT
+				|| cmd->next->type == OPTION))
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		cmd = cmd->next;
+	}
+	if (newline)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	clean_command_free(shell);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 09:41:46 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 11:09:12 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	print_env_ordered(t_var_list *envp)
+{
+	t_var_list	*tmp;
+	t_var_list	*underscore;
+
+	tmp = envp;
+	underscore = NULL;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->name, "_", 2))
+			underscore = tmp;
+		else if (tmp->value)
+			printf("%s=%s\n", tmp->name, tmp->value);
+		tmp = tmp->next;
+	}
+	if (underscore && underscore->value)
+		printf("_=%s\n", underscore->value);
+}
+
+int	env(t_shell *shell)
+{
+	clean_command_free(shell);
+	if (shell->cmd)
+	{
+		printf("env: '%s': No such file or directory\n", shell->cmd->name);
+		clean_command_free(shell);
+		shell->last_return = 127;
+		return (127);
+	}
+	print_env_ordered(shell->envp);
+	shell->last_return = 0;
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 13:05:32 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+#include <limits.h>
+
+static char	*remove_all_quotes(char *s)
+{
+	int		i;
+	int		j;
+	char	*res;
+
+	res = malloc(ft_strlen(s) + 1);
+	if (!res)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] != '\'' && s[i] != '"')
+			res[j++] = s[i];
+		i++;
+	}
+	res[j] = '\0';
+	return (res);
+}
+
+static int	parse_ll(char *s, long long *out)
+{
+	int			i;
+	long long	res;
+	int			sign;
+
+	i = 0;
+	sign = 1;
+	res = 0;
+	if (s[i] == '+' || s[i] == '-')
+	{
+		if (s[i++] == '-')
+			sign = -1;
+	}
+	if (!s[i])
+		return (0);
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+		if (res > (LLONG_MAX - (s[i] - '0')) / 10)
+			return (0);
+		res = res * 10 + (s[i] - '0');
+		i++;
+	}
+	*out = res * sign;
+	return (1);
+}
+
+int	finish(t_shell *shell)
+{
+	t_cmd		*arg;
+	int			rn;
+	char		*clean;
+	long long	code;
+
+	printf("exit\n");
+	arg = shell->cmd->next;
+	if (!arg)
+	{
+		rn = shell->last_return;
+		free_shell(shell);
+		exit((unsigned char)rn);
+	}
+	clean = remove_all_quotes(arg->name);
+	if (!clean || !parse_ll(clean, &code))
+	{
+		ft_printf_fd("minishell: exit: %s: numeric argument required\n",
+			2, arg->name);
+		free(clean);
+		exit(2);
+	}
+	free(clean);
+	if (arg->next)
+	{
+		ft_printf_fd("minishell: exit: too many arguments\n", 2);
+		shell->last_return = 1;
+		return (2);
+	}
+	free_shell(shell);
+	exit((unsigned char)code);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 18:14:13 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	valid_char(char c)
+{
+	if (('A' <= c && c <= 'Z')
+		|| ('a' <= c && c <= 'z')
+		|| ('0' <= c && c <= '9')
+		|| c == '_' || c == ' ')
+		return (1);
+	return (0);
+}
+
+static int	valid_first_char(char c)
+{
+	if (('A' <= c && c <= 'Z')
+		|| ('a' <= c && c <= 'z')
+		|| c == '_' || c == ' ')
+		return (1);
+	return (0);
+}
+
+static char	is_valid_assignment(char *s)
+{
+	int	i;
+
+	if (!s || !valid_first_char(s[0]))
+		return (0);
+	i = 1;
+	while (s[i])
+	{
+		if (s[i] == '=')
+			return (1);
+		if (!valid_char(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	export(t_shell *shell)
+{
+	char	**env_var;
+
+	clean_command_free(shell);
+	if (!shell->cmd)
+		return (1);
+	if (shell->cmd->name && is_valid_assignment(shell->cmd->name))
+	{
+		env_var = ft_split(shell->cmd->name, '=');
+		set_value(&shell, env_var[0], env_var[1]);
+		clean_command_free(shell);
+		shell->last_return = 0;
+		free(env_var);
+		return (0);
+	}
+	ft_printf_fd("bash: export: `%s': not a valid identifier\n", 2, \
+		shell->cmd->name);
+	clean_command_free(shell);
+	shell->last_return = 1;
+	return (1);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 17:00:18 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/15 19:36:48 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	pwd(t_shell *shell)
+{
+	char	buff[2048];
+	char	*path;
+
+	path = getcwd(buff, 2048);
+	if (!path)
+	{
+		printf("pwd: error retrieving current directory\n");
+		shell->last_return = 1;
+		return (1);
+	}
+	printf("%s\n", path);
+	clean_command_free(shell);
+	shell->last_return = 0;
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 15:38:24 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/12 16:39:39 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	is_valid_identifier(char *s)
+{
+	int	i;
+
+	if (!s || !(ft_isalpha(s[0]) || s[0] == '_'))
+		return (0);
+	i = 1;
+	while (s[i])
+	{
+		if (!(ft_isalnum(s[i]) || s[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void	remove_var(t_shell *shell, char *name)
+{
+	t_var_list	*cur;
+
+	cur = shell->envp;
+	while (cur)
+	{
+		if (!ft_strncmp(cur->name, name, ft_strlen(name) + 1))
+		{
+			if (cur->previous)
+				cur->previous->next = cur->next;
+			else
+				shell->envp = cur->next;
+			if (cur->next)
+				cur->next->previous = cur->previous;
+			ft_lkldelone(cur);
+			return ;
+		}
+		cur = cur->next;
+	}
+}
+
+int	unset(t_shell *shell)
+{
+	t_cmd	*arg;
+
+	if (!shell || !shell->cmd)
+		return (1);
+	arg = shell->cmd->next;
+	while (arg)
+	{
+		if (!is_valid_identifier(arg->name))
+		{
+			ft_printf_fd("unset: `%s': not a valid identifier\n", 2, arg->name);
+			shell->last_return = 1;
+			clean_command_free(shell);
+			return (1);
+		}
+		remove_var(shell, arg->name);
+		arg = arg->next;
+	}
+	free_array(shell->envp_tmp);
+	recreate_envp(shell);
+	shell->last_return = 0;
+	clean_command_free(shell);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 10:58:30 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 20:57:26 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	is_valid_n(char *s)
+{
+	int	i;
+
+	if (!s || s[0] != '-' || s[1] != 'n')
+		return (0);
+	i = 2;
+	while (s[i] == 'n')
+		i++;
+	return (s[i] == '\0');
+}
+
+static void	putstr_without_quotes(char *s)
+{
+	int	len;
+
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	if (len >= 2 && ((s[0] == '\'' && s[len - 1] == '\'')
+			|| (s[0] == '"' && s[len - 1] == '"')))
+	{
+		write(STDOUT_FILENO, s + 1, len - 2);
+		return ;
+	}
+	ft_putstr_fd(s, STDOUT_FILENO);
+}
+
+int	echo_pipe(t_cmd *cmd)
+{
+	int	nl;
+
+	nl = 1;
+	cmd = cmd->next;
+	while (cmd && is_valid_n(cmd->name))
+	{
+		nl = 0;
+		cmd = cmd->next;
+	}
+	while (cmd && (cmd->type == ARGUMENT || cmd->type == OPTION))
+	{
+		putstr_without_quotes(cmd->name);
+		if (cmd->next && (cmd->next->type == ARGUMENT
+				|| cmd->next->type == OPTION))
+			write(STDOUT_FILENO, " ", 1);
+		cmd = cmd->next;
+	}
+	if (nl)
+		write(STDOUT_FILENO, "\n", 1);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_pipe.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 10:58:12 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/17 10:58:18 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	env_pipe(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		ft_putstr_fd(envp[i], STDOUT_FILENO);
+		write(1, "\n", 1);
+		i++;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_builtin_pipe.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 10:58:02 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 18:51:54 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	exec_builtin_pipe(t_shell *shell, t_cmd *cmd)
+{
+	int	built;
+
+	built = 1;
+	if (!cmd || !cmd->name)
+		return (1);
+	if (!ft_strncmp(cmd->name, "echo", 5))
+		built = echo_pipe(cmd);
+	if (!ft_strncmp(cmd->name, "pwd", 4))
+		built = pwd_pipe();
+	if (!ft_strncmp(cmd->name, "env", 4))
+		built = env_pipe(shell->envp_tmp);
+	free_shell(shell);
+	return (built);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd_pipe.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 10:58:37 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/17 10:58:39 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	pwd_pipe(void)
+{
+	char	buf[2048];
+	char	*path;
+
+	path = getcwd(buf, sizeof(buf));
+	if (!path)
+	{
+		ft_putstr_fd("pwd: error retrieving current directory\n", 2);
+		return (1);
+	}
+	ft_putstr_fd(path, STDOUT_FILENO);
+	write(1, "\n", 1);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 09:33:20 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 15:35:44 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static char	*join_path(char *dir, char *cmd)
+{
+	char	*tmp;
+	char	*full;
+
+	tmp = ft_strjoin(dir, "/");
+	if (!tmp)
+		return (NULL);
+	full = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (full);
+}
+
+char	*get_cmd_path(t_shell *shell, char *cmd)
+{
+	char	**paths;
+	char	*value;
+	char	*full;
+	int		i;
+
+	value = get_value(shell, "PATH");
+	if (!value)
+		return (NULL);
+	paths = ft_split(value, ':');
+	if (!paths)
+		return (NULL);
+	i = 0;
+	while (paths[i])
+	{
+		full = join_path(paths[i], cmd);
+		if (full && access(full, X_OK) == 0)
+			return (free_array(paths), full);
+		free(full);
+		i++;
+	}
+	free_array(paths);
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_builtins.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 16:15:28 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/07 18:38:29 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	exec_builtins(t_shell *shell)
+{
+	if (!shell->cmd->name)
+		return (0);
+	else if (!ft_strncmp(shell->cmd->name, "echo", 4))
+		echo(shell);
+	else if (!ft_strncmp(shell->cmd->name, "cd", 2))
+		cd(shell);
+	else if (!ft_strncmp(shell->cmd->name, "pwd", 3))
+		pwd(shell);
+	else if (!ft_strncmp(shell->cmd->name, "export", 6))
+		export(shell);
+	else if (!ft_strncmp(shell->cmd->name, "unset", 5))
+		unset(shell);
+	else if (!ft_strncmp(shell->cmd->name, "env", 3))
+		env(shell);
+	else if (!ft_strncmp(shell->cmd->name, "exit", 4))
+		finish(shell);
+	else if (!ft_strncmp(shell->cmd->name, "clear", 5))
+		clear();
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 18:09:18 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	return_type(t_shell *shell, char *line)
+{
+	if (!ft_strncmp("$", line, 1) && ft_strncmp("$?", line, 2)
+		&& ft_strlen(line) > 1)
+		shell->last_return = 0;
+	else
+		shell->last_return = 127;
+}
+
+int	handle_direct_path(t_shell *shell, char *cmd)
+{
+	struct stat	st;
+
+	if (stat(cmd, &st) != 0)
+	{
+		ft_printf_fd("minishell: %s: No such file or directory\n", 2, cmd);
+		shell->last_return = 127;
+		return (1);
+	}
+	if (S_ISDIR(st.st_mode))
+	{
+		ft_printf_fd("minishell: %s: Is a directory\n", 2, cmd);
+		shell->last_return = 126;
+		return (1);
+	}
+	if (access(cmd, X_OK) != 0 || access(cmd, R_OK) != 0)
+	{
+		ft_printf_fd("minishell: %s: Permission denied\n", 2, cmd);
+		shell->last_return = 126;
+		return (1);
+	}
+	return (0);
+}
+
+void	exec_cmd(t_shell *shell, char *line)
+{
+	pid_t	pid;
+	int		status;
+	char	**args;
+	char	*path;
+
+	args = ft_split(line, ' ');
+	if (!args)
+		return ;
+	args = clean_empty_args(args);
+	if (!args || !args[0])
+	{
+		free_array(args);
+		return ;
+	}
+	path = NULL;
+	if (ft_strchr(args[0], '/'))
+	{
+		if (handle_direct_path(shell, args[0]))
+		{
+			free_array(args);
+			return ;
+		}
+		path = ft_strdup(args[0]);
+	}
+	else
+		path = get_cmd_path(shell, args[0]);
+	if (!path)
+	{
+		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
+		return_type(shell, line);
+		free_array(args);
+		return ;
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		if (open_all_redirections(shell->cmd))
+			exit(1);
+		dup_redirections(shell->cmd);
+		execve(path, args, shell->envp_tmp);
+		free(path);
+		free(line);
+		free_array(args);
+		free_shell(shell);
+		perror("execve");
+		exit(126);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->last_return = WEXITSTATUS(status);
+	free(path);
+	free_array(args);
+	if (shell->cmd)
+		ft_cmdclear(&shell->cmd);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_pipeline.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 11:29:30 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	get_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (1);
+}
+
+static void	free_child_exec(t_shell *shell, char *path, char **argv)
+{
+	if (path)
+		free(path);
+	if (argv)
+		free_array(argv);
+	free_shell(shell);
+}
+
+static void	close_child_fds(t_pipedata data)
+{
+	if (data.pipefd[0] != STDIN_FILENO)
+		close(data.pipefd[0]);
+	if (data.pipefd[1] != STDOUT_FILENO)
+		close(data.pipefd[1]);
+}
+
+static void	exec_child(t_shell *shell, t_pipedata data)
+{
+	char	*path;
+	char	**argv;
+
+	if (data.in_fd != STDIN_FILENO)
+		dup2(data.in_fd, STDIN_FILENO);
+	if (data.pipefd[1] != STDOUT_FILENO)
+		dup2(data.pipefd[1], STDOUT_FILENO);
+	close_child_fds(data);
+	if (data.cmd->type == BUILTINS)
+		exit(exec_builtin_pipe(shell, data.cmd));
+	path = get_cmd_path(shell, data.cmd->name);
+	if (!path)
+	{
+		ft_putstr_fd("minishell: command not found\n", 2);
+		exit(127);
+	}
+	argv = build_argv(data.cmd);
+	if (!argv || apply_redirections(data.cmd))
+	{
+		free_child_exec(shell, path, argv);
+		exit(1);
+	}
+	execve(path, argv, shell->envp_tmp);
+	free_child_exec(shell, path, argv);
+	exit(1);
+}
+
+void	exec_pipeline(t_shell *shell)
+{
+	t_pipedata	data;
+
+	data.cmd = shell->cmd;
+	data.in_fd = STDIN_FILENO;
+	data.last_pid = -1;
+	while (data.cmd)
+	{
+		if (get_next_cmd(data.cmd))
+			pipe(data.pipefd);
+		else
+			data.pipefd[1] = STDOUT_FILENO;
+		data.pid = fork();
+		if (data.pid == 0)
+			exec_child(shell, data);
+		if (data.pid > 0)
+			data.last_pid = data.pid;
+		if (data.in_fd != STDIN_FILENO)
+			close(data.in_fd);
+		if (data.pipefd[1] != STDOUT_FILENO)
+			close(data.pipefd[1]);
+		data.in_fd = data.pipefd[0];
+		data.cmd = get_next_cmd(data.cmd);
+	}
+	if (data.in_fd != STDIN_FILENO)
+		close(data.in_fd);
+	waitpid(data.last_pid, &data.status, 0);
+	shell->last_return = get_exit_status(data.status);
+	while (wait(NULL) > 0)
+		;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell_loop.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 15:48:26 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static char	**cmdtoarg(t_cmd *cmd)
+{
+	int		i;
+	char	**tmp;
+
+	if (!cmd)
+		return (NULL);
+	tmp = ft_calloc(ft_cmdsize(cmd) + 1, sizeof(char *));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (cmd)
+	{
+		tmp[i] = ft_strdup(cmd->name);
+		i++;
+		cmd = cmd->next;
+	}
+	return (tmp);
+}
+
+static void	recreate_line(t_shell *shell, char **line)
+{
+	int		i;
+	char	**args;
+	char	*new_line;
+	char	*tmp;
+
+	args = cmdtoarg(shell->cmd);
+	if (!args)
+		return ;
+	new_line = ft_calloc(1, sizeof(char));
+	if (!new_line)
+		return (free_array(args));
+	i = 0;
+	while (args[i])
+	{
+		tmp = join_and_free(new_line, args[i]);
+		if (!tmp)
+			break ;
+		new_line = tmp;
+		if (args[i + 1])
+		{
+			tmp = join_and_free(new_line, " ");
+			if (!tmp)
+				break ;
+			new_line = tmp;
+		}
+		free(args[i]);
+		i++;
+	}
+	while (args[i])
+		free(args[i++]);
+	free(args);
+	free(*line);
+	*line = new_line;
+}
+
+static void	create_command(t_shell *shell, char **line)
+{
+	shell->cmd = parse_command(*line);
+	if (!shell->cmd)
+		return ;
+	expand_vars(shell);
+	remove_empty_commands(&shell->cmd);
+	extract_redirections(shell->cmd);
+	prepare_heredocs(shell->cmd);
+	recreate_line(shell, line);
+}
+
+static void	treat_fd(int save_in, int save_out)
+{
+	dup2(save_in, STDIN_FILENO);
+	dup2(save_out, STDOUT_FILENO);
+	close(save_in);
+	close(save_out);
+}
+
+void	shell_loop(t_shell *shell)
+{
+	char	*line;
+	int		save_in;
+	int		save_out;
+
+	line = NULL;
+	while (1)
+	{
+		line = readline(PS1);
+		if (!line)
+			break ;
+		if (*line)
+			add_history(line);
+		create_command(shell, &line);
+		if (shell->cmd)
+		{
+			if (has_pipe(shell->cmd))
+				exec_pipeline(shell);
+			else if (shell->cmd->type == BUILTINS)
+			{
+				save_in = dup(STDIN_FILENO);
+				save_out = dup(STDOUT_FILENO);
+				if (apply_redirections(shell->cmd))
+				{
+					treat_fd(save_in, save_out);
+					ft_cmdclear(&shell->cmd);
+					break ;
+				}
+				exec_builtins(shell);
+				treat_fd(save_in, save_out);
+				ft_cmdclear(&shell->cmd);
+			}
+			else
+			{
+				exec_cmd(shell, line);
+				free(line);
+				line = NULL;
+			}
+		free(line);
+		line = NULL;
+		}
+	}
+	if (line)
+		free(line);
+	free_shell(shell);
+	rl_clear_history();
+	rl_free_line_state();
+	rl_cleanup_after_signal();
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_shell.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:49:19 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 16:31:16 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	start_shell(t_shell *shell)
+{
+	clear();
+	init_signal();
+	shell_loop(shell);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   status.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 11:44:35 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/18 13:18:05 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	print_status(t_shell *shell)
+{
+	return (printf("%d", shell->last_return));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   apply_redirections.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 13:42:14 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/12 17:01:05 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	apply_redirections(t_cmd *cmd)
+{
+	if (!cmd)
+		return (0);
+	if (open_all_redirections(cmd))
+		return (1);
+	dup_redirections(cmd);
+	return (0);
+}
+
+int	open_all_redirections(t_cmd *cmd)
+{
+	t_redir	*r;
+
+	r = cmd->redirs;
+	while (r)
+	{
+		if (r->type == R_IN)
+			r->fd = open(r->target, O_RDONLY);
+		else if (r->type == R_OUT)
+			r->fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (r->type == R_APPEND)
+			r->fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else
+			r->fd = r->fd;
+		if (r->fd < 0)
+			return (perror(r->target), 1);
+		r = r->next;
+	}
+	return (0);
+}
+
+void	dup_redirections(t_cmd *cmd)
+{
+	t_redir	*r;
+
+	r = cmd->redirs;
+	while (r)
+	{
+		if (r->type == R_IN || r->type == R_HEREDOC)
+			dup2(r->fd, STDIN_FILENO);
+		else
+			dup2(r->fd, STDOUT_FILENO);
+		close(r->fd);
+		r = r->next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/07 15:36:34 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/07 15:36:54 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	builtin_uses_stdin(int type)
+{
+	if (type == BUILTINS)
+		return (0);
+	return (1);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_vars.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 14:02:19 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/13 18:00:05 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	append_char(char **dst, char c)
+{
+	char	buf[2];
+	char	*tmp;
+
+	buf[0] = c;
+	buf[1] = '\0';
+	tmp = ft_strjoin(*dst, buf);
+	if (!tmp)
+		return (0);
+	free(*dst);
+	*dst = tmp;
+	return (1);
+}
+
+static int	append_str(char **dst, char *src)
+{
+	char	*tmp;
+
+	if (!src)
+		return (1);
+	tmp = ft_strjoin(*dst, src);
+	if (!tmp)
+		return (0);
+	free(*dst);
+	*dst = tmp;
+	return (1);
+}
+
+static int	is_valid_var_start(char c)
+{
+	if (ft_isalpha(c) || c == '_' || c == '?')
+		return (1);
+	return (0);
+}
+
+static char	*expand_token(t_shell *shell, char *s)
+{
+	char	*res;
+	char	*var;
+	char	*value;
+	int		i;
+	int		start;
+	char	quote;
+
+	res = ft_calloc(1, 1);
+	if (!res)
+		return (NULL);
+	i = 0;
+	quote = 0;
+	while (s[i])
+	{
+		if (!quote && (s[i] == '\'' || s[i] == '"'))
+			quote = s[i];
+		else if (quote && s[i] == quote)
+			quote = 0;
+		else if (s[i] == '$' && quote != '\'' && s[i + 1] == '?')
+		{
+			value = ft_itoa(shell->last_return);
+			if (!value || !append_str(&res, value))
+				return (free(value), free(res), NULL);
+			free(value);
+			i += 2;
+			continue ;
+		}
+		else if (s[i] == '$' && quote != '\'')
+		{
+			i++;
+			if (!s[i] || !is_valid_var_start(s[i]))
+			{
+				if (!append_char(&res, '$'))
+					return (free(res), NULL);
+				continue ;
+			}
+			start = i;
+			while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
+				i++;
+			var = ft_substr(s, start, i - start);
+			if (!var)
+				return (free(res), NULL);
+			value = get_value(shell, var);
+			if (!value)
+				value = "";
+			if (!append_str(&res, value))
+				return (free(var), free(res), NULL);
+			free(var);
+			continue ;
+		}
+		if (!append_char(&res, s[i]))
+			return (free(res), NULL);
+		i++;
+	}
+	return (res);
+}
+
+void	expand_vars(t_shell *shell)
+{
+	t_cmd	*cmd;
+	char	*new;
+
+	cmd = shell->cmd;
+	while (cmd)
+	{
+		if (cmd->name)
+		{
+			new = expand_token(shell, cmd->name);
+			if (!new)
+				return ;
+			free(cmd->name);
+			cmd->name = new;
+		}
+		cmd = cmd->next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 14:09:32 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 14:09:35 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	child_heredoc(char *limiter, int write_fd)
+{
+	char	*line;
+
+	signal(SIGINT, SIG_DFL);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || !ft_strncmp(line, limiter, ft_strlen(limiter) + 1))
+			break ;
+		write(write_fd, line, ft_strlen(line));
+		write(write_fd, "\n", 1);
+		free(line);
+	}
+	free(line);
+	close(write_fd);
+	exit(0);
+}
+
+int	handle_heredoc(char *limiter)
+{
+	int		fd[2];
+	pid_t	pid;
+	int		status;
+
+	if (pipe(fd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == -1)
+		return (-1);
+	if (pid == 0)
+	{
+		close(fd[0]);
+		child_heredoc(limiter, fd[1]);
+	}
+	close(fd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
+	{
+		close(fd[0]);
+		return (-1);
+	}
+	return (fd[0]);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 14:09:44 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 14:09:46 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	process_redirs(t_redir *r)
+{
+	while (r)
+	{
+		if (r->type == R_HEREDOC)
+		{
+			r->fd = handle_heredoc(r->target);
+			if (r->fd < 0)
+				return ;
+		}
+		r = r->next;
+	}
+}
+
+void	prepare_heredocs(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->redirs)
+			process_redirs(cmd->redirs);
+		cmd = get_next_cmd(cmd);
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:27:10 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 16:51:07 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+char	*read_line(void)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline(PS1);
+		if (!line)
+			return (NULL);
+		if (*line)
+		{
+			add_history(line);
+			return (line);
+		}
+		free(line);
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 12:35:27 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 10:36:36 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	count_something(char **args, int *i, int *j)
+{
+	while (args[*i])
+	{
+		if (args[*i][0] != '\0')
+			(*j)++;
+		(*i)++;
+	}
+}
+
+char	**clean_empty_args(char **args)
+{
+	int		i;
+	int		j;
+	char	**new;
+
+	if (!args)
+		return (NULL);
+	i = 0;
+	j = 0;
+	count_something(args, &i, &j);
+	new = malloc(sizeof(char *) * (j + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		if (args[i][0] != '\0')
+			new[j++] = ft_strdup(args[i]);
+		free(args[i]);
+		i++;
+	}
+	new[j] = NULL;
+	free(args);
+	return (new);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extract_redirs.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/13 18:25:13 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	get_redir_type(char *name)
+{
+	if (!name)
+		return (-1);
+	if (!ft_strncmp(name, "<", 2))
+		return (R_IN);
+	if (!ft_strncmp(name, ">", 2))
+		return (R_OUT);
+	if (!ft_strncmp(name, ">>", 3))
+		return (R_APPEND);
+	if (!ft_strncmp(name, "<<", 3))
+		return (R_HEREDOC);
+	return (-1);
+}
+
+static int	safe_add_redir(t_cmd *cmd, int type, char *filename)
+{
+	t_redir	*new;
+
+	new = redir_new(type, filename);
+	if (!new)
+		return (0);
+	redir_add_back(&cmd->redirs, new);
+	return (1);
+}
+
+static void	unlink_tokens(t_cmd **head, t_cmd *first, t_cmd *second)
+{
+	t_cmd	*prev;
+	t_cmd	*next;
+
+	prev = first->prev;
+	next = second->next;
+	if (prev)
+		prev->next = next;
+	else
+		*head = next;
+	if (next)
+		next->prev = prev;
+	ft_cmddelone(first);
+	ft_cmddelone(second);
+}
+
+void	extract_redirections(t_cmd *cmd)
+{
+	t_cmd	*cur;
+	t_cmd	*file;
+	int		type;
+
+	if (!cmd)
+		return ;
+	cur = cmd;
+	while (cur)
+	{
+		if (cur->type == REDIRECTION)
+		{
+			file = cur->next;
+			type = get_redir_type(cur->name);
+			if (!file || type == -1)
+				return ;
+			if (!safe_add_redir(cmd, type, file->name))
+				return ;
+			unlink_tokens(&cmd, cur, file);
+			cur = cmd;
+		}
+		else
+			cur = cur->next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_builtins.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 16:06:21 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 12:58:03 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	is_builtins(char *name)
+{
+	if (!name)
+		return (-1);
+	if (!ft_strncmp(name, "echo", 5))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "cd", 3))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "pwd", 4))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "export", 7))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "unset", 6))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "env", 4))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "exit", 5))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "clear", 6))
+		return (BUILTINS);
+	if (!ft_strncmp(name, "-", 1))
+		return ((OPTION));
+	return (-1);
+}
+
+int	has_multi_redir(char *str)
+{
+	int	i;
+	int	j;
+
+	if (!str)
+		return (0);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '<' || str[i] == '>')
+			j++;
+		else
+			j = 0;
+		if (j == 2)
+			if (str[i] != str[i - 1])
+				return (PARSEERROR);
+		if (j > 2)
+			return (PARSEERROR);
+		i++;
+	}
+	if (j == i && j == 2)
+		return (REDIRECTION);
+	return (0);
+}
+
+int	is_redirect(t_cmd *cmd)
+{
+	char	**new_args;
+
+	new_args = NULL;
+	if (ft_strchr(cmd->name, '<') || ft_strchr(cmd->name, '>'))
+	{
+		if (ft_strlen(cmd->name) > 1)
+		{
+			if (has_multi_redir(cmd->name) != 0)
+				return (has_multi_redir(cmd->name));
+			new_args = NULL;
+			new_args = ft_split_charset(cmd->name, "<>");
+			if (!new_args)
+				return (0);
+			add_commands(&cmd, new_args);
+			free_array(new_args);
+			return (TOREMOVE);
+		}
+		return (REDIRECTION);
+	}
+	return (0);
+}
+
+int	has_multi_pipes(char *str)
+{
+	int	i;
+	int	j;
+
+	if (!str)
+		return (0);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+			j++;
+		else
+			j = 0;
+		if (j > 2)
+			return (PARSEERROR);
+		i++;
+	}
+	if (j == i && j == 2)
+		return (OPERATOR);
+	return (0);
+}
+
+int	is_pipe(t_cmd *cmd)
+{
+	char	**new_args;
+
+	if (ft_strchr(cmd->name, '|'))
+	{
+		if (ft_strlen(cmd->name) > 1)
+		{
+			if (has_multi_pipes(cmd->name) != 0)
+				return (has_multi_pipes(cmd->name));
+			if (comb_redir_oper_pipes(cmd->name) != 0)
+				return (comb_redir_oper_pipes(cmd->name));
+			new_args = NULL;
+			new_args = ft_split_charset(cmd->name, "|");
+			if (!new_args)
+				return (0);
+			add_commands(&cmd, new_args);
+			free_array(new_args);
+			return (TOREMOVE);
+		}
+		return (PIPE);
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/14 13:37:26 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	command_type(t_cmd	*cmd)
+{
+	int	status;
+
+	if (cmd->quote || is_quoted(cmd->name))
+		return (ARGUMENT);
+	if (!cmd->name || !ft_strncmp(cmd->name, "-", 2))
+		return (PARSEERROR);
+	if (is_builtins(cmd->name) != -1)
+		return (is_builtins(cmd->name));
+	status = is_redirect(cmd);
+	if (status)
+		return (status);
+	status = is_pipe(cmd);
+	if (status)
+		return (status);
+	return (ARGUMENT);
+}
+
+void	add_commands(t_cmd	**cmd, char **elems)
+{
+	int		i;
+	int		old_size;
+
+	if (elems)
+	{
+		i = -1;
+		old_size = ft_cmdsize(*cmd);
+		while (elems[++i])
+		{
+			ft_cmdadd_back(cmd, ft_cmdnew(ft_strdup(elems[i]), 0));
+			if (!ft_cmdlast(*cmd))
+				return ;
+			ft_cmdlast(*cmd)->quote = get_token_quote(ft_cmdlast(*cmd)->name);
+			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+			if (!(ft_cmdsize(*cmd) > old_size))
+				return ;
+			old_size = ft_cmdsize(*cmd);
+		}
+	}
+}
+
+void	remove_waste(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+
+	while (cmd && cmd->next)
+	{
+		if (cmd->next->type == TOREMOVE)
+		{
+			tmp = cmd->next;
+			cmd->next = tmp->next;
+			if (cmd->next)
+				cmd->next->prev = cmd;
+			ft_cmddelone(tmp);
+		}
+		else
+			cmd = cmd->next;
+	}
+}
+
+t_cmd	*parse_command(char *line)
+{
+	char	**splitted_command;
+	t_cmd	*cmd;
+
+	splitted_command = tokenize_line(line);
+	if (!splitted_command)
+		return (NULL);
+	cmd = ft_cmdnew(ft_strdup(splitted_command[0]), 0);
+	if (!cmd)
+		return (free_array(splitted_command), NULL);
+	cmd->quote = get_token_quote(splitted_command[0]);
+	cmd->type = command_type(cmd);
+	if (cmd)
+		add_commands(&cmd, &splitted_command[1]);
+	free_array(splitted_command);
+	remove_waste(cmd);
+	if (has_parse_error(cmd))
+	{
+		ft_cmdclear(&cmd);
+		return (NULL);
+	}
+	return (cmd);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
+/*   Updated: 2026/01/14 13:36:58 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	type_of_char(int type, char c)
+{
+	if (c == '|')
+		return (PIPE * (type != PIPE) + OPERATOR * (type == PIPE));
+	if (c == '<' || c == '>')
+		return (REDIRECTION * (type != REDIRECTION) \
+	+ OPERATOR * (type == REDIRECTION));
+	return (0);
+}
+
+char	*return_error(char *err_token, int pos, int type)
+{
+	char	*err_return;
+
+	if (pos % 2 != 0 && type_of_char(0, err_token[pos]) \
+	== type_of_char(0, err_token[pos + 1]))
+		pos++;
+	else if (pos % 2 != 0)
+		pos--;
+	err_return = ft_calloc(ft_strlen(err_token), 1);
+	err_return[0] = err_token[pos];
+	if (err_token[++pos] && type_of_char(0, err_token[pos]) == type)
+		err_return[1] = err_token[pos];
+	return (err_return);
+}
+
+char	*token_error(char *token)
+{
+	int	i;
+	int	type;
+	int	actual;
+
+	i = 0;
+	actual = 0;
+	if (token)
+	{
+		i = ft_strlen(token) - 1;
+		type = type_of_char(0, token[i]);
+	}
+	while (i > 0 && token[--i])
+	{
+		actual = type_of_char(type, token[i]);
+		if (actual == PIPE && (type == OPERATOR || type == REDIRECTION))
+			return (return_error(token, i + 1, actual));
+		if (actual == REDIRECTION && (type == OPERATOR || type == PIPE))
+			return (return_error(token, i + 1, actual));
+		type = actual;
+	}
+	return (ft_strdup("newline"));
+}
+
+int	has_parse_error(t_cmd *cmd)
+{
+	char	*err;
+	t_cmd	*tmp;
+
+	tmp = ft_cmdlast(cmd);
+	if (tmp->type == REDIRECTION && ft_strncmp(token_error(tmp->name),
+			"newline", ft_strlen("newline")))
+	{
+		err = token_error(tmp->name);
+		printf("minishell: syntax error near unexpected token `%s'\n", err);
+		free(err);
+		return (1);
+	}
+	while (tmp)
+	{
+		if (!tmp->name)
+			return (0);
+		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
+		{
+			err = token_error(tmp->name);
+			printf("minishell: syntax error near unexpected token `%s'\n", \
+				err);
+			return (free(err), 1);
+		}
+		tmp = tmp->prev;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_split.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/10 17:32:07 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/16 13:54:03 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+static char	**free_sep(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (!tab)
+		return (NULL);
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
+}
+
+static size_t	count_words(const char *str, char *seps)
+{
+	int	i;
+	int	state;
+	int	count;
+	int	old_state;
+
+	i = 0;
+	state = !ft_strchr(seps, str[i]);
+	old_state = state;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] && state == old_state)
+			state = !ft_strchr(seps, str[i++]);
+		count++;
+		old_state = state;
+	}
+	if (state != !ft_strchr(seps, str[i - 2]))
+		count++;
+	return (count);
+}
+
+static void	next_word(char **word_ptr, size_t *size, char *c)
+{
+	int		state;
+	size_t	i;
+
+	*size = 0;
+	i = 0;
+	state = !ft_strchr(c, *word_ptr[i]);
+	while (**word_ptr && state == !ft_strchr(c, **word_ptr))
+	{
+		(*word_ptr)++;
+		(*size)++;
+	}
+}
+
+char	**ft_split_charset(char const *s, char *c)
+{
+	char	**sep;
+	char	*temp;
+	size_t	len_temp;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	sep = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1));
+	if (!sep)
+		return (NULL);
+	i = 0;
+	temp = (char *)s;
+	len_temp = 0;
+	while (i < count_words(s, c))
+	{
+		next_word(&temp, &len_temp, c);
+		sep[i] = (char *)malloc(sizeof(char) * (len_temp + 1));
+		if (!sep[i])
+			return (free_sep(sep));
+		ft_strlcpy(sep[i], temp - len_temp, len_temp + 1);
+		i++;
+	}
+	sep[i] = NULL;
+	return (sep);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_split.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 15:51:28 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/06 14:00:54 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	comb_redir_oper_pipes(char *token)
+{
+	int	i;
+	int	type;
+	int	count;
+
+	i = 0;
+	type = 0 + (token[i] == '|') * PIPE + \
+	(token[i] == '<' || token[i] == '>') * REDIRECTION;
+	count = 1;
+	while (token[++i])
+	{
+		if (type && type != (0 + (token[i] == '|') * PIPE + \
+			(token[i] == '<' || token[i] == '>') * REDIRECTION))
+			return (-1);
+		else if (type)
+			count++;
+	}
+	return (0);
+}
+
+static int	verify_two(char	*to_check)
+{
+	if (to_check)
+	{
+		if (ft_strlen(to_check) > 2)
+			return (2);
+		if (ft_strlen(to_check) == 2)
+			return (2 * (to_check[0] != to_check[1]));
+	}
+	return (0);
+}
+
+static int	m_split(t_cmd *cmd, char **to_fill, int size)
+{
+	int	i;
+	int	len;
+	int	state;
+	int	words;
+
+	i = 0;
+	len = 0;
+	words = 0;
+	state = ft_isalnum(cmd->name[0]);
+	to_fill = ft_calloc(size * sizeof(char *), 1);
+	while (cmd->name[i])
+	{
+		if (state != ft_isalnum(cmd->name[i]))
+		{
+			to_fill[words] = ft_strndup(&cmd->name[i - len], len);
+			len = 0;
+			words++;
+		}
+		len++;
+		i++;
+	}
+	if (len > 1)
+		to_fill[words++] = ft_strndup(&cmd->name[i - len], len);
+	to_fill[words] = NULL;
+	return (0);
+}
+
+int	redirect_split(t_cmd *cmd, char **to_fill)
+{
+	int	i;
+	int	nb;
+	int	nb_appear;
+
+	i = -1;
+	nb = 0;
+	nb_appear = 0;
+	while (cmd->name[++i])
+	{
+		if (cmd->name[i] == '<' || cmd->name[i] == '>')
+		{
+			nb++;
+			if (nb == 3)
+				return (2);
+		}
+		else
+		{
+			if (nb != 0)
+				nb_appear += 1;
+			nb = 0;
+		}
+	}
+	if (nb != 0)
+		return (verify_two(cmd->name));
+	return (m_split(cmd, to_fill, (nb_appear * 2 + 2)));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_empty_commands.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 13:51:39 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 10:33:28 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	is_empty_unquoted(t_cmd *cmd)
+{
+	if (!cmd || !cmd->name)
+		return (0);
+	if (cmd->quote)
+		return (0);
+	return (cmd->name[0] == '\0');
+}
+
+char	*strip_quotes(char *s)
+{
+	int		len;
+	char	*res;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	if (len >= 2 && ((s[0] == '"' && s[len - 1] == '"')
+			|| (s[0] == '\'' && s[len - 1] == '\'')))
+	{
+		res = ft_substr(s, 1, len - 2);
+		free(s);
+		return (res);
+	}
+	return (s);
+}
+
+void	remove_empty_commands(t_cmd **head)
+{
+	t_cmd	*cur;
+	t_cmd	*next;
+
+	cur = *head;
+	while (cur)
+	{
+		next = cur->next;
+		if (is_empty_unquoted(cur))
+		{
+			if (cur->prev)
+				cur->prev->next = cur->next;
+			else
+				*head = cur->next;
+			if (cur->next)
+				cur->next->prev = cur->prev;
+			ft_cmddelone(cur);
+		}
+		cur = next;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/14 13:18:58 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 13:22:52 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static char	*read_token(char *s, int *i, char *quote)
+{
+	char	buf[4096];
+	int		j;
+	char	current;
+
+	j = 0;
+	current = 0;
+	*quote = 0;
+	while (s[*i] == ' ' || s[*i] == '\t')
+		(*i)++;
+	if (!s[*i])
+		return (NULL);
+	if (is_operator_char(s[*i]))
+	{
+		buf[j++] = s[(*i)++];
+		if ((buf[0] == '<' || buf[0] == '>') \
+				&& s[*i] == buf[0])
+			buf[j++] = s[(*i)++];
+		buf[j] = '\0';
+		return (ft_strdup(buf));
+	}
+	while (s[*i])
+	{
+		if (!current && (s[*i] == '\'' || s[*i] == '"'))
+		{
+			current = s[*i];
+			if (!*quote)
+				*quote = current;
+			buf[j++] = s[(*i)++];
+		}
+		else if (current && s[*i] == current)
+		{
+			current = 0;
+			buf[j++] = s[(*i)++];
+		}
+		else if (!current && (s[*i] == ' ' || s[*i] == '\t' \
+					|| is_operator_char(s[*i])))
+			break ;
+		else
+			buf[j++] = s[(*i)++];
+	}
+	buf[j] = '\0';
+	return (ft_strdup(buf));
+}
+
+char	**tokenize_line(char *line)
+{
+	char	**tokens;
+	int		i;
+	int		count;
+	char	quote;
+
+	i = 0;
+	count = 0;
+	tokens = ft_calloc(1024, sizeof(char *));
+	if (!tokens)
+		return (NULL);
+	while (line[i])
+	{
+		tokens[count] = read_token(line, &i, &quote);
+		if (!tokens[count])
+			break ;
+		count++;
+	}
+	return (tokens);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 12:58:36 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+int	is_operator_char(char c)
+{
+	return (c == '<' || c == '>' || c == '|');
+}
+
+int	is_double_operator(char *s)
+{
+	if (!s || !s[1])
+		return (0);
+	if ((s[0] == '<' && s[1] == '<')
+		|| (s[0] == '>' && s[1] == '>'))
+		return (1);
+	return (0);
+}
+
+int	skip_spaces(char *s, int i)
+{
+	while (s[i] == ' ')
+		i++;
+	return (i);
+}
+
+int	read_quoted(char *s, int i, char quote)
+{
+	i++;
+	while (s[i] && s[i] != quote)
+		i++;
+	if (s[i] != quote)
+		return (-1);
+	return (i + 1);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils0,5.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 13:27:49 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 12:58:45 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	is_quote(char c)
+{
+	return (c == '\'' || c == '"');
+}
+
+int	read_unquoted(char *s, int i)
+{
+	while (s[i] && s[i] != ' ' && !is_quote(s[i]))
+		i++;
+	return (i);
+}
+
+char	get_token_quote(char *s)
+{
+	int		i;
+	char	current;
+
+	if (!s)
+		return (0);
+	i = 0;
+	current = 0;
+	while (s[i])
+	{
+		if (!current && (s[i] == '\'' || s[i] == '"'))
+			current = s[i];
+		else if (current && s[i] == current)
+			return (current);
+		i++;
+	}
+	return (0);
+}
+
+char	is_quoted(char *s)
+{
+	int	len;
+
+	if (!s)
+		return (0);
+	len = ft_strlen(s);
+	if (len < 2)
+		return (0);
+	if ((s[0] == '\'' || s[0] == '"') && s[len - 1] == s[0])
+		return (s[0]);
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 08:44:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/16 12:35:04 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static void	handle_sigint_prompt(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static void	handle_sigint_heredoc(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	exit(130);
+}
+
+void	init_signal(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = handle_sigint_prompt;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	signal_exec(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = SIG_IGN;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	signal_child(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	signal_heredoc(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = handle_sigint_heredoc;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/02 09:20:15 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 10:33:19 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	convert_env_variables(t_shell *shell, char **envp)
+{
+	int			i;
+	char		**tmp;
+
+	i = -1;
+	shell->envp = NULL;
+	while (envp[++i])
+	{
+		tmp = ft_split(envp[i], '=');
+		if (!tmp)
+			exit(EXIT_FAILURE);
+		if (!get_value(shell, tmp[0]))
+		{
+			ft_lkladd_back(&shell->envp,
+				ft_lklnew(ft_strdup(tmp[0]),
+					ft_strdup(ft_strchr(envp[i], '=') + 1)));
+			free_array(tmp);
+		}
+	}
+}
+
+char	*get_value(t_shell *shell, char *name)
+{
+	t_var_list	*tmp;
+
+	if (!shell || !name)
+		return (NULL);
+	tmp = shell->envp;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->name, name, ft_strlen(name) + 1) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+t_shell	*create_shell_struct(char **envp)
+{
+	t_shell	*shell;
+
+	shell = malloc(sizeof(t_shell));
+	if (!shell)
+		exit(EXIT_FAILURE);
+	convert_env_variables(shell, envp);
+	recreate_envp(shell);
+	shell->cmd = NULL;
+	shell->last_return = 0;
+	if (!shell->envp)
+		exit(EXIT_FAILURE);
+	return (shell);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_argv.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/16 11:40:42 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/07 16:01:01 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+static int	count_args(t_cmd *cmd)
+{
+	int	count;
+
+	count = 0;
+	while (cmd && cmd->type != PIPE)
+	{
+		if (cmd->type == ARGUMENT || cmd->type == OPTION
+			|| cmd->type == BUILTINS)
+			count++;
+		cmd = cmd->next;
+	}
+	return (count);
+}
+
+char	**build_argv(t_cmd *cmd)
+{
+	char	**argv;
+	int		i;
+
+	if (!cmd)
+		return (NULL);
+	argv = malloc(sizeof(char *) * (count_args(cmd) + 1));
+	if (!argv)
+		return (NULL);
+	i = 0;
+	while (cmd && cmd->type != PIPE)
+	{
+		if (cmd->type == ARGUMENT || cmd->type == OPTION
+			|| cmd->type == BUILTINS)
+			argv[i++] = ft_strdup(cmd->name);
+		cmd = cmd->next;
+	}
+	argv[i] = NULL;
+	return (argv);
+}
+
+int	has_pipe(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->type == PIPE)
+			return (1);
+		if (cmd->type == OPERATOR && cmd->name
+			&& cmd->name[0] == '|' && cmd->name[1] == '\0')
+			return (1);
+		cmd = cmd->next;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extract_next_cmd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 16:05:03 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/16 14:05:40 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_cmd	extract_next_cmd(t_cmd *cmd)
+{
+	t_cmd	new;
+
+	new.name = NULL;
+	new.type = 0;
+	if (!cmd || !cmd->type)
+		return (new);
+	return (new);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdadd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 16:55:35 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
+{
+	t_cmd	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		last = ft_cmdlast(*lst);
+		new->prev = last;
+		last->next = new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdadd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:16:52 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/08 13:20:34 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_cmdadd_front(t_cmd **lst, t_cmd *new)
+{
+	if (new != NULL)
+	{
+		if (lst != NULL)
+		{
+			(*lst)->prev = new;
+			new->next = *lst;
+			*lst = new;
+		}
+		else
+			lst = &new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdclear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 20:23:51 by dadoune          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_cmdclear(t_cmd **lst)
+{
+	t_cmd	*temp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		free((*lst)->name);
+		free(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
+}
+
+// void del(void *p) { free(p); }
+// int main(void)
+// {
+//     t_cmd *a = ft_lstnew(strdup("one"));
+//     ft_lstadd_back(&a, ft_lstnew(strdup("two")));
+//     ft_lstclear(&a, del);
+//     return (0);
+// }
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmddel_one.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 12:03:23 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/14 13:16:28 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_cmddelone(t_cmd *lst)
+{
+	t_redir	*tmp;
+
+	if (!lst)
+		return ;
+	free(lst->name);
+	while (lst->redirs)
+	{
+		tmp = lst->redirs->next;
+		free(lst->redirs->target);
+		free(lst->redirs);
+		lst->redirs = tmp;
+	}
+	free(lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdlast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 14:19:17 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/08 13:20:12 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_cmd	*ft_cmdlast(t_cmd *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:31 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/05 11:05:48 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_cmd	*ft_cmdnew(char *name, int type)
+{
+	t_cmd	*elem;
+
+	elem = malloc(sizeof(t_cmd));
+	if (!elem)
+		return (NULL);
+	elem->name = name;
+	elem->type = type;
+	elem->next = NULL;
+	elem->prev = NULL;
+	elem->redirs = NULL;
+	return (elem);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cmdsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 10:02:52 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/08 13:20:09 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+int	ft_cmdsize(t_cmd *lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redir_addback.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 11:11:25 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/13 10:31:25 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	redir_add_back(t_redir **lst, t_redir *new)
+{
+	t_redir	*tmp;
+
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirnew.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/05 11:09:34 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/13 10:29:48 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_redir	*redir_new(t_redir_type type, char *target)
+{
+	t_redir	*r;
+
+	r = malloc(sizeof(t_redir));
+	if (!r)
+		return (NULL);
+	r->type = type;
+	r->target = ft_strdup(target);
+	r->fd = -1;
+	r->next = NULL;
+	return (r);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lkladd_back.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:17 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/16 13:57:50 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lkladd_back(t_var_list **lst, t_var_list *new)
+{
+	t_var_list	*last;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		last = ft_lkllast(*lst);
+		new->previous = last;
+		last->next = new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lkladd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/29 20:16:52 by dadoune           #+#    #+#             */
+/*   Updated: 2025/12/05 14:12:53 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lkladd_front(t_var_list **lst, t_var_list *new)
+{
+	if (new != NULL)
+	{
+		if (lst != NULL)
+		{
+			(*lst)->previous = new;
+			new->next = *lst;
+			*lst = new;
+		}
+		else
+			lst = &new;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lklclear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 14:24:50 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lklclear(t_var_list **lst)
+{
+	t_var_list	*temp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		free((*lst)->name);
+		free((*lst)->value);
+		free(*lst);
+		*lst = temp;
+	}
+	*lst = NULL;
+}
+
+// void del(void *p) { free(p); }
+// int main(void)
+// {
+//     t_var_list *a = ft_lstnew(strdup("one"));
+//     ft_lstadd_back(&a, ft_lstnew(strdup("two")));
+//     ft_lstclear(&a, del);
+//     return (0);
+// }
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lkldel_one.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 12:03:23 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 12:56:54 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lkldelone(t_var_list *lst)
+{
+	if (!lst)
+		return ;
+	free(lst->name);
+	free(lst->value);
+	free(lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lkllast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 14:19:17 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/05 14:22:57 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_var_list	*ft_lkllast(t_var_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lklmodify_value.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 11:23:17 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/16 13:58:00 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lkl_modify(t_var_list **lst, char *value)
+{
+	if (lst && *lst)
+	{
+		free((*lst)->value);
+		(*lst)->value = value;
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lklnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 12:34:31 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 13:36:46 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+t_var_list	*ft_lklnew(char *name, char *value)
+{
+	t_var_list	*elem;
+
+	elem = malloc(sizeof(t_var_list));
+	if (!elem)
+		return (NULL);
+	elem->name = name;
+	elem->value = value;
+	elem->next = NULL;
+	elem->previous = NULL;
+	return (elem);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lklremove.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/09 15:36:50 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/09 15:37:23 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+void	ft_lklremove(t_var_list **lst, t_var_list *node)
+{
+	if (!lst || !*lst || !node)
+		return ;
+	if (node->previous)
+		node->previous->next = node->next;
+	else
+		*lst = node->next;
+	if (node->next)
+		node->next->previous = node->previous;
+	free(node->name);
+	free(node->value);
+	free(node);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lklsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 10:02:52 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/05 13:33:49 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+
+int	ft_lklsize(t_var_list *lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   action.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 16:36:59 by zcadinot          #+#    #+#             */
+/*   Updated: 2025/12/17 11:48:59 by zcadinot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	clear(void)
+{
+	printf("\e[1;1H\e[2J");
+	print_header("src/utils/header.txt");
+	return ;
+}
+
+t_cmd	*get_next_cmd(t_cmd *cmd)
+{
+	while (cmd && cmd->type != PIPE)
+		cmd = cmd->next;
+	if (cmd && cmd->type == PIPE)
+		cmd = cmd->next;
+	return (cmd);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envp.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
+/*   Updated: 2025/12/16 12:32:52 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	convert_envp(t_shell *shell, int size, t_var_list *tmp)
+{
+	int	i;
+	int	line_size;
+
+	i = 0;
+	while (i < size)
+	{
+		line_size = 2;
+		if (tmp->name)
+			line_size += ft_strlen(tmp->name);
+		if (tmp->value)
+			line_size += ft_strlen(tmp->value);
+		shell->envp_tmp[i] = ft_calloc(line_size, 1);
+		if (tmp->name)
+			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->name);
+		shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], "=");
+		if (tmp->value)
+			shell->envp_tmp[i] = join_and_free(shell->envp_tmp[i], tmp->value);
+		tmp = tmp->next;
+		i++;
+	}
+}
+
+void	recreate_envp(t_shell *shell)
+{
+	int			size;
+	t_var_list	*tmp;
+
+	tmp = shell->envp;
+	size = ft_lklsize(tmp);
+	shell->envp_tmp = ft_calloc(size + 1, sizeof(char *));
+	convert_envp(shell, size, tmp);
+	shell->envp_tmp[size] = NULL;
+}
+
+// char *value must be malloced
+void	set_value(t_shell **shell, char *to_change, char *value)
+{
+	t_var_list	*tmp;
+
+	tmp = (*shell)->envp;
+	while (tmp && ft_strncmp(tmp->name, to_change, ft_strlen(to_change)))
+		tmp = tmp->next;
+	if (tmp)
+		ft_lkl_modify(&tmp, value);
+	else
+	{
+		tmp = ft_lkllast((*shell)->envp);
+		ft_lkladd_back(&tmp, ft_lklnew(to_change, value));
+	}
+	free_array((*shell)->envp_tmp);
+	recreate_envp(*shell);
+	return ;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   frees.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 13:10:09 by aeherve           #+#    #+#             */
+/*   Updated: 2026/01/14 15:59:17 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+void	free_shell(t_shell *shell)
+{
+	if (shell)
+	{
+		if (shell->cmd)
+			ft_cmdclear(&shell->cmd);
+		if (shell->envp)
+			ft_lklclear(&shell->envp);
+		if (shell->envp_tmp)
+			free_array(shell->envp_tmp);
+		free(shell);
+	}
+}
+
+char	*join_and_free(char *s1, char *s2)
+{
+	char	*res;
+
+	if (!s1 || !s2)
+		return (NULL);
+	res = ft_strjoin(s1, s2);
+	if (!res)
+	{
+		free(s1);
+		return (NULL);
+	}
+	free(s1);
+	return (res);
+}
+
+/*
+clear actual node if exists and go to the next one if exists
+*/
+void	clean_command_free(t_shell *shell)
+{
+	if (shell && shell->cmd)
+	{
+		if (shell->cmd->next)
+		{
+			shell->cmd = shell->cmd->next;
+			ft_cmddelone(shell->cmd->prev);
+			shell->cmd->prev = NULL;
+		}
+		else
+		{
+			ft_cmddelone(shell->cmd);
+			shell->cmd = NULL;
+		}
+	}
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 14:51:15 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/13 10:28:43 by aeherve          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static int	print_file(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	printf("\n");
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	printf("\n");
+	return (0);
+}
+
+int	print_header(char *path)
+{
+	int	fd;
+
+	if (!path)
+		return (ft_putstr_fd("cat: missing file\n", 2), 1);
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	print_file(fd);
+	close(fd);
+	return (0);
+}

@@ -116,7 +116,7 @@ void	shell_loop(t_shell *shell)
 				{
 					treat_fd(save_in, save_out);
 					ft_cmdclear(&shell->cmd);
-					break ;
+					continue ;
 				}
 				exec_builtins(shell);
 				treat_fd(save_in, save_out);

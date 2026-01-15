@@ -48,6 +48,8 @@ static void	exec_child(t_shell *shell, t_pipedata data)
 	if (data.pipefd[1] != STDOUT_FILENO)
 		dup2(data.pipefd[1], STDOUT_FILENO);
 	close_child_fds(data);
+	if (apply_redirections(data.cmd))
+		exit(1);
 	if (data.cmd->type == BUILTINS)
 		exit(exec_builtin_pipe(shell, data.cmd));
 	path = get_cmd_path(shell, data.cmd->name);
@@ -57,14 +59,14 @@ static void	exec_child(t_shell *shell, t_pipedata data)
 		exit(127);
 	}
 	argv = build_argv(data.cmd);
-	if (!argv || apply_redirections(data.cmd))
+	if (!argv)
 	{
-		free_child_exec(shell, path, argv);
+		free(path);
 		exit(1);
 	}
 	execve(path, argv, shell->envp_tmp);
 	free_child_exec(shell, path, argv);
-	exit(1);
+	exit(126);
 }
 
 void	exec_pipeline(t_shell *shell)
