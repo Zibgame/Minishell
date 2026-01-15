@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 11:29:30 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:40:44 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	close_child_fds(t_pipedata data)
 		close(data.pipefd[1]);
 }
 
-static void	exec_child(t_shell *shell, t_pipedata data)
+static void	exec_child(t_shell *shell, t_pipedata data, char *line)
 {
 	char	*path;
 	char	**argv;
@@ -48,6 +48,7 @@ static void	exec_child(t_shell *shell, t_pipedata data)
 	if (data.pipefd[1] != STDOUT_FILENO)
 		dup2(data.pipefd[1], STDOUT_FILENO);
 	close_child_fds(data);
+	free(line);
 	if (apply_redirections(data.cmd))
 		exit(1);
 	if (data.cmd->type == BUILTINS)
@@ -69,7 +70,7 @@ static void	exec_child(t_shell *shell, t_pipedata data)
 	exit(126);
 }
 
-void	exec_pipeline(t_shell *shell)
+void	exec_pipeline(t_shell *shell, char *line)
 {
 	t_pipedata	data;
 
@@ -84,7 +85,7 @@ void	exec_pipeline(t_shell *shell)
 			data.pipefd[1] = STDOUT_FILENO;
 		data.pid = fork();
 		if (data.pid == 0)
-			exec_child(shell, data);
+			exec_child(shell, data, line);
 		if (data.pid > 0)
 			data.last_pid = data.pid;
 		if (data.in_fd != STDIN_FILENO)

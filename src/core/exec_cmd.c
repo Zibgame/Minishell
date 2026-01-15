@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:04:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/13 18:09:18 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/15 10:47:00 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	exec_cmd(t_shell *shell, char *line)
 	if (!args || !args[0])
 	{
 		free_array(args);
+		ft_cmdclear(&shell->cmd);
 		return ;
 	}
 	path = NULL;
@@ -68,6 +69,7 @@ void	exec_cmd(t_shell *shell, char *line)
 		if (handle_direct_path(shell, args[0]))
 		{
 			free_array(args);
+			ft_cmdclear(&shell->cmd);
 			return ;
 		}
 		path = ft_strdup(args[0]);
@@ -79,6 +81,7 @@ void	exec_cmd(t_shell *shell, char *line)
 		ft_printf_fd("minishell: %s: command not found\n", 2, args[0]);
 		return_type(shell, line);
 		free_array(args);
+		ft_cmdclear(&shell->cmd);
 		return ;
 	}
 	pid = fork();
@@ -98,4 +101,5 @@ void	exec_cmd(t_shell *shell, char *line)
 		shell->last_return = 128 + WTERMSIG(status);
 	free(path);
 	free_array(args);
+	ft_cmdclear(&shell->cmd);
 }

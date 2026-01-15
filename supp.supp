@@ -16,21 +16,6 @@
     ...
     fun:add_history
 }
-
-{
-   minishell_recreate_line_leak
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:ft_strjoin
-   fun:join_and_free
-   fun:recreate_line
-   fun:create_command
-   fun:shell_loop
-   fun:start_shell
-   fun:main
-}
-
 {
     usrbin
     Memcheck:Leak

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 15:48:26 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:35:16 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	recreate_line(t_shell *shell, char **line)
 static void	create_command(t_shell *shell, char **line)
 {
 	shell->cmd = parse_command(*line);
-	if (!shell->cmd)
+	if (!shell->cmd || !shell->cmd->name)
 		return ;
 	expand_vars(shell);
 	remove_empty_commands(&shell->cmd);
@@ -107,7 +107,7 @@ void	shell_loop(t_shell *shell)
 		if (shell->cmd)
 		{
 			if (has_pipe(shell->cmd))
-				exec_pipeline(shell);
+				exec_pipeline(shell, line);
 			else if (shell->cmd->type == BUILTINS)
 			{
 				save_in = dup(STDIN_FILENO);
@@ -123,17 +123,11 @@ void	shell_loop(t_shell *shell)
 				ft_cmdclear(&shell->cmd);
 			}
 			else
-			{
 				exec_cmd(shell, line);
-				free(line);
-				line = NULL;
-			}
 		free(line);
 		line = NULL;
 		}
 	}
-	if (line)
-		free(line);
 	free_shell(shell);
 	rl_clear_history();
 	rl_free_line_state();

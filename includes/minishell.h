@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 15:39:23 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 10:26:57 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char		*strip_quotes(char *s);
 void		display_list(t_cmd	*cmd);
 
 /* == Pipex ==*/
-void		exec_pipeline(t_shell *shell);
+void		exec_pipeline(t_shell *shell, char *line);
 int			has_pipe(t_cmd *cmd);
 
 /* == Redirs == */
@@ -144,7 +144,5 @@ void	signal_prompt(void);
 void	signal_exec(void);
 void	signal_child(void);
 void	signal_heredoc(void);
-
-void	exec_pipeline(t_shell *shell);
 
 #endif
