@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 11:11:08 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 13:33:38 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	shell_loop(t_shell *shell)
 				save_out = dup(STDOUT_FILENO);
 				if (apply_redirections(shell->cmd))
 				{
+					shell->last_return = 1;
 					treat_fd(save_in, save_out);
 					ft_cmdclear(&shell->cmd);
 					continue ;

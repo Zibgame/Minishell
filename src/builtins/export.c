@@ -62,7 +62,7 @@ int	export(t_shell *shell)
 		set_value(&shell, env_var[0], env_var[1]);
 		clean_command_free(shell);
 		shell->last_return = 0;
-		free(env_var);
+		free_array(env_var);
 		return (0);
 	}
 	ft_printf_fd("bash: export: `%s': not a valid identifier\n", 2, \
