@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 10:26:57 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 11:19:22 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ char		is_quoted(char *s);
 int			handle_direct_path(t_shell *shell, char *cmd);
 
 /* HEREDOC */
-void		prepare_heredocs(t_cmd *cmd);
-int			handle_heredoc(char *limiter);
-
+void		prepare_heredocs(t_shell *shell, t_cmd *cmd);
+int			handle_heredoc(t_shell *shell, char *limiter);
+void 		ft_redirclear(t_redir **red);
 /* == expansion == */
 void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:09:32 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/05 14:09:35 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/15 11:17:10 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	child_heredoc(char *limiter, int write_fd)
+static void	child_heredoc(t_shell *shell, char *limiter, int write_fd)
 {
 	char	*line;
 
@@ -27,15 +27,17 @@ static void	child_heredoc(char *limiter, int write_fd)
 		free(line);
 	}
 	free(line);
+	free_shell(shell);
 	close(write_fd);
 	exit(0);
 }
 
-int	handle_heredoc(char *limiter)
+int	handle_heredoc(t_shell *shell, char *limiter)
 {
 	int		fd[2];
 	pid_t	pid;
 	int		status;
+	t_redir	*tmp;
 
 	if (pipe(fd) == -1)
 		return (-1);
@@ -45,10 +47,12 @@ int	handle_heredoc(char *limiter)
 	if (pid == 0)
 	{
 		close(fd[0]);
-		child_heredoc(limiter, fd[1]);
+		child_heredoc(shell, limiter, fd[1]);
 	}
 	close(fd[1]);
 	waitpid(pid, &status, 0);
+	tmp = shell->cmd->redirs->next;
+	
 	if (WIFSIGNALED(status))
 	{
 		close(fd[0]);

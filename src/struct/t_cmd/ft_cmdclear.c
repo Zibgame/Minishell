@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmdclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/09 20:23:51 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/15 11:19:49 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+void 	ft_redirclear(t_redir **red)
+{
+	t_redir	*temp;
+
+	if (!red)
+		return ;
+	while (*red)
+	{
+		temp = (*red)->next;
+		free((*red)->target);
+		free(*red);
+		*red = temp;
+	}
+	*red = NULL;
+}
 
 void	ft_cmdclear(t_cmd **lst)
 {
@@ -22,6 +38,7 @@ void	ft_cmdclear(t_cmd **lst)
 	{
 		temp = (*lst)->next;
 		free((*lst)->name);
+		ft_redirclear(&(*lst)->redirs);
 		free(*lst);
 		*lst = temp;
 	}

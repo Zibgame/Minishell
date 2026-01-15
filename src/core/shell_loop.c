@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 10:57:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 11:11:08 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	create_command(t_shell *shell, char **line)
 	expand_vars(shell);
 	remove_empty_commands(&shell->cmd);
 	extract_redirections(shell->cmd);
-	prepare_heredocs(shell->cmd);
+	prepare_heredocs(shell, shell->cmd);
 	recreate_line(shell, line);
 }
 
