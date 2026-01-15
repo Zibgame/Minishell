@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 14:29:48 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/15 15:36:41 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	**cmdtoarg(t_cmd *cmd)
 {
 	int		i;
 	char	**tmp;
-
+;
 	if (!cmd)
 		return (NULL);
 	tmp = ft_calloc(ft_cmdsize(cmd) + 1, sizeof(char *));
