@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/17 19:39:29 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/17 20:18:41 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ static int	get_exit_status(int status)
 	return (1);
 }
 
-static void	free_child_exec(t_shell *shell, char *path, char **argv)
-{
-	if (path)
-		free(path);
-	if (argv)
-		free_array(argv);
-	free_shell(shell);
-}
-
 static void	close_child_fds(t_pipedata data)
 {
 	if (data.pipefd[0] != STDIN_FILENO)
@@ -38,6 +29,17 @@ static void	close_child_fds(t_pipedata data)
 		close(data.pipefd[1]);
 }
 
+static void	clean_exit(t_shell *shell, int err_code, char *path, char **argv)
+{
+	if (path)
+		free(path);
+	if (argv)
+		free_array(argv);
+	free_shell(shell);
+	if (err_code == 127)
+		ft_putstr_fd("minishell: command not found\n", 2);
+	exit(err_code);
+}
 static void	exec_child(t_shell *shell, t_pipedata data, char *line)
 {
 	char	*path;
@@ -50,24 +52,17 @@ static void	exec_child(t_shell *shell, t_pipedata data, char *line)
 	close_child_fds(data);
 	free(line);
 	if (apply_redirections(data.cmd))
-		exit(1);
+		clean_exit(shell, 1, NULL, NULL);
 	if (data.cmd->type == BUILTINS)
 		exit(exec_builtin_pipe(shell, data.cmd));
 	path = get_cmd_path(shell, data.cmd->name);
 	if (!path)
-	{
-		ft_putstr_fd("minishell: command not found\n", 2);
-		exit(127);
-	}
+		clean_exit(shell, 127, NULL, NULL);
 	argv = build_argv(data.cmd);
 	if (!argv)
-	{
-		free(path);
-		exit(1);
-	}
+		clean_exit(shell, 1, path, NULL);
 	execve(path, argv, shell->envp_tmp);
-	free_child_exec(shell, path, argv);
-	exit(126);
+	clean_exit(shell, 126, path, argv);
 }
 
 void	exec_pipeline(t_shell *shell, char *line)
@@ -95,6 +90,7 @@ void	exec_pipeline(t_shell *shell, char *line)
 		data.in_fd = data.pipefd[0];
 		data.cmd = get_next_cmd(data.cmd);
 	}
+	ft_cmdclear(&shell->cmd);
 	if (data.in_fd != STDIN_FILENO)
 		close(data.in_fd);
 	waitpid(data.last_pid, &data.status, 0);

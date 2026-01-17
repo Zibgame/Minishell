@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/17 19:39:48 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/17 20:13:50 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static int	safe_add_redir(t_cmd *cmd, int type, char *filename)
 
 static t_cmd	*find_cmd_for_redir(t_shell *shell, t_cmd *redir)
 {
-	t_cmd			*target;
+	char	*is_path;
+	t_cmd	*target;
 
 	target = redir->prev;
 	while (target)
@@ -79,8 +80,9 @@ static t_cmd	*find_cmd_for_redir(t_shell *shell, t_cmd *redir)
 			return (target);
 		if (target->type == ARGUMENT)
 		{
-			if(get_cmd_path(shell, target->name) != NULL)
-				return (target);
+			is_path = get_cmd_path(shell, target->name);
+			if(is_path != NULL)
+				return (free(is_path), target);
 		}
 		if (target->type == PIPE)
 			break;
