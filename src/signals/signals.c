@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-// Global shell pointer for signal handlers
 static t_shell	*g_shell = NULL;
 
 static void	handle_sigint_prompt(int sig)

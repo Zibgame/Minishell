@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:09:32 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 11:17:10 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/17 19:40:54 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	handle_heredoc(t_shell *shell, char *limiter)
 	int		fd[2];
 	pid_t	pid;
 	int		status;
-	t_redir	*tmp;
 
 	if (pipe(fd) == -1)
 		return (-1);
@@ -50,9 +49,7 @@ int	handle_heredoc(t_shell *shell, char *limiter)
 		child_heredoc(shell, limiter, fd[1]);
 	}
 	close(fd[1]);
-	waitpid(pid, &status, 0);
-	tmp = shell->cmd->redirs->next;
-	
+	waitpid(pid, &status, 0);	
 	if (WIFSIGNALED(status))
 	{
 		close(fd[0]);

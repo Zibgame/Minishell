@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 15:40:13 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/17 19:23:54 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	create_command(t_shell *shell, char **line)
 		return ;
 	expand_vars(shell);
 	remove_empty_commands(&shell->cmd);
-	extract_redirections(shell->cmd);
+	extract_redirections(shell, shell->cmd);
 	prepare_heredocs(shell, shell->cmd);
 	recreate_line(shell, line);
 }

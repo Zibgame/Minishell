@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:42:14 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 13:32:15 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:51:06 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	open_all_redirections(t_cmd *cmd)
 			r->fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (r->type == R_APPEND)
 			r->fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		
 		if (r->fd < 0)
 		{
 			perror(r->target);

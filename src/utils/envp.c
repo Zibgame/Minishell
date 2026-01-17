@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:03:04 by aeherve           #+#    #+#             */
-/*   Updated: 2025/12/16 12:32:52 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/17 19:41:18 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	recreate_envp(t_shell *shell)
 	shell->envp_tmp[size] = NULL;
 }
 
-// char *value must be malloced
 void	set_value(t_shell **shell, char *to_change, char *value)
 {
 	t_var_list	*tmp;

@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 10:41:31 by aeherve           #+#    #+#             */
-/*   Updated: 2025/11/26 20:00:40 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/17 19:40:22 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	tab[count] = '\0';
 	return (tab);
 }
-
-// #include <stdio.h>
-// int main(void)
-// {
-// 	char	str[] = "lorem ipsum dolor sit amet";
-// 	char	*strsub;
-// 	strsub = ft_substr(str, 7, 10);
-// 	printf("%s", strsub);
-// }

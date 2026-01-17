@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 15:55:24 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/17 19:24:05 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		set_value(t_shell **shell, char *to_change, char *value);
 /* == Parsing == */
 t_cmd		*parse_command(char *line);
 int			has_parse_error(t_cmd *cmd);
-void		extract_redirections(t_cmd *cmd);
+void		extract_redirections(t_shell *shell, t_cmd *cmd);
 int			comb_redir_oper_pipes(char *token);
 int			redirect_split(t_cmd *cmd, char **to_fill);
 void		set_value(t_shell **shell, char *to_change, char *value);

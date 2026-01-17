@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/15 15:12:32 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/17 19:39:48 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_clean_filename(char *name)
 	int		j;
 	int		len;
 
-	if (! name)
+	if (!name)
 		return (NULL);
 	len = ft_strlen(name);
 	clean = malloc(len + 1);
@@ -68,7 +68,28 @@ static int	safe_add_redir(t_cmd *cmd, int type, char *filename)
 	return (1);
 }
 
-static void	unlink_tokens(t_cmd **head, t_cmd *first, t_cmd *second)
+static t_cmd	*find_cmd_for_redir(t_shell *shell, t_cmd *redir)
+{
+	t_cmd			*target;
+
+	target = redir->prev;
+	while (target)
+	{
+		if (target->type == BUILTINS)
+			return (target);
+		if (target->type == ARGUMENT)
+		{
+			if(get_cmd_path(shell, target->name) != NULL)
+				return (target);
+		}
+		if (target->type == PIPE)
+			break;
+		target = target->prev;
+	}
+	return (redir);
+}
+
+static t_cmd	*safe_unlink_tokens(t_cmd **head, t_cmd *first, t_cmd *second)
 {
 	t_cmd	*prev;
 	t_cmd	*next;
@@ -83,12 +104,14 @@ static void	unlink_tokens(t_cmd **head, t_cmd *first, t_cmd *second)
 		next->prev = prev;
 	ft_cmddelone(first);
 	ft_cmddelone(second);
+	return (next);
 }
 
-void	extract_redirections(t_cmd *cmd)
+void	extract_redirections(t_shell *shell, t_cmd *cmd)
 {
 	t_cmd	*cur;
 	t_cmd	*file;
+	t_cmd	*target_cmd;
 	int		type;
 
 	if (!cmd)
@@ -102,10 +125,12 @@ void	extract_redirections(t_cmd *cmd)
 			type = get_redir_type(cur->name);
 			if (!file || type == -1)
 				return ;
-			if (!safe_add_redir(cmd, type, file->name))
+			target_cmd = find_cmd_for_redir(shell, cur);
+			if (!target_cmd)
 				return ;
-			unlink_tokens(&cmd, cur, file);
-			cur = cmd;
+			if (!safe_add_redir(target_cmd, type, file->name))
+				return ;
+			cur = safe_unlink_tokens(&cmd, cur, file);
 		}
 		else
 			cur = cur->next;
