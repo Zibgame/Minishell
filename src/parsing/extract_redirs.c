@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/19 13:52:39 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 16:02:37 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ static t_cmd	*find_cmd_for_redir(t_shell *shell, t_cmd *redir)
 		if (target->type == ARGUMENT)
 		{
 			is_path = get_cmd_path(shell, target->name);
-			if(is_path != NULL)
+			if (is_path != NULL)
 				return (free(is_path), target);
 		}
 		if (target->type == PIPE)
-			break;
+			break ;
 		target = target->prev;
 	}
 	return (redir);

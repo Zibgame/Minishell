@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:25:00 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/17 20:18:41 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/19 16:03:28 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	clean_exit(t_shell *shell, int err_code, char *path, char **argv)
 		ft_putstr_fd("minishell: command not found\n", 2);
 	exit(err_code);
 }
+
 static void	exec_child(t_shell *shell, t_pipedata data, char *line)
 {
 	char	*path;
