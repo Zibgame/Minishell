@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:09:32 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 14:36:19 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:21:02 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	set_sigint_default(void)
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = SIG_DFL;
+	sa.sa_handler = &free_all;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		return (-1);

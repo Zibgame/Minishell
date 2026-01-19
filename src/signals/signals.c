@@ -29,7 +29,7 @@ static void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	exit(130);
+	exit(130); 	 	
 }
 
 void	init_signal(void)
