@@ -26,3 +26,4 @@ make
 Wildcards *
 
 Logical operators && and ||
+s
