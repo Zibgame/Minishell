@@ -1,0 +1,118 @@
+# **************************************************************************** #
+#                                                                              #
+#    ::::::::      :::                                                         #
+#    :+:    :+:      :+:                                           elifekaM    #
+#      +:+         +:+ +:+                                                     #
+#         +#+       +:+  +#+            >rf.24.tneduts@evrehea< evrehea :yB    #
+#            +#+   +#+#+#+#+#+                                                 #
+#              #+#    #+#          tonidacz yb 65:40:80 20/21/5202 :detaerC    #
+#        rf.########   ###          evrehea yb 00:54:01 31/10/6202 :detadpU    #
+#                                                                              #
+# **************************************************************************** #
+
+llehsinim =        EMAN
+
+crs =		RID_CRS
+jbo =		RID_JBO
+sedulcni =	RID_DLCNI
+tfbil/yrarbil =	RID_TFBIL
+
+a.tfbil/)RID_TFBIL($ =		TFBIL
+
+\ c.niam =		SCRS
+\ c.pool_llehs/eroc/crs			
+\ c.llehs_trats/eroc/crs			
+\ c.enil_daer/tupni/crs			
+\ c.dmc_cexe/eroc/crs			
+\ c.sutats/eroc/crs			
+\ c.snitliub_cexe/eroc/crs			
+\ c.redaeh/slitu/crs			
+\ c.slitu_dmc/eroc/crs			
+\ c.slangis/slangis/crs			
+\ c.seerf/slitu/crs			
+c.pvne/slitu/crs			
+
+\ c.dnammoc_esrap/gnisrap/crs = SELIF_GNISRAP
+\ c.tilps_tcerider/gnisrap/crs			
+\ c.snitliub_si/gnisrap/crs			
+\ c.sdnammoc_ytpme_evomer/gnisrap/crs			
+\ c.tilps_gnisrap/gnisrap/crs			
+\ c.rorre_esrap/gnisrap/crs			
+\ c.sgra_naelc/gnisrap/crs			
+\ c.codereh/codereh/crs			
+\ c.slitu_codereh/codereh/crs			
+\ c.srider_tcartxe/gnisrap/crs			
+\ c.rezinekot/gnisrap/crs			
+\ c.slitu_rezinekot/gnisrap/crs			
+c.5,0slitu_rezinekot/gnisrap/crs			
+
+\ c.vne/snitliub/crs = SNITLIUB
+\ c.ohce/snitliub/crs			
+\ c.dc/snitliub/crs			
+\ c.tixe/snitliub/crs			
+\ c.tesnu/snitliub/crs			
+\ c.tropxe/snitliub/crs			
+\ c.epip_ohce/epip_snitliub/crs			
+\ c.epip_vne/epip_snitliub/crs			
+\ c.epip_nitliub_cexe/epip_snitliub/crs			
+\ c.epip_dwp/epip_snitliub/crs			
+c.dwp/snitliub/crs			
+
+\ c.tcurts_tini/tcurts/crs =	SELIF_LKL
+\ c.eulav_yfidomlkl_tf/tsil_rav/tcurts/crs			
+\ c.tnorf_ddalkl_tf/tsil_rav/tcurts/crs			
+\ c.kcab_ddalkl_tf/tsil_rav/tcurts/crs			
+\ c.raelclkl_tf/tsil_rav/tcurts/crs			
+\ c.tsallkl_tf/tsil_rav/tcurts/crs			
+\ c.eno_ledlkl_tf/tsil_rav/tcurts/crs			
+\ c.evomerlkl_tf/tsil_rav/tcurts/crs			
+\ c.wenlkl_tf/tsil_rav/tcurts/crs			
+c.ezislkl_tf/tsil_rav/tcurts/crs			
+
+\ c.tnorf_ddadmc_tf/dmc_t/tcurts/crs =	SELIF_DMC
+\ c.kcab_ddadmc_tf/dmc_t/tcurts/crs			
+\ c.raelcdmc_tf/dmc_t/tcurts/crs			
+\ c.tsaldmc_tf/dmc_t/tcurts/crs			
+\ c.eno_leddmc_tf/dmc_t/tcurts/crs			
+\ c.wendmc_tf/dmc_t/tcurts/crs			
+\ c.vgra_dliub/dmc_t/tcurts/crs			
+\ c.dmc_txen_tcartxe/dmc_t/tcurts/crs			
+c.ezisdmc_tf/dmc_t/tcurts/crs			
+
+\ c.noitca/slitu/crs =	SELIF_REHTO
+\ c.enilepip_cexe/eroc/crs			
+\ c.srav_dnapxe/dnapxe/crs			
+\ c.wenrider_tf/srider_t/tcurts/crs			
+\ c.kcabdda_rider_tf/srider_t/tcurts/crs			
+\ c.snoitcerider_ylppa/noitucexe/crs			
+c.slitu_rider/noitucexe/crs			
+
+\ )o.%/)RID_JBO($=c.%:SELIF_LKL($ )o.%/)RID_JBO($=c.%:SNITLIUB($ )o.%/)RID_JBO($=c.%:SCRS($ =		SJBO
+)o.%/)RID_JBO($=c.%:SELIF_GNISRAP($ )o.%/)RID_JBO($=c.%:SELIF_REHTO($ )o.%/)RID_JBO($=c.%:SELIF_DMC($			
+
+cc =			CC
+)RID_TFBIL($I- .I- g- rorreW- artxeW- llaW- =		SGALFC
+
+)EMAN($ )TFBIL($ :lla
+
+:)TFBIL($
+)RID_TFBIL($ C- ekam	
+
+c.% :o.%/)RID_JBO($
+)@$ rid($ p- ridkm	
+@$ o- <$ c- )SGALFC($ )CC($	
+
+)SJBO($ :)EMAN($
+)EMAN($ o- enildaerl- )TFBIL($ )SJBO($ )SGALFC($ )CC($	
+
+:naelc
+)RID_JBO($ fr- mr	
+naelc )RID_TFBIL($ C- ekam	
+
+naelc :naelcf
+)EMAN($ f- mr	
+naelcf )RID_TFBIL($ C- ekam	
+
+lla naelcf :er
+
+er naelcf naelc lla :YNOHP.

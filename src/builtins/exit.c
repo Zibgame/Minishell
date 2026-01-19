@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 15:23:05 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 13:33:28 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,20 @@ static int	parse_ll(char *s, long long *out)
 	return (1);
 }
 
-int	finish(t_shell *shell, char *line)
+static int	exit_with_arg(t_shell *shell, t_cmd *arg, char *line)
 {
-	t_cmd		*arg;
-	int			rn;
 	char		*clean;
 	long long	code;
 
-	printf("exit\n");
-	arg = shell->cmd->next;
-	if (!arg)
-	{
-		rn = shell->last_return;
-		free_shell(shell);
-		free(line);
-		exit((unsigned char)rn);
-	}
 	clean = remove_all_quotes(arg->name);
 	if (!clean || !parse_ll(clean, &code))
 	{
-		ft_printf_fd("minishell: exit: %s: numeric argument required\n",
+		ft_printf_fd(
+			"minishell: exit: %s: numeric argument required\n",
 			2, arg->name);
 		free(clean);
 		free(line);
+		free_shell(shell);
 		exit(2);
 	}
 	free(clean);
@@ -98,4 +89,21 @@ int	finish(t_shell *shell, char *line)
 	free(line);
 	free_shell(shell);
 	exit((unsigned char)code);
+}
+
+int	finish(t_shell *shell, char *line)
+{
+	t_cmd	*arg;
+	int		rn;
+
+	printf("exit\n");
+	arg = shell->cmd->next;
+	if (!arg)
+	{
+		rn = shell->last_return;
+		free_shell(shell);
+		free(line);
+		exit((unsigned char)rn);
+	}
+	return (exit_with_arg(shell, arg, line));
 }
