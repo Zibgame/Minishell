@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmdclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 13:31:07 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:50:06 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_cmdclear(t_cmd **lst)
 		temp = (*lst)->next;
 		free((*lst)->name);
 		ft_redirclear(&(*lst)->redirs);
-		free(*lst);
+		// free(*lst);
 		*lst = temp;
 	}
 	*lst = NULL;

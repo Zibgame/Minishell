@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 13:33:28 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 13:47:50 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,19 @@ int	finish(t_shell *shell, char *line)
 {
 	t_cmd	*arg;
 	int		rn;
+	int		fd;
+	char	buff[1];
 
 	printf("exit\n");
 	arg = shell->cmd->next;
+	fd = 3;
+	while (fd > 1024)
+	{
+		if (read(fd, buff , 0) == 0)
+		{
+			close(fd);
+		}
+	} 
 	if (!arg)
 	{
 		rn = shell->last_return;

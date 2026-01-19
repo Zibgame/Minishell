@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/17 20:13:50 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/19 13:52:39 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ static t_cmd	*safe_unlink_tokens(t_cmd **head, t_cmd *first, t_cmd *second)
 		*head = next;
 	if (next)
 		next->prev = prev;
-	ft_cmddelone(first);
-	ft_cmddelone(second);
 	return (next);
 }
 
