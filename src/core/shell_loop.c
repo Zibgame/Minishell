@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:59:13 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:11:30 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,13 @@ void	shell_loop(t_shell *shell)
 			}
 			else
 				exec_cmd(shell, line);
-		if (shell->cmd)
-		{
-			ft_cmdclear(&shell->cmd);
-			shell->cmd = NULL;
-		}
-		free(line);
-		line = NULL;
+			if (shell->cmd)
+			{
+				ft_cmdclear(&shell->cmd);
+				shell->cmd = NULL;
+			}
+			free(line);
+			line = NULL;
 		}
 	}
 	ft_printf_fd("exit\n", 1);

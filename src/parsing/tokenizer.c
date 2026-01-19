@@ -3,16 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42lehavre.      +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 13:18:58 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/14 13:22:52 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:19:18 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*read_token(char *s, int *i, char *quote)
+static void	skip_spaces_internal(char *s, int *i)
+{
+	while (s[*i] == ' ' || s[*i] == '\t')
+		(*i)++;
+}
+
+static char	*read_operator(char *s, int *i)
+{
+	char	buf[3];
+	int		j;
+
+	j = 0;
+	buf[j++] = s[(*i)++];
+	if ((buf[0] == '<' || buf[0] == '>') && s[*i] == buf[0])
+		buf[j++] = s[(*i)++];
+	buf[j] = '\0';
+	return (ft_strdup(buf));
+}
+
+static char	*read_word(char *s, int *i, char *quote)
 {
 	char	buf[4096];
 	int		j;
@@ -21,19 +40,6 @@ static char	*read_token(char *s, int *i, char *quote)
 	j = 0;
 	current = 0;
 	*quote = 0;
-	while (s[*i] == ' ' || s[*i] == '\t')
-		(*i)++;
-	if (!s[*i])
-		return (NULL);
-	if (is_operator_char(s[*i]))
-	{
-		buf[j++] = s[(*i)++];
-		if ((buf[0] == '<' || buf[0] == '>') \
-				&& s[*i] == buf[0])
-			buf[j++] = s[(*i)++];
-		buf[j] = '\0';
-		return (ft_strdup(buf));
-	}
 	while (s[*i])
 	{
 		if (!current && (s[*i] == '\'' || s[*i] == '"'))
@@ -41,21 +47,26 @@ static char	*read_token(char *s, int *i, char *quote)
 			current = s[*i];
 			if (!*quote)
 				*quote = current;
-			buf[j++] = s[(*i)++];
 		}
 		else if (current && s[*i] == current)
-		{
 			current = 0;
-			buf[j++] = s[(*i)++];
-		}
-		else if (!current && (s[*i] == ' ' || s[*i] == '\t' \
-					|| is_operator_char(s[*i])))
+		else if (!current && (s[*i] == ' ' || s[*i] == '\t'
+				|| is_operator_char(s[*i])))
 			break ;
-		else
-			buf[j++] = s[(*i)++];
+		buf[j++] = s[(*i)++];
 	}
 	buf[j] = '\0';
 	return (ft_strdup(buf));
+}
+
+static char	*read_token(char *s, int *i, char *quote)
+{
+	skip_spaces_internal(s, i);
+	if (!s[*i])
+		return (NULL);
+	if (is_operator_char(s[*i]))
+		return (read_operator(s, i));
+	return (read_word(s, i, quote));
 }
 
 char	**tokenize_line(char *line)
