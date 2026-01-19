@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 12:34:42 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 13:50:06 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 14:02:48 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_redirclear(t_redir **red)
 	while (*red)
 	{
 		temp = (*red)->next;
-		free((*red)->target);
+		if ((*red)->target)
+			free((*red)->target);
 		free(*red);
 		*red = temp;
 	}
@@ -37,9 +38,10 @@ void	ft_cmdclear(t_cmd **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		free((*lst)->name);
+		if ((*lst)->name)
+			free((*lst)->name);
 		ft_redirclear(&(*lst)->redirs);
-		// free(*lst);
+		free(*lst);
 		*lst = temp;
 	}
 	*lst = NULL;
