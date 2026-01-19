@@ -6,17 +6,30 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:09:32 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 13:54:59 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 14:36:19 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	set_sigint_default(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = SIG_DFL;
+	sigemptyset(&sa.sa_mask);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (-1);
+	return (0);
+}
+
 static void	child_heredoc(t_shell *shell, char *limiter, int write_fd)
 {
 	char	*line;
 
-	signal(SIGINT, SIG_DFL);
+	if (set_sigint_default() == -1)
+		exit(1);
 	while (1)
 	{
 		line = readline("> ");
@@ -42,18 +55,15 @@ int	handle_heredoc(t_shell *shell, char *limiter)
 		return (-1);
 	pid = fork();
 	if (pid == -1)
-		return (-1);
+		return (close(fd[0]), close(fd[1]), -1);
 	if (pid == 0)
 	{
 		close(fd[0]);
 		child_heredoc(shell, limiter, fd[1]);
 	}
 	close(fd[1]);
-	waitpid(pid, &status, 0);	
+	waitpid(pid, &status, 0);
 	if (WIFSIGNALED(status))
-	{
-		close(fd[0]);
-		return (-1);
-	}
+		return (close(fd[0]), -1);
 	return (fd[0]);
 }
