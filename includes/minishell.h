@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 16:59:10 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 18:42:27 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 /* == SIGNALS == */
 void		init_signal(void);
+void	handle_sigint_prompt(int sig);
+void	handle_sigint_heredoc(int sig);
 void		sig_handler(int sig);
 
 /* == SHELL == */

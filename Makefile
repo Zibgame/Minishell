@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
+#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/19 16:58:41 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/19 18:41:38 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS		= main.c \
 			src/utils/header.c \
 			src/core/cmd_utils.c \
 			src/signals/signals.c \
+			src/signals/signals2.c \
 			src/utils/frees.c \
 			src/utils/envp.c
 
