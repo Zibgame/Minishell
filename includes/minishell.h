@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:42:06 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:59:10 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,4 +147,6 @@ void		set_signal_shell(t_shell *shell);
 void		free_all(int sig);
 void		close_fd(void);
 
+void		return_type(t_shell *shell, char *line);
+int			handle_direct_path(t_shell *shell, char *cmd);
 #endif
