@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/14 13:36:58 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 14:25:30 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,16 @@ int	has_parse_error(t_cmd *cmd)
 	t_cmd	*tmp;
 
 	tmp = ft_cmdlast(cmd);
-	if (tmp->type == REDIRECTION && ft_strncmp(token_error(tmp->name),
-			"newline", ft_strlen("newline")))
+	if (tmp->type == REDIRECTION)
 	{
 		err = token_error(tmp->name);
-		printf("minishell: syntax error near unexpected token `%s'\n", err);
+		if (ft_strncmp(err, "newline", ft_strlen("newline")))
+		{
+			printf("minishell: syntax error near unexpected token `%s'\n", err);
+			free(err);
+			return (1);
+		}
 		free(err);
-		return (1);
 	}
 	while (tmp)
 	{
@@ -86,7 +89,8 @@ int	has_parse_error(t_cmd *cmd)
 			err = token_error(tmp->name);
 			printf("minishell: syntax error near unexpected token `%s'\n", \
 				err);
-			return (free(err), 1);
+			free(err);
+			return (1);
 		}
 		tmp = tmp->prev;
 	}
