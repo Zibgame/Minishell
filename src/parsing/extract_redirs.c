@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   extract_redirs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:22:40 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/19 16:02:37 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 18:54:29 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	get_redir_type(char *name)
-{
-	if (!name)
-		return (-1);
-	if (!ft_strncmp(name, "<", 2))
-		return (R_IN);
-	if (!ft_strncmp(name, ">", 2))
-		return (R_OUT);
-	if (!ft_strncmp(name, ">>", 3))
-		return (R_APPEND);
-	if (!ft_strncmp(name, "<<", 3))
-		return (R_HEREDOC);
-	return (-1);
-}
 
 static char	*get_clean_filename(char *name)
 {
@@ -126,9 +111,7 @@ void	extract_redirections(t_shell *shell, t_cmd *cmd)
 			if (!file || type == -1)
 				return ;
 			target_cmd = find_cmd_for_redir(shell, cur);
-			if (!target_cmd)
-				return ;
-			if (!safe_add_redir(target_cmd, type, file->name))
+			if (!target_cmd || !safe_add_redir(target_cmd, type, file->name))
 				return ;
 			cur = safe_unlink_tokens(&cmd, cur, file);
 		}

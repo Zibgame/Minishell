@@ -6,7 +6,7 @@
 #    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/19 18:41:38 by dadoune          ###   ########.fr        #
+#    Updated: 2026/01/19 18:55:11 by dadoune          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ PARSING_FILES = src/parsing/parse_command.c \
 			src/heredoc/heredoc.c \
 			src/heredoc/heredoc_utils.c \
 			src/parsing/extract_redirs.c \
+			src/parsing/extract_redirs2.c \
 			src/parsing/tokenizer.c \
 			src/parsing/tokenizer_utils.c \
 			src/parsing/tokenizer_utils0,5.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:42:14 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:56:38 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 18:48:47 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ int	apply_redirections(t_cmd *cmd)
 	return (0);
 }
 
+static void	open_fd(t_redir **r)
+{
+	if ((*r)->type == R_IN)
+		(*r)->fd = open((*r)->target, O_RDONLY);
+	else if ((*r)->type == R_OUT)
+		(*r)->fd = open((*r)->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else if ((*r)->type == R_APPEND)
+		(*r)->fd = open((*r)->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+}
+
 int	open_all_redirections(t_cmd *cmd)
 {
 	t_redir	*r;
@@ -31,12 +41,7 @@ int	open_all_redirections(t_cmd *cmd)
 	r = cmd->redirs;
 	while (r)
 	{
-		if (r->type == R_IN)
-			r->fd = open(r->target, O_RDONLY);
-		else if (r->type == R_OUT)
-			r->fd = open(r->target, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else if (r->type == R_APPEND)
-			r->fd = open(r->target, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		open_fd(&r);
 		if (r->fd < 0)
 		{
 			perror(r->target);

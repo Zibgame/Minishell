@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 18:42:27 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/19 18:54:49 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 /* == SIGNALS == */
 void		init_signal(void);
-void	handle_sigint_prompt(int sig);
-void	handle_sigint_heredoc(int sig);
 void		sig_handler(int sig);
+void		handle_sigint_prompt(int sig);
+void		handle_sigint_heredoc(int sig);
 
 /* == SHELL == */
 void		shell_loop(t_shell *shell);
@@ -151,4 +151,6 @@ void		close_fd(void);
 
 void		return_type(t_shell *shell, char *line);
 int			handle_direct_path(t_shell *shell, char *cmd);
+int			get_redir_type(char *name);
+
 #endif
