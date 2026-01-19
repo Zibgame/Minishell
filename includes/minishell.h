@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:06:18 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:42:06 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,18 +132,19 @@ int			handle_direct_path(t_shell *shell, char *cmd);
 /* HEREDOC */
 void		prepare_heredocs(t_shell *shell, t_cmd *cmd);
 int			handle_heredoc(t_shell *shell, char *limiter);
-void 		ft_redirclear(t_redir **red);
+void		ft_redirclear(t_redir **red);
 /* == expansion == */
 void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);
 int			open_all_redirections(t_cmd *cmd);
 void		dup_redirections(t_cmd *cmd);
 
-void	signal_prompt(void);
-void	signal_exec(void);
-void	signal_child(void);
-void	signal_heredoc(void);
-void	set_signal_shell(t_shell *shell);
-void	free_all(int sig);
+void		signal_prompt(void);
+void		signal_exec(void);
+void		signal_child(void);
+void		signal_heredoc(void);
+void		set_signal_shell(t_shell *shell);
+void		free_all(int sig);
+void		close_fd(void);
 
 #endif

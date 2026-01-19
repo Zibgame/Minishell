@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:23:12 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/19 15:59:13 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	shell_loop(t_shell *shell)
 	}
 	ft_printf_fd("exit\n", 1);
 	free_shell(shell);
+	close_fd();
 	rl_clear_history();
 	rl_free_line_state();
 	rl_cleanup_after_signal();

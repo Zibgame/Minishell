@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    : +:   */
-/*                                                    +: + +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 08:44:17 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/16 12:35:04 by aeherve          ###   ########.fr       */
+/*   Created: 2026/01/19 15:56:05 by zcadinot          #+#    #+#             */
+/*   Updated: 2026/01/19 16:00:44 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	exit(130); 	 	
+	exit(130);
 }
 
 void	init_signal(void)

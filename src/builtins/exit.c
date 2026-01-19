@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 13:47:50 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/19 15:58:37 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,36 @@ static int	exit_with_arg(t_shell *shell, t_cmd *arg, char *line)
 	exit((unsigned char)code);
 }
 
+void	close_fd(void)
+{
+	int		fd;
+	char	buff[1];
+
+	fd = 3;
+	while (fd < 1024)
+	{
+		if (read(fd, buff, 0) == 0)
+		{
+			close(fd);
+		}
+		fd++;
+	}
+}
+
 int	finish(t_shell *shell, char *line)
 {
 	t_cmd	*arg;
 	int		rn;
-	int		fd;
-	char	buff[1];
 
 	printf("exit\n");
 	arg = shell->cmd->next;
-	fd = 3;
-	while (fd > 1024)
-	{
-		if (read(fd, buff , 0) == 0)
-		{
-			close(fd);
-		}
-	} 
+	close_fd();
 	if (!arg)
 	{
 		rn = shell->last_return;
 		free_shell(shell);
-		free(line);
+		if (line)
+			free(line);
 		exit((unsigned char)rn);
 	}
 	return (exit_with_arg(shell, arg, line));
