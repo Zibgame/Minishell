@@ -6,7 +6,7 @@
 #    By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/20 10:28:42 by zcadinot         ###   ########.fr        #
+#    Updated: 2026/01/20 11:21:01 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,8 @@ OTHER_FILES	= src/utils/action.c \
 			src/struct/t_redirs/ft_redir_addback.c \
 			src/execution/apply_redirections.c \
 			src/expand/expand_bars.c \
+			src/core/exec_my_pipe.c \
+			src/core/exec_my_pipe2.c \
 			src/execution/redir_utils.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) \

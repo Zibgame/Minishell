@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 09:33:20 by zcadinot          #+#    #+#             */
-/*   Updated: 2025/12/05 15:35:44 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:47:40 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*get_cmd_path(t_shell *shell, char *cmd)
 	char	*full;
 	int		i;
 
+	if (!shell || !shell->envp)
+		return (NULL);
 	value = get_value(shell, "PATH");
 	if (!value)
 		return (NULL);

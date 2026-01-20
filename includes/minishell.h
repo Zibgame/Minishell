@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/20 10:33:46 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 11:25:40 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int			append_char(char **dst, char c);
 int			is_valid_var_start(char c);
 char		*expand_token(t_shell *shell, char *s);
 int			append_str(char **dst, char *src);
+int			get_exit_status(int status);
 
 void		signal_prompt(void);
 void		signal_exec(void);
@@ -153,9 +154,17 @@ void		signal_heredoc(void);
 void		set_signal_shell(t_shell *shell);
 void		free_all(int sig);
 void		close_fd(void);
+void		handle_fork_error(t_pipedata *data);
 
 void		return_type(t_shell *shell, char *line);
 int			handle_direct_path(t_shell *shell, char *cmd);
 int			get_redir_type(char *name);
+void		clean_exit(t_shell *shell, int err_code, char *path, char **argv);
+int			check_commands_exist(t_shell *shell);
+void		print_cmd_not_found(int last_return);
+void		setup_child_fds(t_pipedata data);
+void		parent_cleanup(t_pipedata *data);
+void		run_pipeline(t_shell *shell, t_pipedata *data, char *line);
+void		exec_childda(t_shell *shell, t_pipedata data, char *line);
 
 #endif
