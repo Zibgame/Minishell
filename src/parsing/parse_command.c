@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 10:59:45 by aeherve           #+#    #+#             */
-/*   Updated: 2026/01/19 18:34:47 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/20 13:01:23 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	detect_more_error(t_cmd **cmd)
+{
+	if ((*cmd)->type == REDIRECTION || (*cmd)->type == PIPE || \
+	(*cmd)->type == OPERATOR)
+	{
+		if ((*cmd)->prev && ((*cmd)->prev->type == REDIRECTION || \
+		(*cmd)->prev->type == PIPE || (*cmd)->prev->type == OPERATOR || \
+		(*cmd)->prev->type == PARSEERROR))
+			(*cmd)->type = PARSEERROR;
+	}
+}
 
 int	command_type(t_cmd	*cmd)
 {
@@ -36,6 +48,7 @@ void	add_commands(t_cmd	**cmd, char **elems)
 {
 	int		i;
 	int		old_size;
+	t_cmd	*tmp;
 
 	if (elems)
 	{
@@ -48,6 +61,8 @@ void	add_commands(t_cmd	**cmd, char **elems)
 				return ;
 			ft_cmdlast(*cmd)->quote = get_token_quote(ft_cmdlast(*cmd)->name);
 			ft_cmdlast(*cmd)->type = command_type(ft_cmdlast(*cmd));
+			tmp = ft_cmdlast(*cmd);
+			detect_more_error(&tmp);
 			if (!(ft_cmdsize(*cmd) > old_size))
 				return ;
 			old_size = ft_cmdsize(*cmd);

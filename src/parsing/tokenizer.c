@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 13:18:58 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 16:19:18 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 13:00:59 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*read_operator(char *s, int *i)
 
 	j = 0;
 	buf[j++] = s[(*i)++];
-	if ((buf[0] == '<' || buf[0] == '>') && s[*i] == buf[0])
+	if ((buf[0] == '<' || buf[0] == '>' || buf[0] == '|') && s[*i] == buf[0])
 		buf[j++] = s[(*i)++];
 	buf[j] = '\0';
 	return (ft_strdup(buf));

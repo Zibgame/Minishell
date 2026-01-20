@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/20 10:26:31 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/20 13:02:35 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,41 +63,30 @@ char	*token_error(char *token)
 	return (ft_strdup("newline"));
 }
 
-static int	insert_name_here(t_cmd *tmp, char *err)
-{
-	while (tmp)
-	{
-		if (!tmp->name)
-			return (0);
-		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
-		{
-			err = token_error(tmp->name);
-			printf("minishell: syntax error near unexpected token `%s'\n", \
-				err);
-			free(err);
-			return (1);
-		}
-		tmp = tmp->prev;
-	}
-	return (0);
-}
-
 int	has_parse_error(t_cmd *cmd)
 {
 	char	*err;
 	t_cmd	*tmp;
 
-	tmp = ft_cmdlast(cmd);
-	if (tmp->type == REDIRECTION)
+	if (!cmd || !cmd->name)
+		return (0);
+	tmp = cmd;
+	while (tmp)
 	{
-		err = token_error(tmp->name);
-		if (ft_strncmp(err, "newline", ft_strlen("newline")))
+		if (tmp->type == PARSEERROR)
 		{
-			printf("minishell: syntax error near unexpected token `%s'\n", err);
-			free(err);
+			err = tmp->name;
+			if (ft_strncmp(err, "", ft_strlen("")))
+			{
+				ft_printf_fd("minishell: syntax error near unexpected token "
+					"`newline'\n", 2);
+				return (1);
+			}
+			ft_printf_fd("minishell: syntax error near unexpected token "
+				"`%s'\n", 2, tmp->name);
 			return (1);
 		}
-		free(err);
+		tmp = tmp->next;
 	}
-	return (insert_name_here(tmp, NULL));
+	return (0);
 }
