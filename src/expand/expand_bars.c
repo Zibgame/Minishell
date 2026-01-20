@@ -6,7 +6,7 @@
 /*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:27:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/20 10:32:28 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:34:02 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@ static void	update_quote(char c, char *quote)
 		*quote = c;
 	else if (*quote && c == *quote)
 		*quote = 0;
-}
-
-static int	append_str(char **dst, char *src)
-{
-	char	*tmp;
-
-	if (!src)
-		return (1);
-	tmp = ft_strjoin(*dst, src);
-	if (!tmp)
-		return (0);
-	free(*dst);
-	*dst = tmp;
-	return (1);
 }
 
 static int	expand_last_status(t_shell *shell, char **res, int *i)
