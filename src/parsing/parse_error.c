@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/19 16:03:08 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:26:31 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,25 @@ char	*token_error(char *token)
 	return (ft_strdup("newline"));
 }
 
+static int	insert_name_here(t_cmd *tmp, char *err)
+{
+	while (tmp)
+	{
+		if (!tmp->name)
+			return (0);
+		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
+		{
+			err = token_error(tmp->name);
+			printf("minishell: syntax error near unexpected token `%s'\n", \
+				err);
+			free(err);
+			return (1);
+		}
+		tmp = tmp->prev;
+	}
+	return (0);
+}
+
 int	has_parse_error(t_cmd *cmd)
 {
 	char	*err;
@@ -80,19 +99,5 @@ int	has_parse_error(t_cmd *cmd)
 		}
 		free(err);
 	}
-	while (tmp)
-	{
-		if (!tmp->name)
-			return (0);
-		if (tmp->type == PARSEERROR && ft_strncmp(tmp->name, "-", 2))
-		{
-			err = token_error(tmp->name);
-			printf("minishell: syntax error near unexpected token `%s'\n", \
-				err);
-			free(err);
-			return (1);
-		}
-		tmp = tmp->prev;
-	}
-	return (0);
+	return (insert_name_here(tmp, NULL));
 }
