@@ -6,7 +6,7 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:21:55 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/20 10:06:17 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/20 10:18:45 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,25 @@ static void	treat_fd(int save_in, int save_out)
 	close(save_out);
 }
 
-void	shell_loop(t_shell *shell)
+static void	this_is_builtin(t_shell *shell, char *line, int save_in,
+	int save_out)
 {
-	char	*line;
-	int		save_in;
-	int		save_out;
+	save_in = dup(STDIN_FILENO);
+	save_out = dup(STDOUT_FILENO);
+	if (apply_redirections(shell->cmd))
+	{
+		shell->last_return = 1;
+		treat_fd(save_in, save_out);
+		ft_cmdclear(&shell->cmd);
+		return ;
+	}
+	exec_builtins(shell, line);
+	treat_fd(save_in, save_out);
+	ft_cmdclear(&shell->cmd);
+}
 
-	line = NULL;
+static void	main_loop(t_shell *shell, char *line, int save_in, int save_out)
+{
 	while (1)
 	{
 		line = readline(PS1);
@@ -52,20 +64,7 @@ void	shell_loop(t_shell *shell)
 			if (has_pipe(shell->cmd))
 				exec_pipeline(shell, line);
 			else if (shell->cmd->type == BUILTINS)
-			{
-				save_in = dup(STDIN_FILENO);
-				save_out = dup(STDOUT_FILENO);
-				if (apply_redirections(shell->cmd))
-				{
-					shell->last_return = 1;
-					treat_fd(save_in, save_out);
-					ft_cmdclear(&shell->cmd);
-					continue ;
-				}
-				exec_builtins(shell, line);
-				treat_fd(save_in, save_out);
-				ft_cmdclear(&shell->cmd);
-			}
+				this_is_builtin(shell, line, save_in, save_out);
 			else
 				exec_cmd(shell, line);
 			if (shell->cmd)
@@ -77,6 +76,11 @@ void	shell_loop(t_shell *shell)
 			line = NULL;
 		}
 	}
+}
+
+void	shell_loop(t_shell *shell)
+{
+	main_loop(shell, NULL, 0, 0);
 	ft_printf_fd("exit\n", 1);
 	free_shell(shell);
 	close_fd();
