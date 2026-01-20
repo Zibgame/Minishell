@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
+#    By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/20 10:07:25 by aeherve          ###   ########.fr        #
+#    Updated: 2026/01/20 10:28:42 by zcadinot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ OTHER_FILES	= src/utils/action.c \
 			src/struct/t_redirs/ft_redirnew.c \
 			src/struct/t_redirs/ft_redir_addback.c \
 			src/execution/apply_redirections.c \
+			src/expand/expand_bars.c \
 			src/execution/redir_utils.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o) $(BUILTINS:%.c=$(OBJ_DIR)/%.o) $(LKL_FILES:%.c=$(OBJ_DIR)/%.o) \

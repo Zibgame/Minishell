@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/20 10:06:40 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/20 10:32:03 by zcadinot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,9 @@ void		expand_vars(t_shell *shell);
 char		get_token_quote(char *s);
 int			open_all_redirections(t_cmd *cmd);
 void		dup_redirections(t_cmd *cmd);
+int			append_char(char **dst, char c);
+int			is_valid_var_start(char c);
+char		*expand_token(t_shell *shell, char *s);
 
 void		signal_prompt(void);
 void		signal_exec(void);
