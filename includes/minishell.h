@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 08:05:22 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 18:54:49 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/20 10:06:40 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int			read_quoted(char *s, int i, char quote);
 int			read_unquoted(char *s, int i);
 char		is_quoted(char *s);
 int			handle_direct_path(t_shell *shell, char *cmd);
+void		recreate_line(t_shell *shell, char **line);
 
 /* HEREDOC */
 void		prepare_heredocs(t_shell *shell, t_cmd *cmd);

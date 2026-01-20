@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+         #
+#    By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/02 08:04:56 by zcadinot          #+#    #+#              #
-#    Updated: 2026/01/19 18:55:11 by dadoune          ###   ########.fr        #
+#    Updated: 2026/01/20 10:07:25 by aeherve          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRCS		= main.c \
 			src/signals/signals.c \
 			src/signals/signals2.c \
 			src/utils/frees.c \
-			src/utils/envp.c
+			src/utils/envp.c \
+			src/utils/line_utils.c
 
 PARSING_FILES = src/parsing/parse_command.c \
 			src/parsing/redirect_split.c \
