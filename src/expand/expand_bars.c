@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_bars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:27:59 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/20 10:34:02 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/20 10:38:05 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,11 @@ static int	expand_env_var(t_shell *shell, char *s, char **res, int *i)
 	return (1);
 }
 
-char	*expand_token(t_shell *shell, char *s)
+char	*expansion(t_shell *shell, char *s, char quote, char *res)
 {
-	char	*res;
-	int		i;
-	char	quote;
+	int	i;
 
-	res = ft_calloc(1, 1);
-	if (!res)
-		return (NULL);
 	i = 0;
-	quote = 0;
 	while (s[i])
 	{
 		update_quote(s[i], &quote);
@@ -87,5 +81,18 @@ char	*expand_token(t_shell *shell, char *s)
 		if (!append_char(&res, s[i++]))
 			return (free(res), NULL);
 	}
+	return (res);
+}
+
+char	*expand_token(t_shell *shell, char *s)
+{
+	char	*res;
+	char	quote;
+
+	res = ft_calloc(1, 1);
+	if (!res)
+		return (NULL);
+	quote = 0;
+	res = expansion(shell, s, quote, res);
 	return (res);
 }
