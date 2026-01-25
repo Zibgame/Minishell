@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcadinot <zcadinot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:30:08 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/19 15:58:37 by zcadinot         ###   ########.fr       */
+/*   Updated: 2026/01/25 18:05:56 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,8 @@ void	close_fd(void)
 	fd = 3;
 	while (fd < 1024)
 	{
-		if (read(fd, buff, 0) == 0)
-		{
+		if (read(fd, buff, 0) != -1)
 			close(fd);
-		}
 		fd++;
 	}
 }
