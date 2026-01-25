@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/15 13:42:37 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/25 18:11:36 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	export(t_shell *shell)
 
 	clean_command_free(shell);
 	if (!shell->cmd)
+	{
+		printf("Did you really tried to export air?\n");
 		return (1);
+	}
 	if (shell->cmd->name && is_valid_assignment(shell->cmd->name))
 	{
 		env_var = ft_split(shell->cmd->name, '=');

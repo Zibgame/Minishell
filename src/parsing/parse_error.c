@@ -6,7 +6,7 @@
 /*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/25 17:58:33 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/25 18:12:59 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 int	print_err(char *err)
 {
-	ft_printf_fd("here, %s", 2, err);
 	if (!err)
 	{
 		ft_printf_fd("minishell: syntax error near unexpected token "
 			"`newline'\n", 2);
 		return (1);
 	}
-	else if (!ft_strncmp(err, ".", ft_strlen(".")))
+	else if (!ft_strncmp(err, ".", ft_strlen(err)))
 	{	
 		ft_printf_fd("minishell: .: filename argument required\n"
 			".: usage: . filename [arguments]\n", 2);
@@ -94,7 +93,7 @@ int	has_parse_error(t_cmd *cmd)
 	while (tmp)
 	{
 		if (tmp->type == PARSEERROR || (tmp->name && 
-			!ft_strncmp(tmp->name, ".", ft_strlen("."))))
+			!ft_strncmp(tmp->name, ".", ft_strlen(tmp->name))))
 			return (print_err(tmp->name));
 		tmp = tmp->next;
 	}
