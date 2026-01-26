@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 13:02:01 by zcadinot          #+#    #+#             */
-/*   Updated: 2026/01/25 18:11:36 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/26 12:41:24 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int	export(t_shell *shell)
 	if (shell->cmd->name && is_valid_assignment(shell->cmd->name))
 	{
 		env_var = ft_split(shell->cmd->name, '=');
-		set_value(&shell, ft_strdup(env_var[0]), ft_strdup(env_var[1]));
+		if (!env_var[1])
+			set_value(&shell, ft_strdup(env_var[0]), ft_strdup(""));
+		else
+			set_value(&shell, ft_strdup(env_var[0]), ft_strdup(env_var[1]));
 		clean_command_free(shell);
 		shell->last_return = 0;
 		free_array(env_var);

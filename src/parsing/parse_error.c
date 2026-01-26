@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/25 18:12:59 by dadoune          ###   ########.fr       */
+/*   Updated: 2026/01/26 12:32:09 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	has_parse_error(t_cmd *cmd)
 	while (tmp)
 	{
 		if (tmp->type == PARSEERROR || (tmp->name && 
-			!ft_strncmp(tmp->name, ".", ft_strlen(tmp->name))))
+			!ft_strncmp(tmp->name, ".", ft_strlen(tmp->name)) && !tmp->prev))
 			return (print_err(tmp->name));
 		tmp = tmp->next;
 	}
