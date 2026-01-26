@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dadoune <dadoune@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/26 12:58:37 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/26 21:30:07 by dadoune          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	print_err(char *err)
 		return (1);
 	}
 	ft_printf_fd("minishell: syntax error near unexpected token "
-		z"`%s'\n", 2, err);
+		"`%s'\n", 2, err);
 	return (1);
 }
 
