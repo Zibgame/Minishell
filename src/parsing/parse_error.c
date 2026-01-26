@@ -6,12 +6,11 @@
 /*   By: aeherve <aeherve@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 02:44:14 by dadoune           #+#    #+#             */
-/*   Updated: 2026/01/26 12:32:09 by aeherve          ###   ########.fr       */
+/*   Updated: 2026/01/26 12:58:37 by aeherve          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	print_err(char *err)
 {
@@ -22,13 +21,13 @@ int	print_err(char *err)
 		return (1);
 	}
 	else if (!ft_strncmp(err, ".", ft_strlen(err)))
-	{	
+	{
 		ft_printf_fd("minishell: .: filename argument required\n"
 			".: usage: . filename [arguments]\n", 2);
 		return (1);
 	}
 	ft_printf_fd("minishell: syntax error near unexpected token "
-				"`%s'\n", 2, err);
+		z"`%s'\n", 2, err);
 	return (1);
 }
 
@@ -92,7 +91,7 @@ int	has_parse_error(t_cmd *cmd)
 	tmp = cmd;
 	while (tmp)
 	{
-		if (tmp->type == PARSEERROR || (tmp->name && 
+		if (tmp->type == PARSEERROR || (tmp->name && \
 			!ft_strncmp(tmp->name, ".", ft_strlen(tmp->name)) && !tmp->prev))
 			return (print_err(tmp->name));
 		tmp = tmp->next;
